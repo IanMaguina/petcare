@@ -7,6 +7,26 @@ class PetsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final petsService = Provider.of<PetsService>(context);
 
-    return Container();
+    final mascotas = [
+      'Dobby',
+      'Chewbie',
+      'Lana',
+      'Firulays',
+      'Doggo',
+    ];
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Mascotas'),
+      ),
+      body: ListView(
+        children: [
+          ListTile(
+            title: Text('Dobby'),
+          ),
+          Divider()
+        ],
+      ),
+    );
   }
 }
