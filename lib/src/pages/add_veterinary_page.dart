@@ -111,28 +111,28 @@ class Add_Vet extends StatelessWidget{
       appBar: AppBar(title: Text('Register Veterinary')),
       body: SingleChildScrollView(
         child :Container(
-          margin: EdgeInsets.all(24),
-          child: Form(child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              _buildName(),
-              _buildLastName(),
-              _buildDocument(),
-              _buildEmail(),
-              _buildPassword(),
-              _buildPhone(),
-              _buildAge(),
-              SizedBox(height: 100),
-              RaisedButton(
-                child:  Text(
-                  'Submit',
-                  style: TextStyle(color: Colors.blue,fontSize: 16),
-                ),
-                onPressed: ()=>{},
-              )
-            ],
-          ),),
-        ),
+        margin: EdgeInsets.all(24),
+        child: Form(child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            _buildName(),
+            _buildLastName(),
+            _buildDocument(),
+            _buildEmail(),
+            _buildPassword(),
+            _buildPhone(),
+            _buildAge(),
+            SizedBox(height: 100),
+            RaisedButton(
+              child:  Text(
+                'Submit',
+                style: TextStyle(color: Colors.blue,fontSize: 16),
+              ),
+              onPressed: ()=>{},
+            )
+          ],
+        ),),
+      ),
 
       ),
     );
