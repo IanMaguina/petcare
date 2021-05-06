@@ -8,7 +8,7 @@ class CustomBottomNavigation extends StatelessWidget {
       backgroundColor: Color.fromRGBO(55, 57, 84, 1),
       unselectedItemColor: Color.fromRGBO(116, 117, 152, 1),
       selectedItemColor: Colors.blueGrey,
-      currentIndex: 2,
+      currentIndex: 0,
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),

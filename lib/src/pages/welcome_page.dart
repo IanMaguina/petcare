@@ -5,16 +5,17 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lightBlue[800],
       body: PageView(children: <Widget>[
-        Text('Bienvenido '),
-        IconButton(
-          icon: Icon(Icons.pets),
-          onPressed: () {
-            final route = MaterialPageRoute(builder: (context) => LoginPage());
+        FlatButton(
+            child: Text('Bienvenido'),
+            textColor: Colors.white,
+            onPressed: () {
+              final route =
+                  MaterialPageRoute(builder: (context) => LoginPage());
 
-            Navigator.push(context, route);
-          },
-        ),
+              Navigator.push(context, route);
+            }),
       ]),
     );
   }
