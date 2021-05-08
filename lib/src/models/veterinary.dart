@@ -4,10 +4,11 @@
 
 import 'dart:convert';
 
-Veterinary veterinaryFromJson(String str) =>
-    Veterinary.fromJson(json.decode(str));
+List<Veterinary> veterinaryFromJson(String str) =>
+    List<Veterinary>.from(json.decode(str).map((x) => Veterinary.fromJson(x)));
 
-String veterinaryToJson(Veterinary data) => json.encode(data.toJson());
+String veterinaryToJson(List<Veterinary> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Veterinary {
   Veterinary({

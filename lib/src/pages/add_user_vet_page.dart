@@ -111,10 +111,10 @@ class AddVetPage extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('Register Veterinary')),
+      appBar: AppBar(title: Text('Registrar Veterinario')),
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.all(24),
+          margin: EdgeInsets.symmetric(horizontal: 20.0),
           child: Form(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

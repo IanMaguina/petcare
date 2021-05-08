@@ -3,8 +3,8 @@ import 'package:petcare/src/pages/ListarCitasPage.dart';
 import 'package:petcare/src/pages/list_veterinarias.dart';
 import 'package:petcare/src/pages/news_page.dart';
 import 'package:petcare/src/pages/pets_page.dart';
+import 'package:petcare/src/pages/services_page.dart';
 import 'package:provider/provider.dart';
-import 'add_user_vet_page.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -25,12 +25,13 @@ class _Navegacion extends StatelessWidget {
     final navegacionModel = Provider.of<_NavegacionModel>(context);
 
     return BottomNavigationBar(
-        backgroundColor: Colors.teal,
         currentIndex: navegacionModel.paginaActual,
         onTap: (i) => navegacionModel.paginaActual = i,
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.new_releases), title: Text('Noticias')),
+              backgroundColor: Colors.teal[600],
+              icon: Icon(Icons.new_releases),
+              title: Text('Inicio')),
           BottomNavigationBarItem(
               icon: Icon(Icons.shop), title: Text('Veterinarias')),
           BottomNavigationBarItem(
@@ -50,7 +51,7 @@ class _Paginas extends StatelessWidget {
       controller: navegacionModel.pageController,
       physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
-        NewsPage(),
+        ListServicesPage(),
         ListVeterinariesPage(),
         PetsPage(),
         ListarCitasPage()

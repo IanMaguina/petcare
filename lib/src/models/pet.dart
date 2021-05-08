@@ -1,8 +1,14 @@
+// To parse this JSON data, do
+//
+//     final pets = petsFromJson(jsonString);
+
 import 'dart:convert';
 
-Pets petsFromJson(String str) => Pets.fromJson(json.decode(str));
+List<Pets> petsFromJson(String str) =>
+    List<Pets>.from(json.decode(str).map((x) => Pets.fromJson(x)));
 
-String petsToJson(Pets data) => json.encode(data.toJson());
+String petsToJson(List<Pets> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Pets {
   Pets({
