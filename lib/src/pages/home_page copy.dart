@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:petcare/src/widgets/custom_bottom_nav.dart';
 import 'add_user_vet_page.dart';
-
+/*
 class HomePage_ extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -44,3 +44,4 @@ class _NavegacionModel with ChangeNotifier {
     notifyListeners();
   }
 }
+*/

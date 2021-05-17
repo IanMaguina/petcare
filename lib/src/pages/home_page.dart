@@ -5,7 +5,7 @@ import 'package:petcare/src/pages/news_page.dart';
 import 'package:petcare/src/pages/pets_page.dart';
 import 'package:petcare/src/pages/services_page.dart';
 import 'package:provider/provider.dart';
-
+import 'package:petcare/src/widgets/custom_bottom_nav.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -13,11 +13,13 @@ class HomePage extends StatelessWidget {
       create: (_) => _NavegacionModel(),
       child: Scaffold(
         body: _Paginas(),
-        bottomNavigationBar: _Navegacion(),
+        bottomNavigationBar: BottomBarScreen() ,
       ),
     );
   }
 }
+
+
 
 class _Navegacion extends StatelessWidget {
   @override
@@ -40,6 +42,7 @@ class _Navegacion extends StatelessWidget {
         ]);
   }
 }
+
 
 class _Paginas extends StatelessWidget {
   @override
@@ -76,3 +79,4 @@ class _NavegacionModel with ChangeNotifier {
 
   PageController get pageController => this._pageController;
 }
+
