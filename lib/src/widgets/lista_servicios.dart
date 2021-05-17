@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:petcare/src/models/service.dart';
 
 class ListServices extends StatelessWidget {
-  //final List<Service> servicios;
+  final List<Service> servicios;
 
-  final List<Service> servicios = [
+  /*final List<Service> servicios = [
     {"id": 1, "name": "Baños"},
     {"id": 2, "name": "Vacunaciones"},
     {"id": 3, "name": "Ortodoncia"}
-  ];
+  ];*/
   const ListServices(this.servicios);
 
   @override
