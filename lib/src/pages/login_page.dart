@@ -104,7 +104,7 @@ class LoginPage extends StatelessWidget {
           child: TextField(
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
-              icon: Icon(Icons.alternate_email, color: Colors.deepPurple),
+              icon: Icon(Icons.alternate_email, color: Colors.teal[600]),
               hintText: 'ingrese el usuario',
               labelText: 'Usuario',
               // counterText: snapshot.data,
@@ -124,7 +124,7 @@ class LoginPage extends StatelessWidget {
           child: TextField(
             obscureText: true,
             decoration: InputDecoration(
-                icon: Icon(Icons.lock_outline, color: Colors.deepPurple),
+                icon: Icon(Icons.lock_outline, color: Colors.teal[600]),
                 labelText: 'Contraseña',
                 // counterText: snapshot.data,
                 errorText: snapshot.error),
@@ -146,7 +146,7 @@ _botonLogin() {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
           elevation: 0.0,
-          color: Colors.deepPurple,
+          color: Colors.teal[600],
           textColor: Colors.white,
           onPressed: () {
             // final route =

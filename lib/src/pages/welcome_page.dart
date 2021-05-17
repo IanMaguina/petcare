@@ -5,7 +5,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightBlue[800],
+      backgroundColor: Colors.teal[600],
       body: PageView(children: <Widget>[
         FlatButton(
             child: Text('Bienvenido'),

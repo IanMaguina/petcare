@@ -51,8 +51,8 @@ class _Paginas extends StatelessWidget {
       controller: navegacionModel.pageController,
       physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
-        ListServicesPage(),
         ListVeterinariesPage(),
+        ListServicesPage(),
         PetsPage(),
         ListarCitasPage()
       ],
