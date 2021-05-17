@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:petcare/src/pages/ListarCitasPage.dart';
 import 'package:petcare/src/pages/list_veterinarias.dart';
 import 'package:petcare/src/pages/news_page.dart';
@@ -49,6 +50,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       body: _pages[_selectedPageIndex]['page'],
       bottomNavigationBar: BottomAppBar(
         // color: Colors.white,
@@ -70,17 +72,17 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             child: BottomNavigationBar(
               onTap: _selectPage,
               backgroundColor: Theme.of(context).primaryColor,
-              unselectedItemColor: Theme.of(context).textSelectionColor,
-              selectedItemColor: Colors.purple,
+              unselectedItemColor:  Color.fromRGBO(116, 117, 152, 1),
+              selectedItemColor: Colors.lightGreen,
               currentIndex: _selectedPageIndex,
               items: [
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
+                  icon: Icon(Feather.home),
                   title: Text('Home'),
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.rss_feed),
-                  title: Text('Feeds'),
+                  icon: Icon(Feather.activity),
+                  title: Text('activity'),
                 ),
                 BottomNavigationBarItem(
                   activeIcon: null,
@@ -89,12 +91,12 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.shopping_bag,
+                    Icons.markunread,
                   ),
-                  title: Text('Cart'),
+                  title: Text('message'),
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
+                  icon: Icon(Feather.user),
                   title: Text('User'),
                 ),
               ],
@@ -108,10 +110,11 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
         padding: const EdgeInsets.all(8.0),
         child: FloatingActionButton(
           hoverElevation: 10,
+          backgroundColor: Colors.lightGreen,
           splashColor: Colors.grey,
           tooltip: 'Search',
           elevation: 4,
-          child: Icon(Icons.search),
+          child: Icon(Icons.pets),
           onPressed: () => setState(() {
             _selectedPageIndex = 2;
           }),
