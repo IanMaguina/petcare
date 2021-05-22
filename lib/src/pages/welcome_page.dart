@@ -7,9 +7,8 @@ class WelcomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.teal[600],
       body: PageView(children: <Widget>[
-        FlatButton(
+        ElevatedButton(
             child: Text('Bienvenido'),
-            textColor: Colors.white,
             onPressed: () {
               final route =
                   MaterialPageRoute(builder: (context) => LoginPage());

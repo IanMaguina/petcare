@@ -14,7 +14,7 @@ class _AddUserPageState extends State<AddUserPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   User usuario = new User();
-  final usuarioProvider = new UserService();
+  // final usuarioProvider = new UserService();
 
   @override
   Widget build(BuildContext context) {
@@ -172,17 +172,17 @@ class _AddUserPageState extends State<AddUserPage> {
     }
     formkey.currentState.save();
 
-    Map info = await usuarioProvider.nuevoUsuario(usuario);
+    // Map info = await usuarioProvider.nuevoUsuario(usuario);
 
     // print('todo ok');
     // print(usuario.usuario);
 
-    if (info['ok']) {
+    /*  if (info['ok']) {
       utils.mostrarAlerta(context,
           'Se ha registrado correctamente, se ha enviado un código de activación a su correo. loguése nuevamente.');
       //Navigator.pushReplacementNamed(context, '/');
     } else {
       utils.mostrarAlerta(context, info['mensaje']);
-    }
+    } */
   }
 }

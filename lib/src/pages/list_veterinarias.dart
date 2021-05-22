@@ -7,9 +7,9 @@ import 'package:provider/provider.dart';
 class ListVeterinariesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final veterinaryService = Provider.of<VeterinaryService>(context);
+    //final veterinaryService = Provider.of<VeterinaryService>(context);
     return Scaffold(
-      body: ListVeterinaries(veterinaryService.veterinarias),
-    );
+        //body: ListVeterinaries(veterinaryService.veterinarias),
+        );
   }
 }

@@ -20,10 +20,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => PetsService()),
+        /*  ChangeNotifierProvider(create: (_) => PetsService()),
         ChangeNotifierProvider(create: (_) => VeterinaryService()),
         ChangeNotifierProvider(create: (_) => ServicesService()),
-        ChangeNotifierProvider(create: (_) => PetsService()),
+        ChangeNotifierProvider(create: (_) => PetsService()), */
       ],
       child: MaterialApp(
           title: 'Material App',
