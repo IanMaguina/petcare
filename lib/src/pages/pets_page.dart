@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:petcare/src/services/pets_service.dart';
-import 'package:petcare/src/widgets/lista_pets.dart';
-import 'package:provider/provider.dart';
 
 class PetsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final petsService = Provider.of<PetsService>(context);
+    //final petsService = Provider.of<PetsService>(context);
 
     /*  final mascotas = [
       'Dobby',
@@ -17,7 +14,7 @@ class PetsPage extends StatelessWidget {
     ]; */
 
     return Scaffold(
-      body: ListPets(petsService.listadoPets),
-    );
+        //body: ListPets(petsService.listadoPets),
+        );
   }
 }
