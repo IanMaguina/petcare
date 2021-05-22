@@ -18,12 +18,23 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return MaterialApp(
+        title: 'Material App',
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/',
+        routes: getApplicationRoutes(),
+        theme: ThemeData(primaryColor: Colors.teal[700]));
+  }
+}
+/* class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        /*  ChangeNotifierProvider(create: (_) => PetsService()),
+          ChangeNotifierProvider(create: (_) => PetsService()),
         ChangeNotifierProvider(create: (_) => VeterinaryService()),
         ChangeNotifierProvider(create: (_) => ServicesService()),
-        ChangeNotifierProvider(create: (_) => PetsService()), */
+        ChangeNotifierProvider(create: (_) => PetsService()), 
       ],
       child: MaterialApp(
           title: 'Material App',
@@ -33,4 +44,4 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(primaryColor: Colors.teal[700])),
     );
   }
-}
+} */
