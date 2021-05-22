@@ -5,6 +5,7 @@ import 'package:petcare/src/pages/list_veterinarias.dart';
 import 'package:petcare/src/pages/news_page.dart';
 import 'package:petcare/src/pages/pets_page.dart';
 import 'package:petcare/src/pages/services_page.dart';
+import 'package:petcare/src/pages/user_perfil.dart';
 import 'package:petcare/src/widgets/lista_veterinarias.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +36,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
         'page': NewsPage(),
       },
       {
-        'page': ListServicesPage(),
+        'page': UserInfo(),
       },
     ];
     super.initState();
