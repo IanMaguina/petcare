@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petcare/src/pages/List_pets.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 import 'package:petcare/src/routes/routes.dart';
 import 'package:petcare/src/services/pets_service.dart';
@@ -14,7 +15,7 @@ void main() async {
 
   runApp(MyApp());
 }
-
+/*
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -22,11 +23,14 @@ class MyApp extends StatelessWidget {
         title: 'Material App',
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
-        routes: getApplicationRoutes(),
+        routes:
+        getApplicationRoutes(),
+        
         theme: ThemeData(primaryColor: Colors.teal[700]));
   }
-}
-/* class MyApp extends StatelessWidget {
+}*/
+
+ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -44,4 +48,4 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(primaryColor: Colors.teal[700])),
     );
   }
-} */
+} 
