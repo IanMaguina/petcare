@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:list_tile_switch/list_tile_switch.dart';
 import 'package:petcare/const/colors.dart';
+import 'package:petcare/const/my_icons.dart';
+
+import 'List_pets.dart';
 
 
 
@@ -113,6 +116,28 @@ class _UserInfoState extends State<UserInfo> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+
+                    Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: userTitle('User Pets')),
+                    Divider(
+                      thickness: 1,
+                      color: Colors.grey,
+                    ),
+                    Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        splashColor: Theme.of(context).splashColor,
+                        child: ListTile(
+                          onTap: () => Navigator.of(context).pushNamed(
+                            PetListScreen.routeName
+                          ),
+                          title: Text('PetList'),
+                          trailing: Icon(Icons.chevron_right_rounded),
+                          leading: Icon(Icons.pets),
+                        ),
+                      ),
+                    ),
                     Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: userTitle('User Information')),
@@ -120,13 +145,10 @@ class _UserInfoState extends State<UserInfo> {
                       thickness: 1,
                       color: Colors.grey,
                     ),
-                    userListTile('Email', 'Email sub', 0, context),
-                    userListTile('Email', 'Email sub', 0, context),
-                    userListTile('Email', 'Email sub', 0, context),
-                    userListTile('Email', 'Email sub', 0, context),
+                
                     userListTile('Email', 'Email sub', 0, context),
                     userListTile('Phone number', '4555', 0, context),
-                    userListTile('Shipping address', '', 0, context),
+                    userListTile('gmail', '', 0, context),
                     userListTile('joined date', 'date', 0, context),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
@@ -135,19 +157,6 @@ class _UserInfoState extends State<UserInfo> {
                     Divider(
                       thickness: 1,
                       color: Colors.grey,
-                    ),
-                    ListTileSwitch(
-                      value: _value,
-                      leading: Icon(Ionicons.md_moon),
-                      onChanged: (value) {
-                        setState(() {
-                          _value = value;
-                        });
-                      },
-                      visualDensity: VisualDensity.comfortable,
-                      switchType: SwitchType.cupertino,
-                      switchActiveColor: Colors.indigo,
-                      title: Text('Dark theme'),
                     ),
                     userListTile('Logout', '', 4, context),
                   ],
@@ -196,7 +205,7 @@ return  Positioned(
         child:  FloatingActionButton(
           heroTag: "btn1",
           onPressed: (){},
-          child:  Icon(Icons.camera_alt_outlined),
+          child:  Icon(Icons.camera_alt_outlined), backgroundColor: ColorsConsts.starterColor,
         ),
       ),
     );
