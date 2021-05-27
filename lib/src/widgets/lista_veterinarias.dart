@@ -38,7 +38,7 @@ class _Veterinaria extends StatelessWidget {
             style: TextStyle(fontSize: 12.0),
           ),
           SizedBox(height: 10.0),
-          RaisedButton(child: Text('Ver veterinaria'), onPressed: () {}),
+          ElevatedButton(child: Text('Ver veterinaria'), onPressed: () {}),
         ]),
       ),
     );

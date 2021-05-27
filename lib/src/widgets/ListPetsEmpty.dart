@@ -44,21 +44,19 @@ class PetListEmpty extends StatelessWidget {
         Container(
           width: MediaQuery.of(context).size.width * 0.9,
           height: MediaQuery.of(context).size.height * 0.06,
-          child: RaisedButton(
+          child: ElevatedButton(
             onPressed: () {},
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-              side: BorderSide(color: Colors.green),
-            ),
-            color: Colors.greenAccent,
-            child: Text(
-              'Add a Pet'.toUpperCase(),
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Theme.of(context).textSelectionColor,
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+                side: BorderSide(color: Colors.green),
+              ),
+              textStyle: TextStyle(
+                  color: Color.fromRGBO(57, 179, 179, 1.0),
                   fontSize: 26,
                   fontWeight: FontWeight.w600),
             ),
+            child: Text('Add a Pet'.toUpperCase()),
           ),
         ),
       ],

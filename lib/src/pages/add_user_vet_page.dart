@@ -111,7 +111,11 @@ class AddVetPage extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('Registrar Veterinario')),
+      appBar: AppBar(
+          title: Text(
+        'Registrar Veterinario',
+        style: TextStyle(color: Colors.white),
+      )),
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 20.0),
@@ -128,9 +132,14 @@ class AddVetPage extends StatelessWidget {
                 _buildAge(),
                 SizedBox(height: 100),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0)),
+                    primary: Color.fromRGBO(57, 179, 179, 1.0),
+                  ),
                   child: Text(
-                    'Submit',
-                    style: TextStyle(color: Colors.blue, fontSize: 16),
+                    'Registrar ',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                   onPressed: () => {},
                 )
