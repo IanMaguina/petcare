@@ -24,7 +24,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   void initState() {
     _pages = [
       {
-        'page': ListVeterinariesPage(),
+        'page': ListVeterinaries(),
       },
       {
         'page': ListarCitasPage(),
