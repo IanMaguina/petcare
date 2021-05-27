@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:petcare/src/models/user.dart';
-import 'package:petcare/src/services/user_service.dart';
 import 'package:petcare/src/utils/utils.dart' as utils;
 //import 'package:facturas/src/providers/usuario_provider.dart';
 
@@ -152,12 +151,16 @@ class _AddUserPageState extends State<AddUserPage> {
   }
 
   Widget _crearBoton(BuildContext context) {
-    return RaisedButton.icon(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
+    return ElevatedButton.icon(
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        primary: Color.fromRGBO(57, 179, 179, 1.0),
+        textStyle: TextStyle(
+          color: Colors.white,
+        ),
       ),
-      color: Colors.teal[800],
-      textColor: Colors.white,
       label: Text('Registrar'),
       icon: Icon(Icons.save),
       onPressed: () {

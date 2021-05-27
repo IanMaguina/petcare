@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:petcare/src/pages/List_pets.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 import 'package:petcare/src/routes/routes.dart';
 import 'package:petcare/src/services/pets_service.dart';
@@ -15,8 +14,8 @@ void main() async {
 
   runApp(MyApp());
 }
-/*
-class MyApp extends StatelessWidget {
+
+/* class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,17 +27,17 @@ class MyApp extends StatelessWidget {
         
         theme: ThemeData(primaryColor: Colors.teal[700]));
   }
-}*/
+} */
 
- class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-          ChangeNotifierProvider(create: (_) => PetsService()),
+        ChangeNotifierProvider(create: (_) => PetsService()),
         ChangeNotifierProvider(create: (_) => VeterinaryService()),
         ChangeNotifierProvider(create: (_) => ServicesService()),
-        ChangeNotifierProvider(create: (_) => PetsService()), 
+        ChangeNotifierProvider(create: (_) => PetsService()),
       ],
       child: MaterialApp(
           title: 'Material App',
@@ -48,4 +47,4 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(primaryColor: Colors.teal[700])),
     );
   }
-} 
+}

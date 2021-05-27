@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:list_tile_switch/list_tile_switch.dart';
 import 'package:petcare/const/colors.dart';
-import 'package:petcare/const/my_icons.dart';
-
 import 'List_pets.dart';
-
-
-
 
 class UserInfo extends StatefulWidget {
   @override
@@ -20,13 +13,15 @@ class _UserInfoState extends State<UserInfo> {
   var top = 0.0;
   @override
   void initState() {
+    // ignore: todo
     // TODO: implement initState
     super.initState();
-    _scrollController =ScrollController();
-    _scrollController.addListener(() {setState(() {
-      
-    });});
+    _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      setState(() {});
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,8 +35,8 @@ class _UserInfoState extends State<UserInfo> {
                 elevation: 4,
                 expandedHeight: 200,
                 pinned: true,
-                flexibleSpace: LayoutBuilder(
-                    builder: (BuildContext context, BoxConstraints constraints) {
+                flexibleSpace: LayoutBuilder(builder:
+                    (BuildContext context, BoxConstraints constraints) {
                   top = constraints.biggest.height;
                   return Container(
                     decoration: BoxDecoration(
@@ -116,7 +111,6 @@ class _UserInfoState extends State<UserInfo> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: userTitle('User Pets')),
@@ -129,9 +123,8 @@ class _UserInfoState extends State<UserInfo> {
                       child: InkWell(
                         splashColor: Theme.of(context).splashColor,
                         child: ListTile(
-                          onTap: () => Navigator.of(context).pushNamed(
-                            PetListScreen.routeName
-                          ),
+                          onTap: () => Navigator.of(context)
+                              .pushNamed(PetListScreen.routeName),
                           title: Text('PetList'),
                           trailing: Icon(Icons.chevron_right_rounded),
                           leading: Icon(Icons.pets),
@@ -145,7 +138,6 @@ class _UserInfoState extends State<UserInfo> {
                       thickness: 1,
                       color: Colors.grey,
                     ),
-                
                     userListTile('Email', 'Email sub', 0, context),
                     userListTile('Phone number', '4555', 0, context),
                     userListTile('gmail', '', 0, context),
@@ -169,9 +161,8 @@ class _UserInfoState extends State<UserInfo> {
       ),
     );
   }
- 
 
- Widget _buildFab() {
+  Widget _buildFab() {
     //starting fab position
     final double defaultTopMargin = 200.0 - 4.0;
     //pixels from top where scaling should start
@@ -196,16 +187,17 @@ class _UserInfoState extends State<UserInfo> {
       }
     }
 
-return  Positioned(
+    return Positioned(
       top: top,
       right: 16.0,
-      child:  Transform(
-        transform:  Matrix4.identity()..scale(scale),
+      child: Transform(
+        transform: Matrix4.identity()..scale(scale),
         alignment: Alignment.center,
-        child:  FloatingActionButton(
+        child: FloatingActionButton(
           heroTag: "btn1",
-          onPressed: (){},
-          child:  Icon(Icons.camera_alt_outlined), backgroundColor: ColorsConsts.starterColor,
+          onPressed: () {},
+          child: Icon(Icons.camera_alt_outlined),
+          backgroundColor: ColorsConsts.starterColor,
         ),
       ),
     );

@@ -127,7 +127,7 @@ class AddVetPage extends StatelessWidget {
                 _buildPhone(),
                 _buildAge(),
                 SizedBox(height: 100),
-                RaisedButton(
+                ElevatedButton(
                   child: Text(
                     'Submit',
                     style: TextStyle(color: Colors.blue, fontSize: 16),

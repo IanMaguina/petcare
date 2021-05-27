@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:petcare/src/utils/utils.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -81,12 +80,12 @@ class LoginPage extends StatelessWidget {
               ],
             ),
           ),
-          FlatButton(
+          TextButton(
               onPressed: () =>
                   Navigator.pushReplacementNamed(context, 'adduser'),
               child: Text('Crea una nueva cuenta Usuario')),
           SizedBox(height: 20.0),
-          FlatButton(
+          TextButton(
               onPressed: () =>
                   Navigator.pushReplacementNamed(context, 'adduservet'),
               child: Text('Crea una nueva cuenta Veterinario')),
@@ -138,16 +137,18 @@ class LoginPage extends StatelessWidget {
 _botonLogin() {
   return StreamBuilder(
     builder: (BuildContext context, AsyncSnapshot snapshot) {
-      return RaisedButton(
+      return ElevatedButton(
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
             child: Text('Ingresar'),
           ),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-          elevation: 0.0,
-          color: Colors.teal[600],
-          textColor: Colors.white,
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0)),
+            elevation: 0.0,
+            primary: Color.fromRGBO(57, 179, 179, 1.0),
+            textStyle: TextStyle(color: Colors.white),
+          ),
           onPressed: () {
             // final route =
             //     MaterialPageRoute(builder: (context) => home());

@@ -26,15 +26,17 @@ class CardVet extends StatelessWidget {
           ButtonBar(
             alignment: MainAxisAlignment.start,
             children: [
-              FlatButton(
-                textColor: const Color(0xFF6200EE),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    textStyle: TextStyle(color: Colors.white)),
                 onPressed: () {
                   // Perform some action
                 },
                 child: const Text('APPOITMEN'),
               ),
-              FlatButton(
-                textColor: const Color(0xFF6200EE),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    textStyle: TextStyle(color: Colors.white)),
                 onPressed: () {
                   // Perform some action
                 },
