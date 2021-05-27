@@ -41,7 +41,7 @@ class _Servicio extends StatelessWidget {
             size: 10.0,
           ),
           SizedBox(height: 10.0),
-          RaisedButton(child: Text('Buscar por Servicio'), onPressed: () {}),
+          ElevatedButton(child: Text('Buscar por Servicio'), onPressed: () {}),
         ]),
       ),
     );

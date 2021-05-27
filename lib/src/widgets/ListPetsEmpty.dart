@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:petcare/const/colors.dart';
-import 'package:provider/provider.dart';
 
 class PetListEmpty extends StatelessWidget {
   @override

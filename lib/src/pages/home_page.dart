@@ -29,7 +29,7 @@ class _Navegacion extends StatelessWidget {
         onTap: (i) => navegacionModel.paginaActual = i,
         items: [
           BottomNavigationBarItem(
-              backgroundColor: Colors.teal[600],
+              backgroundColor: Color.fromRGBO(57, 179, 179, 1.0),
               icon: Icon(Icons.new_releases),
               label: 'Inicio'),
           BottomNavigationBarItem(

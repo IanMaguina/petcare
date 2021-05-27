@@ -9,7 +9,7 @@ class _MySearchBarState extends State<MySearchBar> {
   TextEditingController editingController = TextEditingController();
 
   final duplicateItems = List<String>.generate(100, (i) => "Item $i");
-  var items = List<String>();
+  var items = [];
 
   @override
   void initState() {
@@ -18,10 +18,10 @@ class _MySearchBarState extends State<MySearchBar> {
   }
 
   void filterSearchResults(String query) {
-    List<String> dummySearchList = List<String>();
+    List<String> dummySearchList = [];
     dummySearchList.addAll(duplicateItems);
     if (query.isNotEmpty) {
-      List<String> dummyListData = List<String>();
+      List<String> dummyListData = [];
       dummySearchList.forEach((item) {
         if (item.contains(query)) {
           dummyListData.add(item);

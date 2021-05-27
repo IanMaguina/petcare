@@ -5,7 +5,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal[600],
+      backgroundColor: Color.fromRGBO(66, 118, 166, 1.0),
       body: PageView(children: <Widget>[
         ElevatedButton(
             child: Text('Bienvenido'),

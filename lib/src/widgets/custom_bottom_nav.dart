@@ -4,12 +4,7 @@ import 'package:petcare/src/pages/ListarCitasPage.dart';
 import 'package:petcare/src/pages/list_veterinarias.dart';
 import 'package:petcare/src/pages/news_page.dart';
 import 'package:petcare/src/pages/pets_page.dart';
-import 'package:petcare/src/pages/services_page.dart';
 import 'package:petcare/src/pages/user_perfil.dart';
-import 'package:petcare/src/widgets/lista_veterinarias.dart';
-import 'package:provider/provider.dart';
-
-
 
 class BottomBarScreen extends StatefulWidget {
   @override
@@ -51,7 +46,6 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: _pages[_selectedPageIndex]['page'],
       bottomNavigationBar: BottomAppBar(
         // color: Colors.white,
@@ -73,32 +67,32 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             child: BottomNavigationBar(
               onTap: _selectPage,
               backgroundColor: Theme.of(context).primaryColor,
-              unselectedItemColor:  Color.fromRGBO(116, 117, 152, 1),
-              selectedItemColor: Colors.lightGreen,
+              unselectedItemColor: Colors.grey,
+              selectedItemColor: Color.fromRGBO(57, 179, 179, 1.0),
               currentIndex: _selectedPageIndex,
               items: [
                 BottomNavigationBarItem(
                   icon: Icon(Feather.home),
-                  title: Text('Home'),
+                  label: 'Home',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Feather.activity),
-                  title: Text('activity'),
+                  label: 'activity',
                 ),
                 BottomNavigationBarItem(
                   activeIcon: null,
                   icon: Icon(null),
-                  title: Text('Search'),
+                  label: 'Search',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.markunread,
                   ),
-                  title: Text('message'),
+                  label: 'message',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Feather.user),
-                  title: Text('User'),
+                  label: 'User',
                 ),
               ],
             ),
@@ -111,7 +105,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
         padding: const EdgeInsets.all(8.0),
         child: FloatingActionButton(
           hoverElevation: 10,
-          backgroundColor: Colors.lightGreen,
+          backgroundColor: Color.fromRGBO(57, 179, 179, 1.0),
           splashColor: Colors.grey,
           tooltip: 'Search',
           elevation: 4,
@@ -124,43 +118,6 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*
 class CustomBottomNavigation extends StatelessWidget {

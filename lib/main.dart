@@ -44,7 +44,9 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           initialRoute: '/',
           routes: getApplicationRoutes(),
-          theme: ThemeData(primaryColor: Colors.teal[700])),
+          theme: ThemeData(
+              primaryColor: Color.fromRGBO(57, 179, 179, 1.0),
+              textTheme: TextTheme(button: TextStyle(color: Colors.white)))),
     );
   }
 }
