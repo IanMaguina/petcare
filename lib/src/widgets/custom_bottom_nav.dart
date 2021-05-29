@@ -18,9 +18,9 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   @override
   void initState() {
     _pages = [
-      {
+      /*{
         'page': ListVeterinaries(),
-      },
+      },*/
       {
         'page': ListarCitasPage(),
       },

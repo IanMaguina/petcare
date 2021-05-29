@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petcare/const/colors.dart';
-import 'List_pets.dart';
+import 'listPet_page.dart';
 
 class UserInfo extends StatefulWidget {
   @override
@@ -123,9 +123,11 @@ class _UserInfoState extends State<UserInfo> {
                       child: InkWell(
                         splashColor: Theme.of(context).splashColor,
                         child: ListTile(
-                          onTap: () => Navigator.of(context)
-                              .pushNamed(PetListScreen.routeName),
+                          onTap: () => Navigator.push(context,
+                          MaterialPageRoute(builder: (context)=>ListPet())
+                          ),
                           title: Text('PetList'),
+                          
                           trailing: Icon(Icons.chevron_right_rounded),
                           leading: Icon(Icons.pets),
                         ),
