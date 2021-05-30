@@ -5,6 +5,7 @@ import 'package:petcare/src/pages/list_veterinarias.dart';
 import 'package:petcare/src/pages/news_page.dart';
 import 'package:petcare/src/pages/pets_page.dart';
 import 'package:petcare/src/pages/user_perfil.dart';
+import 'package:petcare/src/widgets/lista_veterinarias.dart';
 
 class BottomBarScreen extends StatefulWidget {
   @override
@@ -18,12 +19,12 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   @override
   void initState() {
     _pages = [
-      /*{
-        'page': ListVeterinaries(),
-      },*/
       {
-        'page': ListarCitasPage(),
+        'page': ListVeterinaries(),
       },
+      /* {
+        'page': ListarCitasPage(),
+      }, */
       {
         'page': PetsPage(),
       },
@@ -45,74 +46,77 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _pages[_selectedPageIndex]['page'],
-      bottomNavigationBar: BottomAppBar(
-        // color: Colors.white,
-        shape: CircularNotchedRectangle(),
-        notchMargin: 0.01,
-        clipBehavior: Clip.antiAlias,
-        child: Container(
-          height: kBottomNavigationBarHeight * 0.98,
+    return SafeArea(
+      minimum: EdgeInsets.only(top: 25),
+      child: Scaffold(
+        body: _pages[_selectedPageIndex]['page'],
+        bottomNavigationBar: BottomAppBar(
+          // color: Colors.white,
+          shape: CircularNotchedRectangle(),
+          notchMargin: 0.01,
+          clipBehavior: Clip.antiAlias,
           child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border(
-                top: BorderSide(
-                  color: Colors.grey,
-                  width: 0.5,
+            height: kBottomNavigationBarHeight * 0.98,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                  top: BorderSide(
+                    color: Colors.grey,
+                    width: 0.5,
+                  ),
                 ),
               ),
-            ),
-            child: BottomNavigationBar(
-              onTap: _selectPage,
-              backgroundColor: Theme.of(context).primaryColor,
-              unselectedItemColor: Colors.grey,
-              selectedItemColor: Color.fromRGBO(57, 179, 179, 1.0),
-              currentIndex: _selectedPageIndex,
-              items: [
-                BottomNavigationBarItem(
-                  icon: Icon(Feather.home),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Feather.activity),
-                  label: 'activity',
-                ),
-                BottomNavigationBarItem(
-                  activeIcon: null,
-                  icon: Icon(null),
-                  label: 'Search',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.markunread,
+              child: BottomNavigationBar(
+                onTap: _selectPage,
+                backgroundColor: Theme.of(context).primaryColor,
+                unselectedItemColor: Colors.grey,
+                selectedItemColor: Color.fromRGBO(57, 179, 179, 1.0),
+                currentIndex: _selectedPageIndex,
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Icon(Feather.home),
+                    label: 'Home',
                   ),
-                  label: 'message',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Feather.user),
-                  label: 'User',
-                ),
-              ],
+                  BottomNavigationBarItem(
+                    icon: Icon(Feather.activity),
+                    label: 'activity',
+                  ),
+                  BottomNavigationBarItem(
+                    activeIcon: null,
+                    icon: Icon(null),
+                    label: 'Search',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.markunread,
+                    ),
+                    label: 'message',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Feather.user),
+                    label: 'User',
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-      ),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterDocked,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: FloatingActionButton(
-          hoverElevation: 10,
-          backgroundColor: Color.fromRGBO(57, 179, 179, 1.0),
-          splashColor: Colors.grey,
-          tooltip: 'Search',
-          elevation: 4,
-          child: Icon(Icons.pets),
-          onPressed: () => setState(() {
-            _selectedPageIndex = 2;
-          }),
+        floatingActionButtonLocation:
+            FloatingActionButtonLocation.miniCenterDocked,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: FloatingActionButton(
+            hoverElevation: 10,
+            backgroundColor: Color.fromRGBO(57, 179, 179, 1.0),
+            splashColor: Colors.grey,
+            tooltip: 'Search',
+            elevation: 4,
+            child: Icon(Icons.pets),
+            onPressed: () => setState(() {
+              _selectedPageIndex = 2;
+            }),
+          ),
         ),
       ),
     );
