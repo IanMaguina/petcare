@@ -11,7 +11,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     '/': (BuildContext context) => WelcomePage(),
     'home': (BuildContext context) => HomePage(),
     'adduser': (BuildContext context) => AddUserPage(),
-    'adduservet': (BuildContext context) => AddVetPage(),
+    'adduservet': (BuildContext context) => Add_Vet(),
     PetListScreen.routeName: (ctx) => PetListScreen(),
 
   };
