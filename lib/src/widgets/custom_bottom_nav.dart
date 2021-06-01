@@ -5,6 +5,7 @@ import 'package:petcare/src/pages/list_veterinarias.dart';
 import 'package:petcare/src/pages/news_page.dart';
 import 'package:petcare/src/pages/pets_page.dart';
 import 'package:petcare/src/pages/user_perfil.dart';
+import 'package:petcare/src/widgets/lista_servicios.dart';
 import 'package:petcare/src/widgets/lista_veterinarias.dart';
 
 class BottomBarScreen extends StatefulWidget {
@@ -19,12 +20,12 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   @override
   void initState() {
     _pages = [
-      {
-        'page': ListVeterinaries(),
-      },
       /* {
-        'page': ListarCitasPage(),
+        'page': ListVeterinaries(),
       }, */
+      {
+        'page': ListServices(),
+      },
       {
         'page': PetsPage(),
       },
