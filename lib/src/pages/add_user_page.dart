@@ -23,6 +23,7 @@ class _AddUserPageState extends State<AddUserPage> {
       ),
       body: SingleChildScrollView(
         child: Container(
+          margin: EdgeInsets.all(50),
           padding: EdgeInsets.all(15.0),
           child: Form(
             key: formkey,
@@ -51,9 +52,12 @@ class _AddUserPageState extends State<AddUserPage> {
       decoration: InputDecoration(labelText: 'Nombre de Usuario'),
       onSaved: (value) => usuario.name = value,
       validator: (value) {
-        if (value.length < 3) {
+        if (value.isEmpty) {
+          return 'Contraseña es requerido';
+        }if (value.length < 3) {
           return 'minimo 6 caracteres';
-        } else {
+        }
+        else {
           return null;
         }
       },
@@ -67,9 +71,12 @@ class _AddUserPageState extends State<AddUserPage> {
       decoration: InputDecoration(labelText: 'Apellido de Usuario'),
       onSaved: (value) => usuario.lastName = value,
       validator: (value) {
-        if (value.length < 6) {
+        if (value.isEmpty) {
+          return 'Contraseña es requerido';
+        }if (value.length < 6) {
           return 'minimo 6 caracteres';
-        } else {
+        }
+         else {
           return null;
         }
       },
@@ -83,9 +90,12 @@ class _AddUserPageState extends State<AddUserPage> {
       decoration: InputDecoration(labelText: 'telefono'),
       onSaved: (value) => usuario.phone = value as int,
       validator: (value) {
-        if (utils.isNumeric(value)) {
+        if (value.isEmpty) {
+          return 'Contraseña es requerido';
+        }if (utils.isNumeric(value)) {
           return null;
-        } else {
+        }
+        else {
           return 'Solo numeros';
         }
       },
@@ -99,9 +109,12 @@ class _AddUserPageState extends State<AddUserPage> {
       decoration: InputDecoration(labelText: 'Edad'),
       onSaved: (value) => usuario.age = value as int,
       validator: (value) {
-        if (utils.isNumeric(value)) {
+        if (value.isEmpty) {
+          return 'Contraseña es requerido';
+        }if (utils.isNumeric(value)) {
           return null;
-        } else {
+        }
+         else {
           return 'Solo numeros';
         }
       },
@@ -115,6 +128,9 @@ class _AddUserPageState extends State<AddUserPage> {
       decoration: InputDecoration(labelText: 'DNI'),
       onSaved: (value) => usuario.document = value as int,
       validator: (value) {
+        if (value.isEmpty) {
+        return 'DNI es requerido';
+         }
         if (utils.isNumeric(value)) {
           return null;
         } else {
@@ -130,6 +146,13 @@ class _AddUserPageState extends State<AddUserPage> {
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(labelText: 'email'),
       onSaved: (value) => usuario.email = value,
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Contraseña es requerido';
+        }else {
+          return null;
+        }
+      },
     );
   }
 
@@ -141,9 +164,13 @@ class _AddUserPageState extends State<AddUserPage> {
       decoration: InputDecoration(labelText: 'Contraseña'),
       onSaved: (value) => usuario.password = value,
       validator: (value) {
+        if (value.isEmpty) {
+        return 'Contraseña es requerido';
+      }
         if (value.length < 6) {
           return 'debe tener 6 caracteres como minimo';
-        } else {
+        }
+       else {
           return null;
         }
       },
@@ -174,6 +201,7 @@ class _AddUserPageState extends State<AddUserPage> {
       return;
     }
     formkey.currentState.save();
+
 
     // Map info = await usuarioProvider.nuevoUsuario(usuario);
 
