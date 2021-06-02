@@ -8,17 +8,18 @@ class AddVetPage extends StatelessWidget {
     String document;
     String email;
     String password;
-    String photo;
+    //String photo;
     String phone;
     String age;
 
-    Widget _buildName() {
+    Widget _buildName(String value) {
       return TextFormField(
         decoration: InputDecoration(labelText: 'Name'),
-        validator: (String value) {
+        validator: (value) {
           if (value.isEmpty) {
-            return 'Name is required';
+            return "Nombre es requerido";
           }
+          return null;
         },
         onSaved: (String value) {
           name = value;
@@ -26,13 +27,14 @@ class AddVetPage extends StatelessWidget {
       );
     }
 
-    Widget _buildLastName() {
+    Widget _buildLastName(String value) {
       return TextFormField(
         decoration: InputDecoration(labelText: 'Lastname'),
-        validator: (String value) {
+        validator: (value) {
           if (value.isEmpty) {
             return 'Lastame is required';
           }
+          return null;
         },
         onSaved: (String value) {
           lastname = value;
@@ -40,13 +42,14 @@ class AddVetPage extends StatelessWidget {
       );
     }
 
-    Widget _buildDocument() {
+    Widget _buildDocument(String value) {
       return TextFormField(
         decoration: InputDecoration(labelText: 'Name'),
-        validator: (String value) {
+        validator: (value) {
           if (value.isEmpty) {
             return 'Document is required';
           }
+          return null;
         },
         onSaved: (String value) {
           document = value;
@@ -54,13 +57,14 @@ class AddVetPage extends StatelessWidget {
       );
     }
 
-    Widget _buildEmail() {
+    Widget _buildEmail(String value) {
       return TextFormField(
         decoration: InputDecoration(labelText: 'Email'),
-        validator: (String value) {
+        validator: (value) {
           if (value.isEmpty) {
             return 'Email is required';
           }
+          return null;
         },
         onSaved: (String value) {
           email = value;
@@ -68,13 +72,14 @@ class AddVetPage extends StatelessWidget {
       );
     }
 
-    Widget _buildPassword() {
+    Widget _buildPassword(String value) {
       return TextFormField(
         decoration: InputDecoration(labelText: 'Password'),
-        validator: (String value) {
+        validator: (value) {
           if (value.isEmpty) {
             return 'Password is required';
           }
+          return null;
         },
         onSaved: (String value) {
           password = value;
@@ -82,13 +87,14 @@ class AddVetPage extends StatelessWidget {
       );
     }
 
-    Widget _buildPhone() {
+    Widget _buildPhone(String value) {
       return TextFormField(
         decoration: InputDecoration(labelText: 'Phone'),
-        validator: (String value) {
+        validator: (value) {
           if (value.isEmpty) {
             return 'Phone is required';
           }
+          return null;
         },
         onSaved: (String value) {
           phone = value;
@@ -96,13 +102,14 @@ class AddVetPage extends StatelessWidget {
       );
     }
 
-    Widget _buildAge() {
+    Widget _buildAge(String value) {
       return TextFormField(
         decoration: InputDecoration(labelText: 'Age'),
-        validator: (String value) {
+        validator: (value) {
           if (value.isEmpty) {
             return 'Age is required';
           }
+          return null;
         },
         onSaved: (String value) {
           phone = value;
@@ -123,13 +130,13 @@ class AddVetPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                _buildName(),
-                _buildLastName(),
-                _buildDocument(),
-                _buildEmail(),
-                _buildPassword(),
-                _buildPhone(),
-                _buildAge(),
+                _buildName(name),
+                _buildLastName(lastname),
+                _buildDocument(document),
+                _buildEmail(email),
+                _buildPassword(password),
+                _buildPhone(phone),
+                _buildAge(age),
                 SizedBox(height: 100),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(

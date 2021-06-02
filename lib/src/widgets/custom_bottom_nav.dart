@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:petcare/src/pages/ListarCitasPage.dart';
-import 'package:petcare/src/pages/list_veterinarias.dart';
+//import 'package:petcare/src/pages/ListarCitasPage.dart';
+//import 'package:petcare/src/pages/list_veterinarias.dart';
 import 'package:petcare/src/pages/news_page.dart';
 import 'package:petcare/src/pages/pets_page.dart';
 import 'package:petcare/src/pages/user_perfil.dart';
 import 'package:petcare/src/widgets/lista_servicios.dart';
-import 'package:petcare/src/widgets/lista_veterinarias.dart';
+//import 'package:petcare/src/widgets/lista_veterinarias.dart';
 
 class BottomBarScreen extends StatefulWidget {
   @override

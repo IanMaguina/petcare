@@ -23,7 +23,7 @@ class PetListEmpty extends StatelessWidget {
           'Your Petlist Is Empty',
           textAlign: TextAlign.center,
           style: TextStyle(
-              color: Theme.of(context).textSelectionColor,
+              color: Theme.of(context).textSelectionTheme.selectionColor,
               fontSize: 36,
               fontWeight: FontWeight.w600),
         ),

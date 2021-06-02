@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:petcare/src/models/veterinary.dart';
+//import 'package:petcare/src/models/veterinary.dart';
 
 class ListVeterinaries extends StatelessWidget {
   //final List<Veterinary> veterinarias;
