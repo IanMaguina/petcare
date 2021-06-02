@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:petcare/src/pages/home_temp.dart';
-
+import 'package:petcare/src/pages/verinaryDetail_page.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -13,7 +12,8 @@ class MyApp extends StatelessWidget {
           appBar: AppBar(
             title: Text('Petcare'),
           ),
-          body: HomePageTemp()),
+          body: Veterinary()
+          ),
     );
   }
 }
