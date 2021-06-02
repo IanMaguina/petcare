@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:petcare/src/pages/home_temp.dart';
 
 class VeterinaryPage extends StatelessWidget {
 
@@ -43,7 +42,7 @@ class _VetDetailState extends State<VetDetail> {
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                      fit: BoxFit.fill, image: AssetImage('assets/vet1.jpg'))),
+                      fit: BoxFit.fill, image: AssetImage('assets/images/veterinary1.jpg'))),
             ),
             Container(
               width: 170,
@@ -134,7 +133,7 @@ class _VetDetailState extends State<VetDetail> {
 
                     minWidth: 200,
                     height: 30,
-                    color: Colors.green,
+                    color: Color.fromRGBO(57, 179, 179, 1.0),
                     textColor: Colors.white,
                     child: Text("Reservar Cita"),
                     onPressed: (){},
