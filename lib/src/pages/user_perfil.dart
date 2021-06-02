@@ -8,7 +8,7 @@ class UserInfo extends StatefulWidget {
 }
 
 class _UserInfoState extends State<UserInfo> {
-  bool _value = false;
+  //bool _value = false;
   ScrollController _scrollController;
   var top = 0.0;
   @override
@@ -123,11 +123,11 @@ class _UserInfoState extends State<UserInfo> {
                       child: InkWell(
                         splashColor: Theme.of(context).splashColor,
                         child: ListTile(
-                          onTap: () => Navigator.push(context,
-                          MaterialPageRoute(builder: (context)=>ListPet())
-                          ),
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ListPet())),
                           title: Text('PetList'),
-                          
                           trailing: Icon(Icons.chevron_right_rounded),
                           leading: Icon(Icons.pets),
                         ),

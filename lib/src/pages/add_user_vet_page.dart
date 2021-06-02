@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'add_veterinary.dart';
 import 'package:petcare/src/utils/utils.dart' as utils;
+
 class Add_Vet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -9,11 +10,11 @@ class Add_Vet extends StatelessWidget {
     String document;
     String email;
     String password;
-    String photo;
+    //String photo;
     String phone;
     String age;
 
-    Widget _buildName() {
+    Widget _buildName(String value) {
       return TextFormField(
         decoration: InputDecoration(labelText: 'Nombre'),
         validator: (String value) {
@@ -32,7 +33,7 @@ class Add_Vet extends StatelessWidget {
       );
     }
 
-    Widget _buildLastName() {
+    Widget _buildLastName(String value) {
       return TextFormField(
         decoration: InputDecoration(labelText: 'Apellido'),
         validator: (String value) {
@@ -51,7 +52,7 @@ class Add_Vet extends StatelessWidget {
       );
     }
 
-    Widget _buildDocument() {
+    Widget _buildDocument(String value) {
       return TextFormField(
         decoration: InputDecoration(labelText: 'DNI'),
         validator: (String value) {
@@ -66,7 +67,6 @@ class Add_Vet extends StatelessWidget {
           } else {
             return 'Solo numeros';
           }
-
         },
         onSaved: (String value) {
           document = value;
@@ -74,13 +74,14 @@ class Add_Vet extends StatelessWidget {
       );
     }
 
-    Widget _buildEmail() {
+    Widget _buildEmail(String value) {
       return TextFormField(
         decoration: InputDecoration(labelText: 'Email'),
-        validator: (String value) {
+        validator: (value) {
           if (value.isEmpty) {
             return 'Email es requerido';
           }
+          return null;
         },
         onSaved: (String value) {
           email = value;
@@ -88,7 +89,7 @@ class Add_Vet extends StatelessWidget {
       );
     }
 
-    Widget _buildPassword() {
+    Widget _buildPassword(String value) {
       return TextFormField(
         decoration: InputDecoration(labelText: 'Contraseña'),
         validator: (String value) {
@@ -107,7 +108,7 @@ class Add_Vet extends StatelessWidget {
       );
     }
 
-    Widget _buildPhone() {
+    Widget _buildPhone(String value) {
       return TextFormField(
         decoration: InputDecoration(labelText: 'Telefono'),
         validator: (String value) {
@@ -126,7 +127,7 @@ class Add_Vet extends StatelessWidget {
       );
     }
 
-    Widget _buildAge() {
+    Widget _buildAge(String value) {
       return TextFormField(
         decoration: InputDecoration(labelText: 'Edad'),
         validator: (String value) {
@@ -148,50 +149,47 @@ class Add_Vet extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           title: Text(
-            'Registrar Veterinario',
-            style: TextStyle(color: Colors.white),
-          )),
+        'Registrar Veterinario',
+        style: TextStyle(color: Colors.white),
+      )),
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 50.0),
           child: Form(
             child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                _buildName(),
-            _buildLastName(),
-            _buildDocument(),
-            _buildEmail(),
-            _buildPassword(),
-            _buildPhone(),
-            _buildAge(),
-            SizedBox(height: 100),
-            ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                primary: Color.fromRGBO(57, 179, 179, 1.0),
-                textStyle: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-              label: Text('Registrar'),
-              icon: Icon(Icons.save),
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder:(context)=>Add_Veterinary(),
-                ));
-              },
-            )
-            ],
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                _buildName(name),
+                _buildLastName(lastname),
+                _buildDocument(document),
+                _buildEmail(email),
+                _buildPassword(password),
+                _buildPhone(phone),
+                _buildAge(age),
+                SizedBox(height: 100),
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    primary: Color.fromRGBO(57, 179, 179, 1.0),
+                    textStyle: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  label: Text('Registrar'),
+                  icon: Icon(Icons.save),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Add_Veterinary(),
+                    ));
+                  },
+                )
+              ],
+            ),
           ),
         ),
       ),
-    ),);
+    );
   }
 }
-
-
-
-
