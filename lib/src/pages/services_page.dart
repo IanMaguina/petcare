@@ -34,6 +34,10 @@ _element(BuildContext context, String service, String icon) {
     contentPadding: EdgeInsets.all(10),
     title: Text(service),
     hoverColor: Color.fromRGBO(57, 179, 179, 0.3),
+    trailing: Icon(
+      Icons.arrow_forward_ios,
+      color: Color.fromRGBO(57, 179, 179, 1),
+    ),
     onTap: () {
       Navigator.pushNamed(context, 'vetplaces');
     },
