@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:petcare/src/pages/ListarCitasPage.dart';
+import 'package:petcare/src/pages/listPet_page.dart';
 //import 'package:petcare/src/pages/ListarCitasPage.dart';
 //import 'package:petcare/src/pages/list_veterinarias.dart';
 import 'package:petcare/src/pages/news_page.dart';
 import 'package:petcare/src/pages/pets_page.dart';
+import 'package:petcare/src/pages/services_page.dart';
 import 'package:petcare/src/pages/user_perfil.dart';
 import 'package:petcare/src/widgets/lista_servicios.dart';
 //import 'package:petcare/src/widgets/lista_veterinarias.dart';
@@ -20,20 +23,20 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   @override
   void initState() {
     _pages = [
-      /* {
-        'page': ListVeterinaries(),
-      }, */
       {
-        'page': ListServices(),
+        'page': ListServicesPage(),
       },
       {
-        'page': PetsPage(),
+        'page': UserInfoPage(),
+      },
+      {
+        'page': ListPet(),
+      },
+      {
+        'page': ListarCitasPage(),
       },
       {
         'page': NewsPage(),
-      },
-      {
-        'page': UserInfo(),
       },
     ];
     super.initState();
@@ -76,27 +79,27 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
                 currentIndex: _selectedPageIndex,
                 items: [
                   BottomNavigationBarItem(
-                    icon: Icon(Feather.home),
-                    label: 'Home',
+                    icon: Icon(Icons.medical_services),
+                    label: "Servicios",
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Feather.activity),
-                    label: 'activity',
+                    icon: Icon(Feather.user),
+                    label: "Usuario",
                   ),
                   BottomNavigationBarItem(
                     activeIcon: null,
                     icon: Icon(null),
-                    label: 'Search',
+                    label: "Mis mascotas",
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(
-                      Icons.markunread,
+                      Icons.date_range,
                     ),
-                    label: 'message',
+                    label: "Mis Citas",
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Feather.user),
-                    label: 'User',
+                    icon: Icon(Feather.book_open),
+                    label: "Consejos",
                   ),
                 ],
               ),
@@ -111,7 +114,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             hoverElevation: 10,
             backgroundColor: Color.fromRGBO(57, 179, 179, 1.0),
             splashColor: Colors.grey,
-            tooltip: 'Search',
+            tooltip: 'Mis Mascotas',
             elevation: 4,
             child: Icon(Icons.pets),
             onPressed: () => setState(() {
@@ -123,36 +126,3 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     );
   }
 }
-
-/*
-class CustomBottomNavigation extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      showUnselectedLabels: false,
-      backgroundColor: Color.fromRGBO(55, 57, 84, 1),
-      unselectedItemColor: Color.fromRGBO(116, 117, 152, 1),
-      selectedItemColor: Colors.blueGrey,
-      currentIndex: 0,
-      items: [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          title: Text('Inicio'),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.markunread),
-          title: Text('Veterinarias'),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          title: Text('Perfil'),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.pets),
-          title: Text('Mascota'),
-        ),
-      ],
-    );
-  }
-}
-*/

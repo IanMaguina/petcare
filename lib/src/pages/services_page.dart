@@ -1,11 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:petcare/src/utils/icon_string.dart';
 
 class ListServicesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final servicesService = Provider.of<ServicesService>(context);
     return Scaffold(
-        // body: ListServices(servicesService.servicios),
-        );
+        body: SafeArea(
+      top: true,
+      child: ListView(
+        children: [
+          _element(context, "Baños", "baño"),
+          Divider(),
+          _element(context, "Campaña de Vacunación", "vaccine"),
+          Divider(),
+          _element(context, "Profilaxis Dental", "dental"),
+          Divider(),
+          _element(context, "Consulta médica", "cita"),
+          Divider(),
+          _element(context, "Cultivo", "cultivo"),
+          Divider(),
+          _element(context, "Guarderia", "guarderia"),
+          Divider(),
+        ],
+      ),
+    ));
   }
+}
+
+_element(BuildContext context, String service, String icon) {
+  return ListTile(
+    leading: getIcon(icon),
+    contentPadding: EdgeInsets.all(10),
+    title: Text(service),
+    hoverColor: Color.fromRGBO(57, 179, 179, 0.3),
+    onTap: () {
+      Navigator.pushNamed(context, 'vetplaces');
+    },
+  );
 }

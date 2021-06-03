@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:petcare/const/colors.dart';
 import 'listPet_page.dart';
 
-class UserInfo extends StatefulWidget {
+class UserInfoPage extends StatefulWidget {
   @override
-  _UserInfoState createState() => _UserInfoState();
+  _UserInfoPageState createState() => _UserInfoPageState();
 }
 
-class _UserInfoState extends State<UserInfo> {
+class _UserInfoPageState extends State<UserInfoPage> {
   //bool _value = false;
   ScrollController _scrollController;
   var top = 0.0;
