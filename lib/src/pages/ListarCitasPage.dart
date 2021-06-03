@@ -9,7 +9,7 @@ class ListarCitasPage extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new MySearchBar(),
+      home: new ListarCitas(),
       debugShowCheckedModeBanner: false,
     );
   }
