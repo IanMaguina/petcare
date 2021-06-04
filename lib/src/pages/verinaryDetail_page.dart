@@ -99,7 +99,7 @@ class _VetDetailState extends State<VetDetail> {
                         style: TextStyle(
                         ),
                       ),
-                      Text("RUC: 0000000000",
+                      Text("Email: vetpet@gmail.com",
                         style: TextStyle(
                         ),
                       ),
@@ -108,10 +108,6 @@ class _VetDetailState extends State<VetDetail> {
                         ),
                       ),
                       Text("Celular: 987654321",
-                        style: TextStyle(
-                        ),
-                      ),
-                      Text("Servicios:",
                         style: TextStyle(
                         ),
                       ),

@@ -25,7 +25,50 @@ class _MascotasState extends State<Mascotas> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: pets(),
+      body: ListView(
+        padding: EdgeInsets.all(16),
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container( 
+                height: 60,
+                width: 60,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/pet1.jpg'),
+                    fit: BoxFit.cover
+                  )
+                ),
+              ),
+              Text("Bella, 3 años"),
+              Icon(Icons.add,),
+            ],
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container( 
+                  height: 60,
+                  width: 60,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/pet1.jpg'),
+                      fit: BoxFit.cover
+                    )
+                  ),
+                ),
+                Text("Koke, 2 años"),
+                Icon(Icons.add,),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
