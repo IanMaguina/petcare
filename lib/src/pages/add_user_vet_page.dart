@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'add_veterinary.dart';
+import 'package:petcare/src/utils/utils.dart' as utils;
 
-class AddVetPage extends StatelessWidget {
+class Add_Vet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String name;
@@ -8,16 +10,21 @@ class AddVetPage extends StatelessWidget {
     String document;
     String email;
     String password;
-    String photo;
+    //String photo;
     String phone;
     String age;
 
-    Widget _buildName() {
+    Widget _buildName(String value) {
       return TextFormField(
-        decoration: InputDecoration(labelText: 'Name'),
+        decoration: InputDecoration(labelText: 'Nombre'),
         validator: (String value) {
           if (value.isEmpty) {
-            return 'Name is required';
+            return 'Nombre es requerido';
+          }
+          if (value.length < 6) {
+            return 'minimo 6 caracteres';
+          } else {
+            return null;
           }
         },
         onSaved: (String value) {
@@ -26,12 +33,17 @@ class AddVetPage extends StatelessWidget {
       );
     }
 
-    Widget _buildLastName() {
+    Widget _buildLastName(String value) {
       return TextFormField(
-        decoration: InputDecoration(labelText: 'Lastname'),
+        decoration: InputDecoration(labelText: 'Apellido'),
         validator: (String value) {
           if (value.isEmpty) {
-            return 'Lastame is required';
+            return 'Apellido requerido';
+          }
+          if (value.length < 6) {
+            return 'minimo 6 caracteres';
+          } else {
+            return null;
           }
         },
         onSaved: (String value) {
@@ -40,12 +52,20 @@ class AddVetPage extends StatelessWidget {
       );
     }
 
-    Widget _buildDocument() {
+    Widget _buildDocument(String value) {
       return TextFormField(
-        decoration: InputDecoration(labelText: 'Name'),
+        decoration: InputDecoration(labelText: 'DNI'),
         validator: (String value) {
           if (value.isEmpty) {
-            return 'Document is required';
+            return 'DNI es requerido';
+          }
+          if (value.length < 8) {
+            return 'Ingrese numero valido';
+          }
+          if (utils.isNumeric(value)) {
+            return null;
+          } else {
+            return 'Solo numeros';
           }
         },
         onSaved: (String value) {
@@ -54,13 +74,14 @@ class AddVetPage extends StatelessWidget {
       );
     }
 
-    Widget _buildEmail() {
+    Widget _buildEmail(String value) {
       return TextFormField(
         decoration: InputDecoration(labelText: 'Email'),
-        validator: (String value) {
+        validator: (value) {
           if (value.isEmpty) {
-            return 'Email is required';
+            return 'Email es requerido';
           }
+          return null;
         },
         onSaved: (String value) {
           email = value;
@@ -68,12 +89,17 @@ class AddVetPage extends StatelessWidget {
       );
     }
 
-    Widget _buildPassword() {
+    Widget _buildPassword(String value) {
       return TextFormField(
-        decoration: InputDecoration(labelText: 'Password'),
+        decoration: InputDecoration(labelText: 'Contraseña'),
         validator: (String value) {
           if (value.isEmpty) {
-            return 'Password is required';
+            return 'Contraseña es requerido';
+          }
+          if (value.length < 6) {
+            return 'debe tener 6 caracteres como minimo';
+          } else {
+            return null;
           }
         },
         onSaved: (String value) {
@@ -82,12 +108,17 @@ class AddVetPage extends StatelessWidget {
       );
     }
 
-    Widget _buildPhone() {
+    Widget _buildPhone(String value) {
       return TextFormField(
-        decoration: InputDecoration(labelText: 'Phone'),
+        decoration: InputDecoration(labelText: 'Telefono'),
         validator: (String value) {
           if (value.isEmpty) {
-            return 'Phone is required';
+            return 'Telefono es requerido';
+          }
+          if (utils.isNumeric(value)) {
+            return null;
+          } else {
+            return 'Solo numeros';
           }
         },
         onSaved: (String value) {
@@ -96,12 +127,17 @@ class AddVetPage extends StatelessWidget {
       );
     }
 
-    Widget _buildAge() {
+    Widget _buildAge(String value) {
       return TextFormField(
-        decoration: InputDecoration(labelText: 'Age'),
+        decoration: InputDecoration(labelText: 'Edad'),
         validator: (String value) {
           if (value.isEmpty) {
-            return 'Age is required';
+            return 'Edad es requerida';
+          }
+          if (utils.isNumeric(value)) {
+            return null;
+          } else {
+            return 'Solo numeros';
           }
         },
         onSaved: (String value) {
@@ -118,30 +154,36 @@ class AddVetPage extends StatelessWidget {
       )),
       body: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 20.0),
+          margin: EdgeInsets.symmetric(horizontal: 50.0),
           child: Form(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                _buildName(),
-                _buildLastName(),
-                _buildDocument(),
-                _buildEmail(),
-                _buildPassword(),
-                _buildPhone(),
-                _buildAge(),
+                _buildName(name),
+                _buildLastName(lastname),
+                _buildDocument(document),
+                _buildEmail(email),
+                _buildPassword(password),
+                _buildPhone(phone),
+                _buildAge(age),
                 SizedBox(height: 100),
-                ElevatedButton(
+                ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0)),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
                     primary: Color.fromRGBO(57, 179, 179, 1.0),
+                    textStyle: TextStyle(
+                      color: Colors.white,
+                    ),
                   ),
-                  child: Text(
-                    'Registrar ',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                  onPressed: () => {},
+                  label: Text('Registrar'),
+                  icon: Icon(Icons.save),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Add_Veterinary(),
+                    ));
+                  },
                 )
               ],
             ),
