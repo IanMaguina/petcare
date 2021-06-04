@@ -27,7 +27,7 @@ class ListarCitas extends StatelessWidget {
     return ListView.builder(
       itemCount: this.citas.length,
       itemBuilder: (BuildContext context, int index) {
-        return _Citas(citas: this.citas[index], index: index);
+        return Container(child: _Citas(citas: this.citas[index], index: index));
       },
     );
   }
