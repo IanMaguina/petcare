@@ -28,7 +28,7 @@ class ListServicesPage extends StatelessWidget {
   }
 }
 
-_element(BuildContext context, String service, String icon) {
+Widget _element(BuildContext context, String service, String icon) {
   return ListTile(
     leading: getIcon(icon),
     contentPadding: EdgeInsets.all(10),

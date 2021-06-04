@@ -121,7 +121,7 @@ _botonLogin() {
             //     MaterialPageRoute(builder: (context) => home());
 
             //Navigator.push(context, route);
-            Navigator.pushReplacementNamed(context, 'home');
+            Navigator.pushReplacementNamed(context, 'home_vet');
           });
     },
   );
