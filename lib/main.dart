@@ -16,21 +16,19 @@ void main() async {
   runApp(MyApp());
 }
 
-/* class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Material App',
         debugShowCheckedModeBanner: false,
-        initialRoute: '/',
-        routes:
-        getApplicationRoutes(),
-        
+        initialRoute: 'medical_history',
+        routes: getApplicationRoutes(),
         theme: ThemeData(primaryColor: Colors.teal[700]));
   }
-} */
+} 
 
-class MyApp extends StatelessWidget {
+/*class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -50,4 +48,4 @@ class MyApp extends StatelessWidget {
               textTheme: TextTheme(button: TextStyle(color: Colors.white)))),
     );
   }
-}
+}*/
