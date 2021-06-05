@@ -4,14 +4,14 @@
 
 import 'dart:convert';
 
-List<Pets> petsFromJson(String str) =>
-    List<Pets>.from(json.decode(str).map((x) => Pets.fromJson(x)));
+List<Pet> petsFromJson(String str) =>
+    List<Pet>.from(json.decode(str).map((x) => Pet.fromJson(x)));
 
-String petsToJson(List<Pets> data) =>
+String petsToJson(List<Pet> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Pets {
-  Pets({
+class Pet {
+  Pet({
     this.id,
     this.name,
     this.age,
@@ -27,7 +27,7 @@ class Pets {
   String photo;
   String sex;
 
-  factory Pets.fromJson(Map<String, dynamic> json) => Pets(
+  factory Pet.fromJson(Map<String, dynamic> json) => Pet(
         id: json["id"],
         name: json["name"],
         age: json["age"],
