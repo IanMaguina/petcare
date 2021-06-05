@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class _Navegacion extends StatelessWidget {
+/* class _Navegacion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navegacionModel = Provider.of<_NavegacionModel>(context);
@@ -38,7 +38,7 @@ class _Navegacion extends StatelessWidget {
           BottomNavigationBarItem(icon: Icon(Icons.dock), label: 'Citas'),
         ]);
   }
-}
+} */
 
 class _Paginas extends StatelessWidget {
   @override
@@ -50,8 +50,8 @@ class _Paginas extends StatelessWidget {
       controller: navegacionModel.pageController,
       physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
-        ListVeterinariesPage(),
         ListServicesPage(),
+        /* ListVeterinariesPage(), */
         PetsPage(),
         ListarCitasPage()
       ],
