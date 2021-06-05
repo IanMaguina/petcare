@@ -1,35 +1,12 @@
 import 'package:flutter/material.dart';
 
-class VeterinaryPage extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Veterinary(),
-    );
-  }
-}
-
-class Veterinary extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: VetDetail(),
-    );
-  }
-}
-
-class VetDetail extends StatefulWidget {
-  @override
-  _VetDetailState createState() => _VetDetailState();
-}
-
-class _VetDetailState extends State<VetDetail> {
+class VeterinaryDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text("Detalle Veterinaria"),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Wrap(
@@ -42,7 +19,8 @@ class _VetDetailState extends State<VetDetail> {
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                      fit: BoxFit.fill, image: AssetImage('assets/images/veterinary1.jpg'))),
+                      fit: BoxFit.fill,
+                      image: AssetImage('assets/images/veterinary1.jpg'))),
             ),
             Container(
               width: 170,
@@ -57,16 +35,20 @@ class _VetDetailState extends State<VetDetail> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text("Lima, Peru",
+                  Text(
+                    "Lima, Peru",
                     style: TextStyle(
                       fontSize: 12,
-                    ),),
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
-                    child: Text("Especial cuidado a tus mascotas",
+                    child: Text(
+                      "Especial cuidado a tus mascotas",
                       style: TextStyle(
                         fontSize: 12,
-                      ),),
+                      ),
+                    ),
                   )
                 ],
               ),
@@ -83,65 +65,64 @@ class _VetDetailState extends State<VetDetail> {
               child: Container(
                 height: 200,
                 alignment: Alignment.topLeft,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Nombres: Vet Pet",
-                        style: TextStyle(
-                        ),
-                      ),
-                      Text("Ciudad: Lima",
-                        style: TextStyle(
-                        ),
-                      ),
-                      Text("Telefono: 555-1234",
-                        style: TextStyle(
-                        ),
-                      ),
-                      Text("Email: vetpet@gmail.com",
-                        style: TextStyle(
-                        ),
-                      ),
-                      Text("Dirección: Av. Luis 515",
-                        style: TextStyle(
-                        ),
-                      ),
-                      Text("Celular: 987654321",
-                        style: TextStyle(
-                        ),
-                      ),
-                      Text("Descripción: Somos una veterinaria que "
-                          "le brindará un cuidado especial a tu mascota.",
-                        style: TextStyle(
-                        ),
-                      ),
-                    ],
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Nombres: Vet Pet",
+                      style: TextStyle(),
+                    ),
+                    Text(
+                      "Ciudad: Lima",
+                      style: TextStyle(),
+                    ),
+                    Text(
+                      "Telefono: 555-1234",
+                      style: TextStyle(),
+                    ),
+                    Text(
+                      "Email: vetpet@gmail.com",
+                      style: TextStyle(),
+                    ),
+                    Text(
+                      "Dirección: Av. Luis 515",
+                      style: TextStyle(),
+                    ),
+                    Text(
+                      "Celular: 987654321",
+                      style: TextStyle(),
+                    ),
+                    Text(
+                      "Descripción: Somos una veterinaria que "
+                      "le brindará un cuidado especial a tu mascota.",
+                      style: TextStyle(),
+                    ),
+                  ],
                 ),
               ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                    padding: EdgeInsets.only(top:8),
+                  padding: EdgeInsets.only(top: 8),
                   child: MaterialButton(
-
                     minWidth: 200,
                     height: 30,
                     color: Color.fromRGBO(57, 179, 179, 1.0),
                     textColor: Colors.white,
                     child: Text("Reservar Cita"),
-                    onPressed: (){},
+                    onPressed: () {
+                      Navigator.pushNamed(context, 'makeappointment');
+                    },
                   ),
                 ),
               ],
             )
-
           ],
         ),
       ),
-
     );
   }
 }

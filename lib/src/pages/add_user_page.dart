@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:petcare/src/models/user.dart';
+import 'package:petcare/src/providers/usuario_provider.dart';
 import 'package:petcare/src/utils/utils.dart' as utils;
-//import 'package:facturas/src/providers/usuario_provider.dart';
 
 class AddUserPage extends StatefulWidget {
   @override
@@ -13,7 +13,7 @@ class _AddUserPageState extends State<AddUserPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   User usuario = new User();
-  // final usuarioProvider = new UserService();
+  final usuarioProvider = new UsuarioProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -54,10 +54,10 @@ class _AddUserPageState extends State<AddUserPage> {
       validator: (value) {
         if (value.isEmpty) {
           return 'Contraseña es requerido';
-        }if (value.length < 3) {
-          return 'minimo 6 caracteres';
         }
-        else {
+        if (value.length < 3) {
+          return 'minimo 6 caracteres';
+        } else {
           return null;
         }
       },
@@ -73,10 +73,10 @@ class _AddUserPageState extends State<AddUserPage> {
       validator: (value) {
         if (value.isEmpty) {
           return 'Contraseña es requerido';
-        }if (value.length < 6) {
-          return 'minimo 6 caracteres';
         }
-         else {
+        if (value.length < 6) {
+          return 'minimo 6 caracteres';
+        } else {
           return null;
         }
       },
@@ -92,10 +92,10 @@ class _AddUserPageState extends State<AddUserPage> {
       validator: (value) {
         if (value.isEmpty) {
           return 'Contraseña es requerido';
-        }if (utils.isNumeric(value)) {
-          return null;
         }
-        else {
+        if (utils.isNumeric(value)) {
+          return null;
+        } else {
           return 'Solo numeros';
         }
       },
@@ -111,10 +111,10 @@ class _AddUserPageState extends State<AddUserPage> {
       validator: (value) {
         if (value.isEmpty) {
           return 'Contraseña es requerido';
-        }if (utils.isNumeric(value)) {
-          return null;
         }
-         else {
+        if (utils.isNumeric(value)) {
+          return null;
+        } else {
           return 'Solo numeros';
         }
       },
@@ -129,8 +129,8 @@ class _AddUserPageState extends State<AddUserPage> {
       onSaved: (value) => usuario.document = value as int,
       validator: (value) {
         if (value.isEmpty) {
-        return 'DNI es requerido';
-         }
+          return 'DNI es requerido';
+        }
         if (utils.isNumeric(value)) {
           return null;
         } else {
@@ -149,7 +149,7 @@ class _AddUserPageState extends State<AddUserPage> {
       validator: (value) {
         if (value.isEmpty) {
           return 'Contraseña es requerido';
-        }else {
+        } else {
           return null;
         }
       },
@@ -165,12 +165,11 @@ class _AddUserPageState extends State<AddUserPage> {
       onSaved: (value) => usuario.password = value,
       validator: (value) {
         if (value.isEmpty) {
-        return 'Contraseña es requerido';
-      }
+          return 'Contraseña es requerido';
+        }
         if (value.length < 6) {
           return 'debe tener 6 caracteres como minimo';
-        }
-       else {
+        } else {
           return null;
         }
       },
@@ -202,18 +201,13 @@ class _AddUserPageState extends State<AddUserPage> {
     }
     formkey.currentState.save();
 
+    Map info = await usuarioProvider.nuevoUsuario(usuario);
 
-    // Map info = await usuarioProvider.nuevoUsuario(usuario);
-
-    // print('todo ok');
-    // print(usuario.usuario);
-
-    /*  if (info['ok']) {
-      utils.mostrarAlerta(context,
-          'Se ha registrado correctamente, se ha enviado un código de activación a su correo. loguése nuevamente.');
-      //Navigator.pushReplacementNamed(context, '/');
+    if (info['ok']) {
+      utils.mostrarAlerta(context, "Se ha registrado correctamente al usuario");
+      Navigator.pop(context);
     } else {
       utils.mostrarAlerta(context, info['mensaje']);
-    } */
+    }
   }
 }

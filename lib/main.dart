@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:petcare/src/pages/appointment_page.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 import 'package:petcare/src/routes/routes.dart';
 import 'package:petcare/src/services/pets_service.dart';
@@ -16,38 +15,30 @@ void main() async {
   runApp(MyApp());
 }
 
-/* class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Material App',
-        debugShowCheckedModeBanner: false,
-        initialRoute: '/',
-        routes:
-        getApplicationRoutes(),
-        
-        theme: ThemeData(primaryColor: Colors.teal[700]));
-  }
-} */
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final prefs = new PreferenciasUsuario();
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => PetsService()),
-        ChangeNotifierProvider(create: (_) => VeterinaryService()),
         ChangeNotifierProvider(create: (_) => ServicesService()),
-        ChangeNotifierProvider(create: (_) => PetsService()),
+        //ChangeNotifierProvider(create: (_) => PetsService()),
       ],
       child: MaterialApp(
-          title: 'Material App',
+          title: 'Petcare',
           debugShowCheckedModeBanner: false,
           initialRoute: '/',
           routes: getApplicationRoutes(),
           theme: ThemeData(
               primaryColor: Color.fromRGBO(57, 179, 179, 1.0),
-              textTheme: TextTheme(button: TextStyle(color: Colors.white)))),
+              /* appBarTheme: AppBarTheme(
+                actionsIconTheme: IconThemeData(color: Colors.white),
+                titleTextStyle: TextStyle(color: Colors.white),
+              ), */
+/*               bottomAppBarColor: Color.fromRGBO(57, 179, 179, 0.3), */
+              textTheme: TextTheme(
+                  //subtitle1: TextStyle(color: Colors.white),
+                  button: TextStyle(color: Colors.white)))),
     );
   }
 }

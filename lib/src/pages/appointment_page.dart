@@ -1,25 +1,17 @@
 import 'package:flutter/material.dart';
 
-class Appointment extends StatelessWidget {
+class AppointmentPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: AppointmentDetail(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
+  _AppointmentPageState createState() => _AppointmentPageState();
 }
 
-class AppointmentDetail extends StatefulWidget {
-  @override
-  _AppointmentDetailState createState() => _AppointmentDetailState();
-}
-
-class _AppointmentDetailState extends State<AppointmentDetail> {
+class _AppointmentPageState extends State<AppointmentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text("Reserva de cita"),
+      ),
       body: ListView(
         children: [
           Container(
@@ -115,11 +107,14 @@ class _AppointmentDetailState extends State<AppointmentDetail> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                      Text(
-                        "Agendar Cita",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Agendar Cita",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: Container(
@@ -150,6 +145,7 @@ class _AppointmentDetailState extends State<AppointmentDetail> {
                                     child: MaterialButton(
                                       minWidth: 100,
                                       height: 30,
+                                      padding: EdgeInsets.all(10),
                                       color: Color.fromRGBO(57, 179, 179, 1.0),
                                       textColor: Colors.white,
                                       child: Text("Reservar Cita"),
@@ -161,10 +157,13 @@ class _AppointmentDetailState extends State<AppointmentDetail> {
                                     child: MaterialButton(
                                       minWidth: 100,
                                       height: 30,
+                                      padding: EdgeInsets.all(10),
                                       color: Colors.red,
                                       textColor: Colors.white,
                                       child: Text("Cancelar"),
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
                                     ),
                                   ),
                                 ],

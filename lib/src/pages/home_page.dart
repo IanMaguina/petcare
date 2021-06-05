@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:petcare/src/pages/ListarCitasPage.dart';
-import 'package:petcare/src/pages/list_veterinarias.dart';
-import 'package:petcare/src/pages/pets_page.dart';
+import 'package:petcare/src/pages/list_pet_page.dart';
 import 'package:petcare/src/pages/services_page.dart';
+import 'package:petcare/src/pages/user_perfil_page.dart';
 import 'package:provider/provider.dart';
-import 'package:petcare/src/widgets/custom_bottom_nav.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -13,13 +12,13 @@ class HomePage extends StatelessWidget {
       create: (_) => _NavegacionModel(),
       child: Scaffold(
         body: _Paginas(),
-        bottomNavigationBar: BottomBarScreen(),
+        bottomNavigationBar: _Navegacion(),
       ),
     );
   }
 }
 
-/* class _Navegacion extends StatelessWidget {
+class _Navegacion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navegacionModel = Provider.of<_NavegacionModel>(context);
@@ -30,15 +29,16 @@ class HomePage extends StatelessWidget {
         items: [
           BottomNavigationBarItem(
               backgroundColor: Color.fromRGBO(57, 179, 179, 1.0),
-              icon: Icon(Icons.new_releases),
-              label: 'Inicio'),
+              icon: Icon(Icons.medical_services),
+              label: 'Servicios'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.shop), label: 'Veterinarias'),
-          BottomNavigationBarItem(icon: Icon(Icons.pets), label: 'Mascotas'),
-          BottomNavigationBarItem(icon: Icon(Icons.dock), label: 'Citas'),
+              icon: Icon(Icons.pets), label: 'Mis Mascotas'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.date_range), label: 'Mis Citas'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
         ]);
   }
-} */
+}
 
 class _Paginas extends StatelessWidget {
   @override
@@ -51,9 +51,9 @@ class _Paginas extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
         ListServicesPage(),
-        /* ListVeterinariesPage(), */
-        PetsPage(),
-        ListarCitasPage()
+        ListPetPage(),
+        ListarCitasPage(),
+        UserInfoPage()
       ],
     );
   }

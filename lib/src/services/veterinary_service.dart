@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:petcare/src/models/veterinary.dart';
+import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
-final urlPetcare = "https://petcaremobileapi.azurewebsites.net/api";
+//production:
+//final urlPetcare = "https://petcaremobileapi.azurewebsites.net/api";
+//local:
+final urlPetcare = "https://localhost:44353/api";
 final apiKey = "";
-final token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjkiLCJuYmYiOjE2MjA0NzUzMDEsImV4cCI6MTYyMTA4MDEwMSwiaWF0IjoxNjIwNDc1MzAxfQ.5dznWV6mObQWEZfQ104bb_TY49bCvcmxGD4ZWg5QwQE';
+final _prefs = new PreferenciasUsuario();
 
 class VeterinaryService with ChangeNotifier {
   List<Veterinary> veterinarias = [];
@@ -17,7 +20,10 @@ class VeterinaryService with ChangeNotifier {
   getAllVeterinaries() async {
     //endPoint
     //var id = '7';
-    final url = '$urlPetcare/providers';
+    var token = _prefs.token;
+
+    final url = Uri.https('$urlPetcare', '/providers', {'q': '{http}'});
+
     final resp = await http.get(url, headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',

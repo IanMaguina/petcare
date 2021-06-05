@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:petcare/src/pages/ListarCitasPage.dart';
-import 'package:petcare/src/pages/pets_page.dart';
-import 'package:petcare/src/pages/services_page.dart';
+import 'package:petcare/src/pages/ListarCitasPage_vet.dart';
 import 'package:petcare/src/pages/subcription_page.dart';
-import 'package:petcare/src/pages/user_perfil.dart';
+import 'package:petcare/src/pages/user_perfil_page.dart';
+import 'package:petcare/src/pages/user_vet_perfil_page.dart';
 import 'package:provider/provider.dart';
 
 class HomeVetPage extends StatelessWidget {
@@ -28,7 +28,11 @@ class _Paginas extends StatelessWidget {
       //physics: BouncingScrollPhysics(),
       controller: navegacionModel.pageController,
       physics: NeverScrollableScrollPhysics(),
-      children: <Widget>[SubcriptionPage(), ListarCitasPage(), UserInfoPage()],
+      children: <Widget>[
+        SubcriptionPage(),
+        ListarCitasVetPage(),
+        UserVetInfoPage()
+      ],
     );
   }
 }

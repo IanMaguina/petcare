@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:petcare/src/models/service.dart';
+import 'package:petcare/src/services/service_service.dart';
 import 'package:petcare/src/utils/icon_string.dart';
 
 class ListServicesPage extends StatelessWidget {
+  //final servicesProvider = ServicesService();
+
   @override
   Widget build(BuildContext context) {
-    // final servicesService = Provider.of<ServicesService>(context);
     return Scaffold(
         body: SafeArea(
       top: true,
@@ -39,7 +42,7 @@ Widget _element(BuildContext context, String service, String icon) {
       color: Color.fromRGBO(57, 179, 179, 1),
     ),
     onTap: () {
-      Navigator.pushNamed(context, 'vetplaces');
+      Navigator.pushNamed(context, 'listvets');
     },
   );
 }

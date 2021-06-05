@@ -17,7 +17,7 @@ class _AddPetPageState extends State<AddPetPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Registro de Mascotas'),
+        title: Text('Registrar Mascota'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -64,7 +64,7 @@ class _AddPetPageState extends State<AddPetPage> {
     return TextFormField(
       initialValue: pet.sex,
       textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(labelText: 'Sexo'),
+      decoration: InputDecoration(labelText: 'Sexo (F) o (M)'),
       onSaved: (value) => pet.sex = value,
       validator: (value) {
         if (value.isEmpty) {
@@ -83,7 +83,7 @@ class _AddPetPageState extends State<AddPetPage> {
     return TextFormField(
       initialValue: pet.photo,
       textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(labelText: 'Nombre de mascota'),
+      decoration: InputDecoration(labelText: 'Url de imagen'),
       onSaved: (value) => pet.photo = value,
       validator: (value) {
         if (value.isEmpty) {
@@ -102,11 +102,11 @@ class _AddPetPageState extends State<AddPetPage> {
     return TextFormField(
       initialValue: pet.breed,
       textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(labelText: 'Apellido de Usuario'),
+      decoration: InputDecoration(labelText: 'Raza'),
       onSaved: (value) => pet.breed = value,
       validator: (value) {
         if (value.isEmpty) {
-          return 'Contraseña es requerido';
+          return 'Ingrese la Raza de su mascota';
         }
         if (value.length < 6) {
           return 'minimo 6 caracteres';
@@ -125,7 +125,7 @@ class _AddPetPageState extends State<AddPetPage> {
       onSaved: (value) => pet.age = value,
       validator: (value) {
         if (value.isEmpty) {
-          return 'Contraseña es requerido';
+          return 'Debe ingresar una Edad';
         }
         return null;
         /* if (utils.isNumeric(value)) {

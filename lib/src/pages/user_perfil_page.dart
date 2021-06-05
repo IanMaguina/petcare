@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:petcare/const/colors.dart';
-import 'listPet_page.dart';
 
 class UserInfoPage extends StatefulWidget {
   @override
@@ -88,7 +87,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                                 ),
                                 Text(
                                   // 'top.toString()',
-                                  'Guest',
+                                  'Usuario',
                                   style: TextStyle(
                                       fontSize: 20.0, color: Colors.white),
                                 ),
@@ -123,13 +122,13 @@ class _UserInfoPageState extends State<UserInfoPage> {
                       child: InkWell(
                         splashColor: Theme.of(context).splashColor,
                         child: ListTile(
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ListPet())),
-                          title: Text('PetList'),
+                          onTap: () => Navigator.pushNamed(context, 'listpet'),
+                          title: Text('Mis Mascotas'),
                           trailing: Icon(Icons.chevron_right_rounded),
-                          leading: Icon(Icons.pets),
+                          leading: Icon(
+                            Icons.pets,
+                            color: Color.fromRGBO(57, 179, 179, 1.0),
+                          ),
                         ),
                       ),
                     ),
@@ -140,10 +139,10 @@ class _UserInfoPageState extends State<UserInfoPage> {
                       thickness: 1,
                       color: Colors.grey,
                     ),
-                    userListTile('Email', 'Email sub', 0, context),
-                    userListTile('Phone number', '4555', 0, context),
-                    userListTile('gmail', '', 0, context),
-                    userListTile('joined date', 'date', 0, context),
+                    userListTile('Juan', 'Nombre', 0, context),
+                    userListTile('Email', 'Correo', 0, context),
+                    userListTile('64343135', 'Teléfono', 0, context),
+                    userListTile('05/06/2021', 'joined date', 0, context),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: userTitle('User settings'),
@@ -152,7 +151,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                       thickness: 1,
                       color: Colors.grey,
                     ),
-                    userListTile('Logout', '', 4, context),
+                    _logoutButton('Cerrar Sesión', '', 4, context),
                   ],
                 ),
               )
@@ -223,7 +222,28 @@ class _UserInfoPageState extends State<UserInfoPage> {
           onTap: () {},
           title: Text(title),
           subtitle: Text(subTitle),
-          leading: Icon(_userTileIcons[index]),
+          leading: Icon(_userTileIcons[index],
+              color: Color.fromRGBO(57, 179, 179, 1.0)),
+        ),
+      ),
+    );
+  }
+
+  Widget _logoutButton(
+      String title, String subTitle, int index, BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        splashColor: Theme.of(context).splashColor,
+        child: ListTile(
+          onTap: () {
+            //eliminar los datos de sharedPreference
+            Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+          },
+          title: Text(title),
+          subtitle: Text(subTitle),
+          leading: Icon(_userTileIcons[index],
+              color: Color.fromRGBO(57, 179, 179, 1.0)),
         ),
       ),
     );

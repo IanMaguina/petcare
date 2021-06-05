@@ -1,21 +1,51 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:petcare/src/models/user.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
-//production:
-//final urlPetcare = "https://petcaremobileapi.azurewebsites.net/api";
-//local:
 final urlPetcare = "https://localhost:44353/api";
 
-final _prefs = new PreferenciasUsuario();
-// token = _prefs.token();
-
-class UserService with ChangeNotifier {
+class UsuarioProvider {
   // final String _firebaseToken = 'AIzaSyAzIGZax6Pn30zGytZkwyXJdEmsKiRDRc8';
 
   final _prefs = new PreferenciasUsuario();
+
+  Future<Map<String, dynamic>> login(String email, String password) async {
+    final authData = {
+      'username': email,
+      'password': password,
+      // 'returnSecureToken' : true
+    };
+
+    try {
+      final url =
+          Uri.https('$urlPetcare', '/users/authenticate', {'q': '{http}'});
+
+      final resp = await http.post(url,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: json.encode(authData));
+
+      Map<String, dynamic> decodedResp = json.decode(resp.body);
+
+      // print( decodedResp );
+      if (resp.statusCode == 200) {
+        if (decodedResp.containsKey('token')) {
+          //TO DO: guardar el token en el storage
+          _prefs.token = decodedResp['token'];
+          _prefs.iduser = decodedResp['id'];
+
+          return {'ok': true, 'token': decodedResp['token']};
+        } else {
+          return {'ok': false, 'mensaje': "Error al loguearse"};
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   Future<Map<String, dynamic>> nuevoUsuario(User user) async {
     final data = {

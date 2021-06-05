@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'add_veterinary.dart';
 import 'package:petcare/src/utils/utils.dart' as utils;
 
-class Add_Vet extends StatelessWidget {
+class AddUserVetPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String name;
@@ -10,11 +10,10 @@ class Add_Vet extends StatelessWidget {
     String document;
     String email;
     String password;
-    //String photo;
     String phone;
     String age;
 
-    Widget _buildName(String value) {
+    Widget _buildName() {
       return TextFormField(
         decoration: InputDecoration(labelText: 'Nombre'),
         validator: (String value) {
@@ -33,7 +32,7 @@ class Add_Vet extends StatelessWidget {
       );
     }
 
-    Widget _buildLastName(String value) {
+    Widget _buildLastName() {
       return TextFormField(
         decoration: InputDecoration(labelText: 'Apellido'),
         validator: (String value) {
@@ -52,7 +51,7 @@ class Add_Vet extends StatelessWidget {
       );
     }
 
-    Widget _buildDocument(String value) {
+    Widget _buildDocument() {
       return TextFormField(
         decoration: InputDecoration(labelText: 'DNI'),
         validator: (String value) {
@@ -74,7 +73,7 @@ class Add_Vet extends StatelessWidget {
       );
     }
 
-    Widget _buildEmail(String value) {
+    Widget _buildEmail() {
       return TextFormField(
         decoration: InputDecoration(labelText: 'Email'),
         validator: (value) {
@@ -89,7 +88,7 @@ class Add_Vet extends StatelessWidget {
       );
     }
 
-    Widget _buildPassword(String value) {
+    Widget _buildPassword() {
       return TextFormField(
         decoration: InputDecoration(labelText: 'Contraseña'),
         validator: (String value) {
@@ -108,7 +107,7 @@ class Add_Vet extends StatelessWidget {
       );
     }
 
-    Widget _buildPhone(String value) {
+    Widget _buildPhone() {
       return TextFormField(
         decoration: InputDecoration(labelText: 'Telefono'),
         validator: (String value) {
@@ -127,7 +126,7 @@ class Add_Vet extends StatelessWidget {
       );
     }
 
-    Widget _buildAge(String value) {
+    Widget _buildAge() {
       return TextFormField(
         decoration: InputDecoration(labelText: 'Edad'),
         validator: (String value) {
@@ -159,13 +158,13 @@ class Add_Vet extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                _buildName(name),
-                _buildLastName(lastname),
-                _buildDocument(document),
-                _buildEmail(email),
-                _buildPassword(password),
-                _buildPhone(phone),
-                _buildAge(age),
+                _buildName(),
+                _buildLastName(),
+                _buildDocument(),
+                _buildEmail(),
+                _buildPassword(),
+                _buildPhone(),
+                _buildAge(),
                 SizedBox(height: 100),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(

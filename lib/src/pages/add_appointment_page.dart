@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AddDatePage extends StatelessWidget {
+class AddAppointmentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container();
