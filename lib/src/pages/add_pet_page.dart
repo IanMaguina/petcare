@@ -17,7 +17,7 @@ class _AddPetPageState extends State<AddPetPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Registro de Usuarios'),
+        title: Text('Registro de Mascotas'),
       ),
       body: SingleChildScrollView(
         child: Container(
