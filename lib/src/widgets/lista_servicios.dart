@@ -69,7 +69,7 @@ class ListServices extends StatelessWidget {
 
   _servicio() {
     return ListTile(
-      leading: Icon(Icons.shower),
+      leading: Icon(Icons.power),
     );
   }
 }
