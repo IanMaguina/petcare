@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-Service serviceFromJson(String str) => Service.fromJson(json.decode(str));
+List<Service> serviceFromJson(String str) =>
+    List<Service>.from(json.decode(str).map((x) => Service.fromJson(x)));
 
-String serviceToJson(Service data) => json.encode(data.toJson());
+String serviceToJson(List<Service> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Service {
   Service({
@@ -27,3 +29,19 @@ class Service {
         "name": name,
       };
 }
+
+//building autogen
+
+/* import 'package:json_annotation/json_annotation.dart';
+part 'service.g.dart';
+
+@JsonSerializable()
+class Service {
+  final int id;
+  final String name;
+  Service({this.id, this.name});
+  factory Service.fromJson(Map<String, dynamic> json) =>
+      _$ServiceFromJson(json);
+  Map<String, dynamic> toJson() => _$ServiceToJson(this);
+}
+ */

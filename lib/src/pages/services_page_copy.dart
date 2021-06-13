@@ -6,37 +6,38 @@ import 'package:petcare/src/utils/icon_string.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class ListServicesPage extends StatefulWidget {
+class ListServicesPageCopy extends StatefulWidget {
   @override
-  _ListServicesPageState createState() => _ListServicesPageState();
+  _ListServicesPageCopyState createState() => _ListServicesPageCopyState();
 }
 
-class _ListServicesPageState extends State<ListServicesPage> {
+class _ListServicesPageCopyState extends State<ListServicesPageCopy> {
   //final servicesServ = ServicesService();
   final _prefs = new PreferenciasUsuario();
 
-  String urlPetcare = "https://10.0.2.2:44353/api";
-  List data = [];
+  String urlPetcare = "https://192.168.56.1:44353/api";
+  List datalist = [];
+  dynamic data;
 
   Future<String> makeResquest() async {
     var token = _prefs.token;
 
     /* final url =
         Uri.https('$urlPetcare', '/dashboard/products-types', {'q': '{http}'}); */
-    final response = await http
-        .get(Uri.parse('$urlPetcare/dashboard/products-types'), headers: {
+    final response = await http.get(Uri.parse('$urlPetcare/people'), headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': 'Bearer $token'
     });
 
     setState(() {
-      var extractdata = json.decode(response.body);
-      data = extractdata;
+      var encodedata = json.encode(response.body);
+      var decodeData = json.decode(encodedata);
+      data = decodeData;
+      datalist.add(data);
     });
 
-    print("Nombre: " + data[0]["name"]);
-    return response.body.toString();
+    print("Nombre: " + datalist[0]["name"]);
+    return datalist.toString();
   }
 
   @override
@@ -47,9 +48,9 @@ class _ListServicesPageState extends State<ListServicesPage> {
 
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: data.length,
+      itemCount: datalist.length,
       itemBuilder: (BuildContext context, i) {
-        return _element(context, data[i]["name"].toString());
+        return _element(context, datalist[i]["name"].toString());
       },
     );
   }

@@ -1,75 +1,73 @@
 import 'package:flutter/material.dart';
-//import 'package:petcare/src/models/service.dart';
+import 'package:petcare/src/models/service.dart';
 
-/* class ListServices extends StatelessWidget {
+class ListaServicios extends StatelessWidget {
+  final List<Service> servicios;
 
-  //final List<Service> servicios;
-
-  List<Service> servicios = [];
-
-  /* {'id': 1, 'name': "Baños"} ,
-    {'id': 2, 'name': "Vacunaciones"},
-    {'id': 3, 'name': "Ortodoncia"}
-  ; */
-  //const ListServices(this.servicios);
+  ListaServicios(this.servicios);
 
   @override
   Widget build(BuildContext context) {
-    /*  this.servicios = [
-      {'id': 1, 'name': "Baños"},
-      {'id': 2, 'name': "Vacunaciones"},
-      {'id': 3, 'name': "Ortodoncia"}
-    ].to; */
-
-    return ListView.builder(
-      itemCount: this.servicios.length,
-      itemBuilder: (BuildContext context, int index) {
-        return _Servicio(servicio: this.servicios[index], index: index);
-      },
-    );
+    return Scaffold(
+        body: SafeArea(
+      top: true,
+      child: ListView.builder(
+        itemCount: this.servicios.length,
+        itemBuilder: (BuildContext context, int index) {
+          return _Servicio(
+            servicio: this.servicios[index],
+            index: index,
+          );
+        },
+        /*  children: [
+          _element(context, "Baños", "baño"),
+          Divider(),
+          _element(context, "Campaña de Vacunación", "vaccine"),
+          Divider(),
+          _element(context, "Profilaxis Dental", "dental"),
+          Divider(),
+          _element(context, "Consulta médica", "cita"),
+          Divider(),
+          _element(context, "Cultivo", "cultivo"),
+          Divider(),
+          _element(context, "Guarderia", "guarderia"),
+          Divider(),
+        ], */
+      ),
+    ));
   }
 }
 
 class _Servicio extends StatelessWidget {
   final Service servicio;
   final int index;
-
   const _Servicio({@required this.servicio, @required this.index});
+
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.all(10.0),
-      child: Container(
-        height: 120.0,
-        child: Column(children: <Widget>[
-          SizedBox(height: 5.0),
-          Text(servicio.name, style: TextStyle(fontSize: 20.0)),
-          Icon(
-            Icons.clear,
-            size: 10.0,
-          ),
-          SizedBox(height: 10.0),
-          ElevatedButton(child: Text('Buscar por Servicio'), onPressed: () {}),
-        ]),
-      ),
-    );
+    return _Element(servicio, index);
   }
 }
- */
 
-class ListServices extends StatelessWidget {
+class _Element extends StatelessWidget {
+  final Service servicio;
+  final int index;
+  const _Element(this.servicio, this.index);
+
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        _servicio(),
-      ],
-    );
-  }
-
-  _servicio() {
     return ListTile(
-      leading: Icon(Icons.power),
+      //leading: getIcon(icon),
+      contentPadding: EdgeInsets.all(10),
+      title: Text('${servicio.name}'),
+      hoverColor: Color.fromRGBO(57, 179, 179, 0.3),
+      trailing: Icon(
+        Icons.arrow_forward_ios,
+        color: Color.fromRGBO(57, 179, 179, 1),
+      ),
+      onTap: () {
+        Navigator.pushNamed(context, 'listvets');
+      },
     );
   }
 }

@@ -1,13 +1,26 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:petcare/src/models/service.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 import 'dart:convert';
 
 //production:
 //final urlPetcare = "https://petcaremobileapi.azurewebsites.net/api";
 //local:
-final urlPetcare = "https://localhost:44353/api";
+//final urlPetcare = 'https://10.0.2.2:44353/api';
+
+//localhost
+String get urlPetcare {
+  if (Platform.isAndroid) {
+    return 'https://10.0.2.2:5001/api';
+  } else {
+    return 'https://localhost:5001/api';
+  }
+}
+
+//final urlPetcare = "https://10.0.2.2:44353/api";
 final apiKey = "";
 final _prefs = new PreferenciasUsuario();
 
@@ -18,36 +31,28 @@ class ServicesService with ChangeNotifier {
     this.getServices();
   }
 
-  getServices() async {
+  Future<void> getServices() async {
     //endPoint
     //var id = '7';
     var token = _prefs.token;
-    final url =
-        Uri.https('$urlPetcare', '/dashboard/products-types', {'q': '{http}'});
-    final resp = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token'
-    });
+
+    final headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    };
+
+    final url = Uri.parse('$urlPetcare/dashboard/products-types');
+
+    Response resp = await get(url, headers: headers);
+
     var data;
 
     if (resp.statusCode == 200) {
       if (resp.body.isNotEmpty) {
         data = serviceFromJson(resp.body);
-        notifyListeners();
         this.servicios.addAll(data);
+        notifyListeners();
       }
     }
-  }
-
-  Future<String> makeResquest() async {
-    var token = _prefs.token;
-    var response = await http
-        .get(Uri.parse('$urlPetcare/dashboard/products-types'), headers: {
-      'Accept': 'Application/json',
-      'Authorization': 'Bearer $token'
-    });
-
-    var extractdata = json.decode(response.body);
   }
 }
