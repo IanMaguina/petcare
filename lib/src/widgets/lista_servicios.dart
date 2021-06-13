@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:petcare/src/models/service.dart';
+import 'package:petcare/src/models/type_service.dart';
 
 class ListaServicios extends StatelessWidget {
-  final List<Service> servicios;
+  final List<TypeService> servicios;
 
   ListaServicios(this.servicios);
 
@@ -39,7 +39,7 @@ class ListaServicios extends StatelessWidget {
 }
 
 class _Servicio extends StatelessWidget {
-  final Service servicio;
+  final TypeService servicio;
   final int index;
   const _Servicio({@required this.servicio, @required this.index});
 
@@ -50,7 +50,7 @@ class _Servicio extends StatelessWidget {
 }
 
 class _Element extends StatelessWidget {
-  final Service servicio;
+  final TypeService servicio;
   final int index;
   const _Element(this.servicio, this.index);
 

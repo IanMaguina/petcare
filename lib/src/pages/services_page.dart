@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:petcare/src/models/service.dart';
+import 'package:petcare/src/models/type_service.dart';
 import 'package:petcare/src/services/service_service.dart';
 import 'package:petcare/src/utils/icon_string.dart';
 

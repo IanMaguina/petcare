@@ -1,10 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:petcare/src/models/service.dart';
+import 'package:petcare/src/models/type_service.dart';
 import 'package:http/http.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
-import 'dart:convert';
 
 //production:
 //final urlPetcare = "https://petcaremobileapi.azurewebsites.net/api";
@@ -20,12 +19,11 @@ String get urlPetcare {
   }
 }
 
-//final urlPetcare = "https://10.0.2.2:44353/api";
-final apiKey = "";
+//final apiKey = "";
 final _prefs = new PreferenciasUsuario();
 
 class ServicesService with ChangeNotifier {
-  List<Service> servicios = [];
+  List<TypeService> servicios = [];
 
   ServicesService() {
     this.getServices();
@@ -49,7 +47,7 @@ class ServicesService with ChangeNotifier {
 
     if (resp.statusCode == 200) {
       if (resp.body.isNotEmpty) {
-        data = serviceFromJson(resp.body);
+        data = typeServiceFromJson(resp.body);
         this.servicios.addAll(data);
         notifyListeners();
       }

@@ -1,17 +1,17 @@
 // To parse this JSON data, do
 //
-//     final service = serviceFromJson(jsonString);
+//     final typeService = typeServiceFromJson(jsonString);
 
 import 'dart:convert';
 
-List<Service> serviceFromJson(String str) =>
-    List<Service>.from(json.decode(str).map((x) => Service.fromJson(x)));
+List<TypeService> typeServiceFromJson(String str) => List<TypeService>.from(
+    json.decode(str).map((x) => TypeService.fromJson(x)));
 
-String serviceToJson(List<Service> data) =>
+String typeServiceToJson(List<TypeService> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Service {
-  Service({
+class TypeService {
+  TypeService({
     this.id,
     this.name,
   });
@@ -19,7 +19,7 @@ class Service {
   int id;
   String name;
 
-  factory Service.fromJson(Map<String, dynamic> json) => Service(
+  factory TypeService.fromJson(Map<String, dynamic> json) => TypeService(
         id: json["id"],
         name: json["name"],
       );
