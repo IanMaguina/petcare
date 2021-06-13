@@ -1,59 +1,72 @@
 // To parse this JSON data, do
 //
-//     final headHistoryPet = headHistoryPetFromJson(jsonString);
+//     final headerPetProfile = headerPetProfileFromJson(jsonString);
 
 import 'dart:convert';
 
-HeadHistoryPet headHistoryPetFromJson(String str) =>
-    HeadHistoryPet.fromJson(json.decode(str));
+HeaderPetProfile headerPetProfileFromJson(String str) =>
+    HeaderPetProfile.fromJson(json.decode(str));
 
-String headHistoryPetToJson(HeadHistoryPet data) => json.encode(data.toJson());
+String headerPetProfileToJson(HeaderPetProfile data) =>
+    json.encode(data.toJson());
 
-class HeadHistoryPet {
-  HeadHistoryPet({
-    this.createAt,
+class HeaderPetProfile {
+  HeaderPetProfile({
+    this.id,
+    this.name,
+    this.weight,
+    this.height,
+    this.lenght,
+    this.eyes,
+    this.breed,
+    this.sex,
+    this.color,
     this.description,
-    this.type,
-    this.action,
-    this.idVeterinaria,
-    this.idVetUser,
-    this.idUser,
-    this.idPet,
-    this.idPetProfile,
+    this.photo,
+    this.age,
   });
 
-  DateTime createAt;
+  int id;
+  String name;
+  String weight;
+  String height;
+  String lenght;
+  String eyes;
+  String breed;
+  String sex;
+  String color;
   String description;
-  String type;
-  String action;
-  int idVeterinaria;
-  int idVetUser;
-  int idUser;
-  int idPet;
-  int idPetProfile;
+  String photo;
+  String age;
 
-  factory HeadHistoryPet.fromJson(Map<String, dynamic> json) => HeadHistoryPet(
-        createAt: DateTime.parse(json["CreateAt"]),
+  factory HeaderPetProfile.fromJson(Map<String, dynamic> json) =>
+      HeaderPetProfile(
+        id: json["id"],
+        name: json["name"],
+        weight: json["weight"],
+        height: json["height"],
+        lenght: json["lenght"],
+        eyes: json["eyes"],
+        breed: json["breed"],
+        sex: json["sex"],
+        color: json["color"],
         description: json["description"],
-        type: json["type"],
-        action: json["action"],
-        idVeterinaria: json["id_veterinaria"],
-        idVetUser: json["id_vet_user"],
-        idUser: json["id_user"],
-        idPet: json["id_pet"],
-        idPetProfile: json["id_pet_profile"],
+        photo: json["photo"],
+        age: json["age"],
       );
 
   Map<String, dynamic> toJson() => {
-        "CreateAt":
-            "${createAt.year.toString().padLeft(4, '0')}-${createAt.month.toString().padLeft(2, '0')}-${createAt.day.toString().padLeft(2, '0')}",
+        "id": id,
+        "name": name,
+        "weight": weight,
+        "height": height,
+        "lenght": lenght,
+        "eyes": eyes,
+        "breed": breed,
+        "sex": sex,
+        "color": color,
         "description": description,
-        "type": type,
-        "action": action,
-        "id_veterinaria": idVeterinaria,
-        "id_vet_user": idVetUser,
-        "id_user": idUser,
-        "id_pet": idPet,
-        "id_pet_profile": idPetProfile,
+        "photo": photo,
+        "age": age,
       };
 }

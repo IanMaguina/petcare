@@ -1,17 +1,18 @@
 // To parse this JSON data, do
 //
-//     final historial = historialFromJson(jsonString);
+//     final historyItem = historyItemFromJson(jsonString);
 
 import 'dart:convert';
 
-HistoryItem historialFromJson(String str) =>
+HistoryItem historyItemFromJson(String str) =>
     HistoryItem.fromJson(json.decode(str));
 
-String historialToJson(HistoryItem data) => json.encode(data.toJson());
+String historyItemToJson(HistoryItem data) => json.encode(data.toJson());
 
 class HistoryItem {
   HistoryItem({
-    this.createAt,
+    this.id,
+    this.dateTime,
     this.description,
     this.type,
     this.action,
@@ -22,7 +23,8 @@ class HistoryItem {
     this.idPetProfile,
   });
 
-  DateTime createAt;
+  int id;
+  DateTime dateTime;
   String description;
   String type;
   String action;
@@ -33,7 +35,8 @@ class HistoryItem {
   int idPetProfile;
 
   factory HistoryItem.fromJson(Map<String, dynamic> json) => HistoryItem(
-        createAt: DateTime.parse(json["CreateAt"]),
+        id: json["id"],
+        dateTime: DateTime.parse(json["dateTime"]),
         description: json["description"],
         type: json["type"],
         action: json["action"],
@@ -45,8 +48,8 @@ class HistoryItem {
       );
 
   Map<String, dynamic> toJson() => {
-        "CreateAt":
-            "${createAt.year.toString().padLeft(4, '0')}-${createAt.month.toString().padLeft(2, '0')}-${createAt.day.toString().padLeft(2, '0')}",
+        "id": id,
+        "dateTime": dateTime.toIso8601String(),
         "description": description,
         "type": type,
         "action": action,
