@@ -31,7 +31,7 @@ dependencies:
   flutter_icons: ^1.1.0
   flutter_svg: ^0.22.0
   http: ^0.13.3
-  shared_preferences: ^2.0.6
+  shared_preferences: ^0.5.7+3
   rxdart: ^0.27.1
   list_tile_switch: ^1.0.0
   font_awesome_flutter: ^9.0.0
