@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
+import 'package:petcare/src/providers/usuario_provider.dart';
 import 'package:petcare/src/routes/routes.dart';
 import 'package:petcare/src/services/service_service.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
           title: 'Petcare',
           debugShowCheckedModeBanner: false,
-          initialRoute: 'test',
+          initialRoute: '/',
           routes: getApplicationRoutes(),
           theme: ThemeData(
               primaryColor: Color.fromRGBO(57, 179, 179, 1.0),
