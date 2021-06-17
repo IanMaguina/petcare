@@ -19,6 +19,7 @@ class Uservet {
     this.phone,
     this.age,
     this.photo,
+    this.owner
   });
 
   int id;
@@ -30,8 +31,10 @@ class Uservet {
   int phone;
   int age;
   String photo;
+  bool owner;
 
-  factory Uservet.fromJson(Map<String, dynamic> json) => Uservet(
+  factory Uservet.fromJson(Map<String, dynamic> json) {
+    return Uservet(
         id: json["id"],
         name: json["name"],
         lastName: json["lastName"],
@@ -41,9 +44,12 @@ class Uservet {
         phone: json["phone"],
         age: json["age"],
         photo: json["photo"],
+        owner: json["owner"],
       );
+}
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() {
+    return{
         "id": id,
         "name": name,
         "lastName": lastName,
@@ -53,5 +59,7 @@ class Uservet {
         "phone": phone,
         "age": age,
         "photo": photo,
-      };
+        "owner":owner,
+    };
+  }
 }

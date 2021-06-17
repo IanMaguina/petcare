@@ -7,7 +7,7 @@ final apiKey = "";
 final token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjkiLCJuYmYiOjE2MjA0NTIxOTgsImV4cCI6MTYyMTA1Njk5OCwiaWF0IjoxNjIwNDUyMTk4fQ.G-jOetqvYbgACErTLsF3iimKNKeHSZooUXX0YH8LXFI";
 
-class VetService with ChangeNotifier {
+class VetService2 with ChangeNotifier {
   List<Uservet> vets = [];
 
   VetService() {

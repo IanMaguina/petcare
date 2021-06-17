@@ -3,18 +3,19 @@ import 'dart:convert';
 
 import 'package:petcare/src/models/api_response.dart';
 import 'package:http/http.dart' as http;
+import 'package:petcare/src/models/region.dart';
 import 'package:petcare/src/models/uservet.dart';
 
-class UservService {
+class RegionService {
   static const API = 'https://localhost:44353/api';
   static const headers = {
     // 'apiKey': '08d771e2-7c49-1789-0eaa-32aff09f1471',
     'Content-Type': 'application/json'
   };
 
-  Future<APIResponse<bool>> createUserv(Uservet item) {
+  Future<APIResponse<bool>> createRegion(Region item) {
     return http.post(
-        API + '/business', headers: headers, body: json.encode(item.toJson()))
+        API + '/regions', headers: headers, body: json.encode(item.toJson()))
         .then((data) {
       if (data.statusCode == 201) {
         return APIResponse<bool>(data: true);
@@ -26,39 +27,39 @@ class UservService {
   }
 
 
-  Future<APIResponse<List<Uservet>>> getUservetsList() {
+  Future<APIResponse<List<Region>>> getRegionsList() {
     return http.get(API + '/business', headers: headers).then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
-        final notes = <Uservet>[];
+        final notes = <Region>[];
         for (var item in jsonData) {
-          notes.add(Uservet.fromJson(item));
+          notes.add(Region.fromJson(item));
         }
-        return APIResponse<List<Uservet>>(data: notes);
+        return APIResponse<List<Region>>(data: notes);
       }
-      return APIResponse<List<Uservet>>(
+      return APIResponse<List<Region>>(
           error: true, errorMessage: 'An error occured');
     })
         .catchError((_) => APIResponse<List<Uservet>>(
         error: true, errorMessage: 'An error occured'));
   }
 
-  Future<APIResponse<Uservet>> getUservet(String uvID) {
-    return http.get(API + '/business' + uvID, headers: headers).then((data) {
+  Future<APIResponse<Region>> getRegion(String uvID) {
+    return http.get(API + '/regions' + uvID, headers: headers).then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
-        return APIResponse<Uservet>(data: Uservet.fromJson(jsonData));
+        return APIResponse<Region>(data: Region.fromJson(jsonData));
       }
-      return APIResponse<Uservet>(
+      return APIResponse<Region>(
           error: true, errorMessage: 'An error occured');
     })
         .catchError((_) =>
-        APIResponse<Uservet>(error: true, errorMessage: 'An error occured'));
+        APIResponse<Region>(error: true, errorMessage: 'An error occured'));
   }
 
 
-  Future<APIResponse<bool>> updateUservet(String uvID, Uservet item) {
-    return http.put(API + '/business' + uvID, headers: headers,
+  Future<APIResponse<bool>> updateRegion(String uvID, Region item) {
+    return http.put(API + '/regions' + uvID, headers: headers,
         body: json.encode(item.toJson())).then((data) {
       if (data.statusCode == 204) {
         return APIResponse<bool>(data: true);
