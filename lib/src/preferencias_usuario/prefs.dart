@@ -33,14 +33,16 @@ class PreferenciasUsuario {
   set iduser(int value) {
     _prefs.setInt('iduser', value);
   }
-/*   get user {
+
+  get user {
     return _prefs.getString('user') ?? '';
-  } 
-  set user( String value ) {
+  }
+
+  set user(String value) {
     _prefs.setString('user', value);
   }
 
-  
+  /* 
   get pass {
     return _prefs.getString('pass') ?? '';
   } 

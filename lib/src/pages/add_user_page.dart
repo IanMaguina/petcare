@@ -16,6 +16,24 @@ class _AddUserPageState extends State<AddUserPage> {
   final usuarioProvider = new UsuarioProvider();
 
   @override
+  void initState() {
+    /*    usuario = {
+      'id': '',
+      'name': '',
+      'lastname': '',
+      'document': '',
+      'email': '',
+      'password': '',
+      'phone': '',
+      'age': '',
+      'photo': ''
+    }; */
+
+    super.initState();
+    //aqui iria el bloc a inicializar para no obtener un null references
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -88,7 +106,7 @@ class _AddUserPageState extends State<AddUserPage> {
       initialValue: usuario.phone.toString(),
       keyboardType: TextInputType.number,
       decoration: InputDecoration(labelText: 'telefono'),
-      onSaved: (value) => usuario.phone = value as int,
+      onSaved: (value) => usuario.phone = int.parse(value),
       validator: (value) {
         if (value.isEmpty) {
           return 'Contraseña es requerido';
@@ -107,7 +125,7 @@ class _AddUserPageState extends State<AddUserPage> {
       initialValue: usuario.age.toString(),
       keyboardType: TextInputType.number,
       decoration: InputDecoration(labelText: 'Edad'),
-      onSaved: (value) => usuario.age = value as int,
+      onSaved: (value) => usuario.age = int.parse(value),
       validator: (value) {
         if (value.isEmpty) {
           return 'Contraseña es requerido';
@@ -123,10 +141,12 @@ class _AddUserPageState extends State<AddUserPage> {
 
   Widget _crearDNI() {
     return TextFormField(
-      initialValue: '${usuario.document}',
+      initialValue: usuario.document.toString(),
       keyboardType: TextInputType.number,
+      textCapitalization: TextCapitalization.characters,
       decoration: InputDecoration(labelText: 'DNI'),
-      onSaved: (value) => usuario.document = value as int,
+      onSaved: (value) => usuario.document = int.parse(value),
+      maxLength: 8,
       validator: (value) {
         if (value.isEmpty) {
           return 'DNI es requerido';

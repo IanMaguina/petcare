@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:petcare/src/bloc/login_bloc.dart';
+import 'package:petcare/src/bloc/provider.dart';
+import 'package:petcare/src/providers/usuario_provider.dart';
+import 'package:petcare/src/utils/utils.dart';
 
 class LoginUserWidget extends StatelessWidget {
   @override
@@ -9,6 +13,7 @@ class LoginUserWidget extends StatelessWidget {
   }
 
   _formulario(BuildContext context) {
+    // final bloc = (Provider.of(context) == null) ? '' : Provider.of(context);
     final size = MediaQuery.of(context).size;
 
     return SingleChildScrollView(
@@ -38,14 +43,17 @@ class LoginUserWidget extends StatelessWidget {
                 SizedBox(
                   height: 60.0,
                 ),
+/*                 _emailUsuario(bloc), */
                 _emailUsuario(),
                 SizedBox(
                   height: 30.0,
                 ),
+                /* _passwordUsuario(bloc), */
                 _passwordUsuario(),
                 SizedBox(
                   height: 30.0,
                 ),
+                /* _botonLogin(bloc), */
                 _botonLogin(),
               ],
             ),
@@ -60,8 +68,10 @@ class LoginUserWidget extends StatelessWidget {
     );
   }
 
+  /* _emailUsuario(LoginBloc bloc) { */
   _emailUsuario() {
     return StreamBuilder(
+      // stream: bloc.emailStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -72,9 +82,10 @@ class LoginUserWidget extends StatelessWidget {
                   color: Color.fromRGBO(57, 179, 179, 1.0)),
               hintText: 'ingrese su email',
               labelText: 'Usuario',
-              // counterText: snapshot.data,
+              //counterText: snapshot.data,
               // errorText: snapshot.error
             ),
+            //onChanged: bloc.changeEmail
           ),
         );
       },
@@ -83,6 +94,7 @@ class LoginUserWidget extends StatelessWidget {
 
   _passwordUsuario() {
     return StreamBuilder(
+      // stream: bloc.passwordStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -94,6 +106,7 @@ class LoginUserWidget extends StatelessWidget {
                 labelText: 'Contraseña',
                 // counterText: snapshot.data,
                 errorText: snapshot.error),
+            // onChanged: bloc.changePassword
           ),
         );
       },
@@ -103,6 +116,7 @@ class LoginUserWidget extends StatelessWidget {
 
 _botonLogin() {
   return StreamBuilder(
+    //stream: bloc.formValidStream,
     builder: (BuildContext context, AsyncSnapshot snapshot) {
       return ElevatedButton(
           child: Container(
@@ -116,13 +130,22 @@ _botonLogin() {
             primary: Color.fromRGBO(57, 179, 179, 1.0),
             textStyle: TextStyle(color: Colors.white),
           ),
-          onPressed: () {
-            // final route =
-            //     MaterialPageRoute(builder: (context) => home());
+          onPressed: () {}
+          /* 
+          snapshot.hasData ? () => _login(bloc, context) : null */
 
-            //Navigator.push(context, route);
-            Navigator.pushNamed(context, 'home');
-          });
+          );
     },
   );
 }
+
+/* _login(LoginBloc bloc, BuildContext context) async {
+  Map info = await UsuarioProvider().login(bloc.email, bloc.password);
+
+  if (info['ok']) {
+    Navigator.pushReplacementNamed(context, 'home');
+  } else {
+    mostrarAlerta(context, info['mensaje']);
+  }
+  // Navigator.pushReplacementNamed(context, 'home');
+} */

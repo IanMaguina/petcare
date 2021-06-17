@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:petcare/src/models/login_response.dart';
 import 'package:petcare/src/models/user.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
@@ -21,39 +22,43 @@ class UsuarioProvider {
   final _prefs = new PreferenciasUsuario();
 
   Future<Map<String, dynamic>> login(String email, String password) async {
+    LoginResponse data;
     final authData = {
-      'username': email,
-      'password': password,
+      'usuario': email,
+      'pass': password,
       // 'returnSecureToken' : true
     };
 
+    final headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      /* HttpHeaders.authorizationHeader: 'Bearer $token', */
+    };
+    final url = Uri.parse('$urlPetcare/users/authenticate');
+
     try {
-      final url =
-          Uri.https('$urlPetcare', '/users/authenticate', {'q': '{http}'});
+      http.Response resp =
+          await http.post(url, headers: headers, body: json.encode(authData));
+      /*  http.Response resp = await http.post(url, headers: headers); */
 
-      final resp = await http.post(url,
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: json.encode(authData));
+      //Map<String, dynamic> decodedResp = json.decode(resp.body);
 
-      Map<String, dynamic> decodedResp = json.decode(resp.body);
-
-      // print( decodedResp );
       if (resp.statusCode == 200) {
-        if (decodedResp.containsKey('token')) {
-          //TO DO: guardar el token en el storage
-          _prefs.token = decodedResp['token'];
-          _prefs.iduser = decodedResp['id'];
-
-          return {'ok': true, 'token': decodedResp['token']};
+        if (resp.body.contains('token')) {
+          data = loginResponseFromJson(resp.body);
+          _prefs.token = data.token;
+          _prefs.iduser = data.id;
+          _prefs.user = data.username;
+          return {'ok': true, 'mensaje': 'Login exitoso'};
         } else {
-          return {'ok': false, 'mensaje': "Error al loguearse"};
+          return {
+            'ok': false,
+            'mensaje': 'Hubo un error en los datos de acceso'
+          };
         }
       }
     } catch (e) {
       print(e);
+      return {'ok': false, 'mensaje': 'Hubo un error en los datos de acceso'};
     }
   }
 
