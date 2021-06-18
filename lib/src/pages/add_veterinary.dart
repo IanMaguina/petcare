@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:petcare/src/models/api_response.dart';
@@ -18,8 +19,17 @@ import 'login_page.dart';
 class  Add_Veterinary extends StatefulWidget {
   final Uservet data;
   Add_Veterinary({this.data});
+=======
+//import 'package:petcare/src/pages/welcome_page.dart';
+//import 'package:petcare/src/widgets/login_uservet_widget.dart';
+
+import 'login_page.dart';
+
+class Add_Veterinary extends StatelessWidget {
+>>>>>>> test_william
   @override
 
+<<<<<<< HEAD
   _Add_VeterinaryState createState() => _Add_VeterinaryState(data: data);
 }
 class _Add_VeterinaryState extends State<Add_Veterinary> {
@@ -78,12 +88,25 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
           else {
             return null;
           }
+=======
+    Widget _buildBusinessName() {
+      return TextFormField(
+        decoration: InputDecoration(labelText: 'Nombre de Veterinaria'),
+        validator: (String value) {
+          if (value.isEmpty) {
+            return 'Nombre de Veterinaria es requerida';
+          }
+        },
+        onSaved: (String value) {
+          businessname = value;
+>>>>>>> test_william
         },
       );
     }
 
     Widget _buildRegion() {
       return TextFormField(
+<<<<<<< HEAD
         initialValue: vet.region,
         textCapitalization: TextCapitalization.sentences,
         decoration: InputDecoration(labelText: 'Region'),
@@ -97,10 +120,21 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
           else {
             return null;
           }
+=======
+        decoration: InputDecoration(labelText: 'Region'),
+        validator: (String value) {
+          if (value.isEmpty) {
+            return 'Region es requerida';
+          }
+        },
+        onSaved: (String value) {
+          region = value;
+>>>>>>> test_william
         },
       );
     }
 
+<<<<<<< HEAD
 
 /*
     void Elistregion()async{
@@ -135,6 +169,18 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
           setState(() {
             vet.region= newValue;
           });
+=======
+    Widget _buildField() {
+      return TextFormField(
+        decoration: InputDecoration(labelText: 'Campo'),
+        validator: (String value) {
+          if (value.isEmpty) {
+            return 'Campo es requerido';
+          }
+        },
+        onSaved: (String value) {
+          field = value;
+>>>>>>> test_william
         },
         items:listreg.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
@@ -144,6 +190,7 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
         }).toList(),
       );
     }
+<<<<<<< HEAD
     ;
 */
 
@@ -154,12 +201,20 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
         decoration: InputDecoration(labelText: 'Email'),
         onSaved: (value) => vet.email = value,
         validator: (value) {
+=======
+
+    Widget _buildEmail() {
+      return TextFormField(
+        decoration: InputDecoration(labelText: 'Email'),
+        validator: (String value) {
+>>>>>>> test_william
           if (value.isEmpty) {
             return 'Email es requerido';
           }else {
             return null;
           }
         },
+<<<<<<< HEAD
       );
     }
     Widget _buildField() {
@@ -205,6 +260,32 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
         decoration: InputDecoration(labelText: 'Descripcion'),
         onSaved: (value) => vet.description = value,
         validator: (value) {
+=======
+        onSaved: (String value) {
+          email = value;
+        },
+      );
+    }
+
+    Widget _buildAddress() {
+      return TextFormField(
+        decoration: InputDecoration(labelText: 'Direccion'),
+        validator: (String value) {
+          if (value.isEmpty) {
+            return 'Direccion es requerida';
+          }
+        },
+        onSaved: (String value) {
+          address = value;
+        },
+      );
+    }
+
+    Widget _buildDescription() {
+      return TextFormField(
+        decoration: InputDecoration(labelText: 'Descripcion '),
+        validator: (String value) {
+>>>>>>> test_william
           if (value.isEmpty) {
             return 'Descripcion es requerido';
           }if (value.length < 6) {
@@ -214,6 +295,7 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
             return null;
           }
         },
+<<<<<<< HEAD
       );
     }
 
@@ -376,10 +458,15 @@ class Add_Veterinary extends StatelessWidget{
 
           //PostData(uservet);
           _submit(context);
+=======
+        onSaved: (String value) {
+          description = value;
+>>>>>>> test_william
         },
       );
     }
 
+<<<<<<< HEAD
     void _submit(BuildContext context) async {
       if (!formkey.currentState.validate()) {
         return;
@@ -391,49 +478,56 @@ class Add_Veterinary extends StatelessWidget{
       formkey.currentState.save();
 
     }
+=======
+>>>>>>> test_william
     return Scaffold(
-      appBar: AppBar(title: Text('Registrar Veterinaria'
-        , style: TextStyle(color: Colors.white) ,
-           ),
-      )
-      ,
-      body: SingleChildScrollView(
-        child :Container(
-          margin: EdgeInsets.all(50),
-          child: Form(child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              _buildBusinessName(),
-              _buildRegion(),
-              _buildField(),
-              _buildEmail(),
-              _buildAddress(),
-              _buildDescription(),
-
-              SizedBox(height: 100),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  primary: Color.fromRGBO(57, 179, 179, 1.0),
-                  textStyle: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-                label: Text('Registrar'),
-                icon: Icon(Icons.save),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder:(context)=>LoginPage(),
-                  ));
-                },
-              )
-            ],
-          ),),
+      appBar: AppBar(
+        title: Text(
+          'Registrar Veterinaria',
+          style: TextStyle(color: Colors.white),
         ),
-
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.all(50),
+          child: Form(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                _buildBusinessName(),
+                _buildRegion(),
+                _buildField(),
+                _buildEmail(),
+                _buildAddress(),
+                _buildDescription(),
+                SizedBox(height: 100),
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    primary: Color.fromRGBO(57, 179, 179, 1.0),
+                    textStyle: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  label: Text('Registrar'),
+                  icon: Icon(Icons.save),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => LoginPage(),
+                    ));
+                  },
+                )
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
+<<<<<<< HEAD
 }*/
+=======
+}
+>>>>>>> test_william

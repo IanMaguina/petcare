@@ -28,6 +28,8 @@ class _LoginPageState extends State<LoginPage>
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        toolbarHeight: 55,
+        backgroundColor: Color.fromRGBO(57, 179, 179, 0.6),
         titleTextStyle: TextStyle(color: Colors.white),
         bottom: getTabBar(),
       ),
@@ -49,7 +51,7 @@ class _LoginPageState extends State<LoginPage>
 
   TabBar getTabBar() {
     return TabBar(
-      labelStyle: TextStyle(color: Colors.white, fontSize: 18.0),
+      labelStyle: TextStyle(fontSize: 18.0),
       tabs: <Tab>[
         Tab(
           text: "Usuarios",

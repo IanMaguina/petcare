@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:petcare/src/models/pet.dart';
+import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
-final urlPetcare = "https://petcaremobileapi.azurewebsites.net/api";
+//production:
+//final urlPetcare = "https://petcaremobileapi.azurewebsites.net/api";
+//local:
+final urlPetcare = "https://localhost:44353/api";
 final apiKey = "";
-final token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjkiLCJuYmYiOjE2MjA0NTIxOTgsImV4cCI6MTYyMTA1Njk5OCwiaWF0IjoxNjIwNDUyMTk4fQ.G-jOetqvYbgACErTLsF3iimKNKeHSZooUXX0YH8LXFI";
+
+final _prefs = new PreferenciasUsuario();
 
 class PetsService with ChangeNotifier {
-  List<Pets> listadoPets = [];
+  List<Pet> listadoPets = [];
 
   PetsService() {
     this.getPetByCustomerId();
@@ -16,8 +20,10 @@ class PetsService with ChangeNotifier {
 
   getPetByCustomerId() async {
     //endPoint
-    var id = '7';
-    final url = '$urlPetcare/people/$id/pets';
+    var id = _prefs.iduser;
+    var token = _prefs.token;
+
+    final url = Uri.https('$urlPetcare', '/people/$id/pets', {'q': '{http}'});
     final resp = await http.get(url, headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',

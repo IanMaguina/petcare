@@ -1,4 +1,4 @@
-// To parse this JSON data, do
+
 //
 //     final user = userFromJson(jsonString);
 
@@ -55,4 +55,4 @@ class User {
         "age": age,
         "photo": photo,
       };
-}
+ }

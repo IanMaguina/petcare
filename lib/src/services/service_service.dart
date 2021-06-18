@@ -1,34 +1,56 @@
-import 'package:flutter/material.dart';
-import 'package:petcare/src/models/service.dart';
-import 'package:http/http.dart' as http;
+import 'dart:io';
 
-final urlVet = "https://petcaremobileapi.azurewebsites.net/api";
-final apiKey = "";
-final token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjkiLCJuYmYiOjE2MjA0NzUzMDEsImV4cCI6MTYyMTA4MDEwMSwiaWF0IjoxNjIwNDc1MzAxfQ.5dznWV6mObQWEZfQ104bb_TY49bCvcmxGD4ZWg5QwQE";
+import 'package:flutter/material.dart';
+import 'package:petcare/src/models/type_service.dart';
+import 'package:http/http.dart';
+import 'package:petcare/src/preferencias_usuario/prefs.dart';
+
+//production:
+//final urlPetcare = "https://petcaremobileapi.azurewebsites.net/api";
+//local:
+//final urlPetcare = 'https://10.0.2.2:44353/api';
+
+//localhost
+String get urlPetcare {
+  if (Platform.isAndroid) {
+    return 'https://10.0.2.2:5001/api';
+  } else {
+    return 'https://localhost:5001/api';
+  }
+}
+
+//final apiKey = "";
+final _prefs = new PreferenciasUsuario();
 
 class ServicesService with ChangeNotifier {
-  List<Service> servicios = [];
+  List<TypeService> servicios = [];
 
   ServicesService() {
     this.getServices();
   }
 
-  getServices() async {
+  Future<void> getServices() async {
     //endPoint
     //var id = '7';
-    final url = '$urlVet/dashboard/products-types';
-    final resp = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token'
-    });
-    var data;
-    if (resp.body.isNotEmpty) {
-      data = serviceFromJson(resp.body);
-    }
+    var token = _prefs.token;
 
-    this.servicios.addAll(data);
-    notifyListeners();
+    final headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    };
+
+    final url = Uri.parse('$urlPetcare/dashboard/products-types');
+
+    Response resp = await get(url, headers: headers);
+
+    var data;
+
+    if (resp.statusCode == 200) {
+      if (resp.body.isNotEmpty) {
+        data = typeServiceFromJson(resp.body);
+        this.servicios.addAll(data);
+        notifyListeners();
+      }
+    }
   }
 }
