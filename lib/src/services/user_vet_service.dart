@@ -13,8 +13,8 @@ class UservService {
   };
 
   Future<APIResponse<bool>> createUserv(Uservet item) {
-    return http.post(
-        API + '/business', headers: headers, body: json.encode(item.toJson()))
+    return http.post(Uri.parse( API + '/business')
+       , headers: headers, body: json.encode(item.toJson()))
         .then((data) {
       if (data.statusCode == 201) {
         return APIResponse<bool>(data: true);
@@ -27,7 +27,7 @@ class UservService {
 
 
   Future<APIResponse<List<Uservet>>> getUservetsList() {
-    return http.get(API + '/business', headers: headers).then((data) {
+    return http.get(Uri.parse(API + '/business'), headers: headers).then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
         final notes = <Uservet>[];
@@ -44,7 +44,7 @@ class UservService {
   }
 
   Future<APIResponse<Uservet>> getUservet(String uvID) {
-    return http.get(API + '/business' + uvID, headers: headers).then((data) {
+    return http.get(Uri.parse(API + '/business' + uvID), headers: headers).then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
         return APIResponse<Uservet>(data: Uservet.fromJson(jsonData));
@@ -58,7 +58,7 @@ class UservService {
 
 
   Future<APIResponse<bool>> updateUservet(String uvID, Uservet item) {
-    return http.put(API + '/business' + uvID, headers: headers,
+    return http.put(Uri.parse(API + '/business' + uvID), headers: headers,
         body: json.encode(item.toJson())).then((data) {
       if (data.statusCode == 204) {
         return APIResponse<bool>(data: true);

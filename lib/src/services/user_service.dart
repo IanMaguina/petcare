@@ -27,7 +27,7 @@ class UserService with ChangeNotifier {
       // 'token' : true
     };
     final url = '$urlPetcare/people';
-    final resp = await http.post(url,
+    final resp = await http.post(Uri.parse(url),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'

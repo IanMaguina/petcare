@@ -18,7 +18,7 @@ class ServicesService with ChangeNotifier {
     //endPoint
     //var id = '7';
     final url = '$urlVet/dashboard/products-types';
-    final resp = await http.get(url, headers: {
+    final resp = await http.get(Uri.parse(url), headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': 'Bearer $token'

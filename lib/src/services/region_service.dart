@@ -14,8 +14,8 @@ class RegionService {
   };
 
   Future<APIResponse<bool>> createRegion(Region item) {
-    return http.post(
-        API + '/regions', headers: headers, body: json.encode(item.toJson()))
+    return http.post(Uri.parse(API + '/regions')
+        , headers: headers, body: json.encode(item.toJson()))
         .then((data) {
       if (data.statusCode == 201) {
         return APIResponse<bool>(data: true);
@@ -28,7 +28,7 @@ class RegionService {
 
 
   Future<APIResponse<List<Region>>> getRegionsList() {
-    return http.get(API + '/business', headers: headers).then((data) {
+    return http.get(Uri.parse(API + '/business'), headers: headers).then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
         final notes = <Region>[];
@@ -45,7 +45,7 @@ class RegionService {
   }
 
   Future<APIResponse<Region>> getRegion(String uvID) {
-    return http.get(API + '/regions' + uvID, headers: headers).then((data) {
+    return http.get(Uri.parse(API + '/regions' + uvID), headers: headers).then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
         return APIResponse<Region>(data: Region.fromJson(jsonData));
@@ -59,7 +59,7 @@ class RegionService {
 
 
   Future<APIResponse<bool>> updateRegion(String uvID, Region item) {
-    return http.put(API + '/regions' + uvID, headers: headers,
+    return http.put(Uri.parse(API + '/regions' + uvID), headers: headers,
         body: json.encode(item.toJson())).then((data) {
       if (data.statusCode == 204) {
         return APIResponse<bool>(data: true);

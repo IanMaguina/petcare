@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
+import 'package:petcare/src/models/Regionemun.dart';
 import 'package:petcare/src/models/api_response.dart';
 import 'package:petcare/src/models/region.dart';
 import 'package:petcare/src/models/uservet.dart';
@@ -81,7 +82,7 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
         },
       );
     }
-
+/*
     Widget _buildRegion() {
       return TextFormField(
         initialValue: vet.region,
@@ -102,7 +103,7 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
     }
 
 
-/*
+
     void Elistregion()async{
       int longitud_regiones=0;
       _apiResponse3 = await service3.getRegionsList();
@@ -114,11 +115,15 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
       }
 
     }
-
+*/
     Widget _buildRegion(BuildContext context) {
+      Regions re=new Regions();
+      print(re.regions[0]);
+      var vista='Seleccione una Region';
+    //  vet.region = 'Seleccione una Region';
 
-      vet.region = 'Seleccione una Region';
       return DropdownButton<String>(
+        hint: Text(vista),
         value: vet.region,
           icon: const Icon(Icons.arrow_circle_down_rounded),
         iconSize: 24,
@@ -131,12 +136,14 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
         onTap:() {
 
         },
-        onChanged: (String newValue)async {
+        onChanged: (String newValue){
           setState(() {
-            vet.region= newValue;
+            vista= newValue;
+            vet.region= newValue.toString();
           });
         },
-        items:listreg.map<DropdownMenuItem<String>>((String value) {
+         // items:listreg.map<DropdownMenuItem<String>>((String value)
+        items:re.regions.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: Text(value),
@@ -145,7 +152,7 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
       );
     }
     ;
-*/
+
 
     Widget _buildEmail() {
       return TextFormField(
@@ -230,9 +237,11 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
           child: Form(
             key: formkey,
             child: Column(
+         //     crossAxisAlignment: CrossAxisAlignment.start,
+          //    mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 _buildBusinessName(),
-                _buildRegion(/*context*/),
+                _buildRegion(context),
                 _buildField(),
                 _buildEmail(),
                 _buildAddress(),

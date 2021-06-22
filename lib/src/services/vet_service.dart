@@ -19,8 +19,8 @@ class VetService {
   Uservet uservet = new Uservet();
 
   Future<APIResponse<bool>> createVet(Veterinary item) {
-    return http.post(
-        API + '/business', headers: headers, body: json.encode(item.toJson()))
+    return http.post(Uri.parse(  API + '/business')
+      , headers: headers, body: json.encode(item.toJson()))
         .then((data) {
       if (data.statusCode == 201) {
         return APIResponse<bool>(data: true);
@@ -33,7 +33,7 @@ class VetService {
 
 
   Future<APIResponse<List<Veterinary>>> getVetsList() {
-    return http.get(API + '/business', headers: headers).then((data) {
+    return http.get(Uri.parse(API + '/business'), headers: headers).then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
         final notes = <Veterinary>[];
@@ -50,7 +50,7 @@ class VetService {
   }
 
   Future<APIResponse<Veterinary>> getVet(String uvID) {
-    return http.get(API + '/provider' + uvID, headers: headers).then((data) {
+    return http.get(Uri.parse(API + '/provider' + uvID), headers: headers).then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
         return APIResponse<Veterinary>(data: Veterinary.fromJson(jsonData));
@@ -66,7 +66,7 @@ class VetService {
   Future<APIResponse<bool>> updateVet(String uvID, Veterinary item) {
     var jsonv=item.toJson();
     print(jsonv);
-    return http.put(API + '/business/' + uvID+'/providers/' + uvID, headers: headers,
+    return http.put(Uri.parse(API + '/business/' + uvID+'/providers/' + uvID), headers: headers,
         body: json.encode(jsonv)).then((data) {
         print(data.body.toString());
       if (data.statusCode == 204) {
