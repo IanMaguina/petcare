@@ -12,6 +12,7 @@ import 'package:petcare/src/pages/login_page.dart';
 import 'package:petcare/src/pages/pet_detail_page.dart';
 import 'package:petcare/src/pages/pet_detail_vet_page.dart';
 import 'package:petcare/src/pages/services_page_prov.dart';
+import 'package:petcare/src/pages/test_images.dart';
 import 'package:petcare/src/pages/veterinary_detail_page.dart';
 import 'package:petcare/src/pages/veterinary_vet_detail_page.dart';
 
@@ -31,7 +32,8 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'detallecita': (BuildContext context) => ListarCitasDetailPage(),
     'detallevetvet': (BuildContext context) => VeterinaryVetDetailPage(),
     'vetpetdetail': (BuildContext context) => PetDetailVetPage(),
-    'test': (BuildContext context) => ListServicesPageByProv(),
+    //'test': (BuildContext context) => ListServicesPageByProv(),
+    'test': (BuildContext context) => TestImagePage(),
 
     /*  PetListScreen.routeName: (ctx) => PetListScreen(), */
   };
