@@ -22,7 +22,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'home': (BuildContext context) => HomePage(),
     'home_vet': (BuildContext context) => HomeVetPage(),
     'adduser': (BuildContext context) => AddUserPage(),
-    'adduservet': (BuildContext context) => AddUserVetPage(),
+    'adduservet': (BuildContext context) => Add_Vet(),
     'petdetail': (BuildContext context) => PetDetailPage(),
     'veterinarydetail': (BuildContext context) => VeterinaryDetailPage(),
     'listpet': (BuildContext context) => ListPetPage(),

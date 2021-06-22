@@ -5,16 +5,13 @@ import 'package:get_it/get_it.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 import 'package:petcare/src/providers/usuario_provider.dart';
 import 'package:petcare/src/routes/routes.dart';
-<<<<<<< HEAD
 import 'package:petcare/src/services/pets_service.dart';
 import 'package:petcare/src/services/region_service.dart';
 import 'package:petcare/src/services/service_service.dart';
 import 'package:petcare/src/services/user_vet_service.dart';
 import 'package:petcare/src/services/vet_service.dart';
 import 'package:petcare/src/services/veterinary_service.dart';
-=======
-import 'package:petcare/src/services/service_service.dart';
->>>>>>> test_william
+
 import 'package:provider/provider.dart';
 
 void setupLocator() {
@@ -27,12 +24,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized(); //agregado
   final prefs = new PreferenciasUsuario();
   await prefs.initPrefs();
-<<<<<<< HEAD
   setupLocator();
-=======
-
   HttpOverrides.global = new MyHttpOverrides();
->>>>>>> test_william
   runApp(MyApp());
 }
 

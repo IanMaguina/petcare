@@ -1,58 +1,40 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:get_it/get_it.dart';
-import 'package:http/http.dart' as http;
 import 'package:petcare/src/models/api_response.dart';
 import 'package:petcare/src/models/region.dart';
 import 'package:petcare/src/models/uservet.dart';
 import 'package:petcare/src/models/veterinary.dart';
-import 'package:petcare/src/pages/welcome_page.dart';
 import 'package:petcare/src/services/region_service.dart';
 import 'package:petcare/src/services/user_vet_service.dart';
-import 'package:petcare/src/services/uservet_service.dart';
 import 'package:petcare/src/services/vet_service.dart';
-import 'package:petcare/src/widgets/login_uservet_widget.dart';
 
-import 'login_page.dart';
+//import 'login_page.dart';
 
-
-class  Add_Veterinary extends StatefulWidget {
+class Add_Veterinary extends StatefulWidget {
   final Uservet data;
   Add_Veterinary({this.data});
-=======
-//import 'package:petcare/src/pages/welcome_page.dart';
-//import 'package:petcare/src/widgets/login_uservet_widget.dart';
-
-import 'login_page.dart';
-
-class Add_Veterinary extends StatelessWidget {
->>>>>>> test_william
   @override
-
-<<<<<<< HEAD
   _Add_VeterinaryState createState() => _Add_VeterinaryState(data: data);
 }
+
 class _Add_VeterinaryState extends State<Add_Veterinary> {
   @override
-
-
   final Uservet data;
   _Add_VeterinaryState({this.data});
   final formkey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   //para guardar el veterinario
-  UservService uvService =new UservService();
+  UservService uvService = new UservService();
 
   //para editar la veterinaria guardada que fue creada al crear veterinario
-  VetService vetService =new VetService();
+  VetService vetService = new VetService();
 
   //Para el combo box de region
-  RegionService regionService =new RegionService();
-  final listreg =<String>[];
+  RegionService regionService = new RegionService();
+  final listreg = <String>[];
 
   Veterinary vet = new Veterinary();
-
 
   UservService get service => GetIt.I<UservService>();
   VetService get service2 => GetIt.I<VetService>();
@@ -60,7 +42,6 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
   APIResponse<List<Region>> _apiResponse3;
   APIResponse<List<Uservet>> _apiResponse;
   APIResponse<List<Veterinary>> _apiResponse2;
-
 
   bool _isLoading = false;
 
@@ -71,42 +52,28 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
 
   @override
   Widget build(BuildContext context) {
-
-    vet.id=0;
-    Widget  _buildBusinessName() {
+    vet.id = 0;
+    Widget _buildBusinessName() {
       return TextFormField(
         initialValue: vet.businessname,
         textCapitalization: TextCapitalization.sentences,
         decoration: InputDecoration(labelText: 'Nombre de Veterinaria'),
-        onSaved: (value) =>vet.businessname = value,
+        onSaved: (value) => vet.businessname = value,
         validator: (value) {
           if (value.isEmpty) {
             return 'Nombre de veterinaria es requerido';
-          }if (value.length < 3) {
-            return 'minimo 6 caracteres';
           }
-          else {
+          if (value.length < 3) {
+            return 'minimo 6 caracteres';
+          } else {
             return null;
           }
-=======
-    Widget _buildBusinessName() {
-      return TextFormField(
-        decoration: InputDecoration(labelText: 'Nombre de Veterinaria'),
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'Nombre de Veterinaria es requerida';
-          }
-        },
-        onSaved: (String value) {
-          businessname = value;
->>>>>>> test_william
         },
       );
     }
 
     Widget _buildRegion() {
       return TextFormField(
-<<<<<<< HEAD
         initialValue: vet.region,
         textCapitalization: TextCapitalization.sentences,
         decoration: InputDecoration(labelText: 'Region'),
@@ -114,27 +81,15 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
         validator: (value) {
           if (value.isEmpty) {
             return 'Region es requerido';
-          }if (value.length < 6) {
-            return 'minimo 6 caracteres';
           }
-          else {
+          if (value.length < 6) {
+            return 'minimo 6 caracteres';
+          } else {
             return null;
           }
-=======
-        decoration: InputDecoration(labelText: 'Region'),
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'Region es requerida';
-          }
-        },
-        onSaved: (String value) {
-          region = value;
->>>>>>> test_william
         },
       );
     }
-
-<<<<<<< HEAD
 
 /*
     void Elistregion()async{
@@ -169,18 +124,6 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
           setState(() {
             vet.region= newValue;
           });
-=======
-    Widget _buildField() {
-      return TextFormField(
-        decoration: InputDecoration(labelText: 'Campo'),
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'Campo es requerido';
-          }
-        },
-        onSaved: (String value) {
-          field = value;
->>>>>>> test_william
         },
         items:listreg.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
@@ -190,33 +133,25 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
         }).toList(),
       );
     }
-<<<<<<< HEAD
     ;
 */
 
     Widget _buildEmail() {
       return TextFormField(
-        initialValue:vet.email,
+        initialValue: vet.email,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(labelText: 'Email'),
         onSaved: (value) => vet.email = value,
         validator: (value) {
-=======
-
-    Widget _buildEmail() {
-      return TextFormField(
-        decoration: InputDecoration(labelText: 'Email'),
-        validator: (String value) {
->>>>>>> test_william
           if (value.isEmpty) {
             return 'Email es requerido';
-          }else {
+          } else {
             return null;
           }
         },
-<<<<<<< HEAD
       );
     }
+
     Widget _buildField() {
       return TextFormField(
         initialValue: vet.field,
@@ -226,15 +161,16 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
         validator: (value) {
           if (value.isEmpty) {
             return 'Campo es requerido';
-          }if (value.length < 6) {
-            return 'minimo 6 caracteres';
           }
-          else {
+          if (value.length < 6) {
+            return 'minimo 6 caracteres';
+          } else {
             return null;
           }
         },
       );
     }
+
     Widget _buildAddress() {
       return TextFormField(
         initialValue: vet.address,
@@ -244,15 +180,16 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
         validator: (value) {
           if (value.isEmpty) {
             return 'Direccion es requerido';
-          }if (value.length < 6) {
-            return 'minimo 6 caracteres';
           }
-          else {
+          if (value.length < 6) {
+            return 'minimo 6 caracteres';
+          } else {
             return null;
           }
         },
       );
     }
+
     Widget _buildDescription() {
       return TextFormField(
         initialValue: vet.description,
@@ -260,42 +197,15 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
         decoration: InputDecoration(labelText: 'Descripcion'),
         onSaved: (value) => vet.description = value,
         validator: (value) {
-=======
-        onSaved: (String value) {
-          email = value;
-        },
-      );
-    }
-
-    Widget _buildAddress() {
-      return TextFormField(
-        decoration: InputDecoration(labelText: 'Direccion'),
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'Direccion es requerida';
-          }
-        },
-        onSaved: (String value) {
-          address = value;
-        },
-      );
-    }
-
-    Widget _buildDescription() {
-      return TextFormField(
-        decoration: InputDecoration(labelText: 'Descripcion '),
-        validator: (String value) {
->>>>>>> test_william
           if (value.isEmpty) {
             return 'Descripcion es requerido';
-          }if (value.length < 6) {
-            return 'minimo 6 caracteres';
           }
-          else {
+          if (value.length < 6) {
+            return 'minimo 6 caracteres';
+          } else {
             return null;
           }
         },
-<<<<<<< HEAD
       );
     }
 
@@ -328,8 +238,6 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
     );
   }
 
-
-
   Widget _crearBoton(BuildContext context) {
     return ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
@@ -344,9 +252,7 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
       label: Text('Registrar'),
       icon: Icon(Icons.save),
       onPressed: () async {
-
         print('Posting data...');
-
 
         //PostData(uservet);
         _submit(context);
@@ -355,20 +261,21 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
   }
 
   void _submit(BuildContext context) async {
-    if (!formkey.currentState.validate()||vet.address=='Seleccione una Region') {
+    if (!formkey.currentState.validate() ||
+        vet.address == 'Seleccione una Region') {
       return;
     }
     //crea veterinario
-    final result =await uvService.createUserv(data);
+    final result = await uvService.createUserv(data);
     //Obtiene todos los veterinarios
     _apiResponse = await service.getUservetsList();
 
-    var list=_apiResponse.data;
+    var list = _apiResponse.data;
     //obtiene la longitud de la lista
-   var last=_apiResponse.data.length;
+    var last = _apiResponse.data.length;
     print(last);
 
-   for(int i=0;i<last;++i){
+    for (int i = 0; i < last; ++i) {
       print(list[i].id);
       print(list[i].name);
       print(list[i].lastName);
@@ -380,7 +287,8 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
       print(list[i].password);
       print(list[i].phone);
       print("     ");
-    }formkey.currentState.save();
+    }
+    formkey.currentState.save();
     //print(list);
     print("VETERINARIA: ");
     print(vet.id);
@@ -391,7 +299,7 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
     print(vet.field);
     print(vet.region);
     print("     ");
-    data.id=0;
+    data.id = 0;
     print("VETERINARIO: ");
     print(data.id);
     print(data.name);
@@ -405,18 +313,14 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
     print(data.phone);
     print("     ");
 
+    final result1 = vetService.updateVet(last.toString(), vet);
 
-   final result1 =vetService.updateVet(last.toString(),vet);
-
-   // final result =await uvService.createUserv(uservet);
+    // final result =await uvService.createUserv(uservet);
     //Navigator.of(context).push(MaterialPageRoute(
-  //    builder: (context) => Add_Veterinary(),
-  //  ));
-
-
+    //    builder: (context) => Add_Veterinary(),
+    //  ));
   }
 }
-
 
 /*
 
@@ -458,15 +362,10 @@ class Add_Veterinary extends StatelessWidget{
 
           //PostData(uservet);
           _submit(context);
-=======
-        onSaved: (String value) {
-          description = value;
->>>>>>> test_william
         },
       );
     }
 
-<<<<<<< HEAD
     void _submit(BuildContext context) async {
       if (!formkey.currentState.validate()) {
         return;
@@ -478,8 +377,6 @@ class Add_Veterinary extends StatelessWidget{
       formkey.currentState.save();
 
     }
-=======
->>>>>>> test_william
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -526,8 +423,4 @@ class Add_Veterinary extends StatelessWidget{
       ),
     );
   }
-<<<<<<< HEAD
 }*/
-=======
-}
->>>>>>> test_william

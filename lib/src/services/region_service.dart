@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:petcare/src/models/api_response.dart';
@@ -14,21 +13,22 @@ class RegionService {
   };
 
   Future<APIResponse<bool>> createRegion(Region item) {
-    return http.post(
-        API + '/regions', headers: headers, body: json.encode(item.toJson()))
+    return http
+        .post(Uri.parse(API + '/regions'),
+            headers: headers, body: json.encode(item.toJson()))
         .then((data) {
       if (data.statusCode == 201) {
         return APIResponse<bool>(data: true);
       }
       return APIResponse<bool>(error: true, errorMessage: 'An error occured');
-    })
-        .catchError((_) =>
-        APIResponse<bool>(error: true, errorMessage: 'An error occured'));
+    }).catchError((_) =>
+            APIResponse<bool>(error: true, errorMessage: 'An error occured'));
   }
 
-
   Future<APIResponse<List<Region>>> getRegionsList() {
-    return http.get(API + '/business', headers: headers).then((data) {
+    return http
+        .get(Uri.parse(API + '/business'), headers: headers)
+        .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
         final notes = <Region>[];
@@ -39,35 +39,34 @@ class RegionService {
       }
       return APIResponse<List<Region>>(
           error: true, errorMessage: 'An error occured');
-    })
-        .catchError((_) => APIResponse<List<Uservet>>(
-        error: true, errorMessage: 'An error occured'));
+    }).catchError((_) => APIResponse<List<Uservet>>(
+            error: true, errorMessage: 'An error occured'));
   }
 
   Future<APIResponse<Region>> getRegion(String uvID) {
-    return http.get(API + '/regions' + uvID, headers: headers).then((data) {
+    return http
+        .get(Uri.parse(API + '/regions' + uvID), headers: headers)
+        .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
         return APIResponse<Region>(data: Region.fromJson(jsonData));
       }
-      return APIResponse<Region>(
-          error: true, errorMessage: 'An error occured');
-    })
-        .catchError((_) =>
-        APIResponse<Region>(error: true, errorMessage: 'An error occured'));
+      return APIResponse<Region>(error: true, errorMessage: 'An error occured');
+    }).catchError((_) =>
+            APIResponse<Region>(error: true, errorMessage: 'An error occured'));
   }
 
-
   Future<APIResponse<bool>> updateRegion(String uvID, Region item) {
-    return http.put(API + '/regions' + uvID, headers: headers,
-        body: json.encode(item.toJson())).then((data) {
+    return http
+        .put(Uri.parse(API + '/regions' + uvID),
+            headers: headers, body: json.encode(item.toJson()))
+        .then((data) {
       if (data.statusCode == 204) {
         return APIResponse<bool>(data: true);
       }
       return APIResponse<bool>(error: true, errorMessage: 'An error occured');
-    })
-        .catchError((_) =>
-        APIResponse<bool>(error: true, errorMessage: 'An error occured'));
+    }).catchError((_) =>
+            APIResponse<bool>(error: true, errorMessage: 'An error occured'));
   }
 }
 /*
@@ -97,7 +96,6 @@ class RegionService {
         .catchError((_) => APIResponse<Note>(error: true, errorMessage: 'An error occured'));
   }
 */
-
 
 /*
 

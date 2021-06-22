@@ -1,11 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:petcare/src/models/user.dart';
-import 'package:http/http.dart' as http;
-import 'package:petcare/src/utils/utils.dart' as utils;
-<<<<<<< HEAD
-import 'package:petcare/src/services/user_vet_service.dart';
 import 'package:petcare/src/models/uservet.dart';
 
 import 'add_veterinary.dart';
@@ -14,56 +7,21 @@ class Add_Vet extends StatefulWidget {
   @override
   _Add_VetState createState() => _Add_VetState();
 }
-class _Add_VetState extends State<Add_Vet> {
 
+class _Add_VetState extends State<Add_Vet> {
   final formkey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
- // UservService uvService =new UservService();
+  // UservService uvService =new UservService();
   Uservet uservet = new Uservet();
 
   // final usuarioProvider = new UserService();
 
   @override
   Widget build(BuildContext context) {
-    uservet.id=0;
-    uservet.owner=true;
-    uservet.photo="VACIO";
-=======
-
-class AddUserVetPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    String name;
-    String lastname;
-    String document;
-    String email;
-    String password;
-    String phone;
-    String age;
-
-    Widget _buildName() {
-      return TextFormField(
-        decoration: InputDecoration(labelText: 'Nombre'),
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'Nombre es requerido';
-          }
-          if (value.length < 6) {
-            return 'minimo 6 caracteres';
-          } else {
-            return null;
-          }
-        },
-        onSaved: (String value) {
-          name = value;
-        },
-      );
-    }
->>>>>>> test_william
-
-
-<<<<<<< HEAD
+    uservet.id = 0;
+    uservet.owner = true;
+    uservet.photo = "VACIO";
 
     return Scaffold(
       appBar: AppBar(
@@ -92,51 +50,13 @@ class AddUserVetPage extends StatelessWidget {
       ),
     );
   }
-=======
-    Widget _buildDocument() {
-      return TextFormField(
-        decoration: InputDecoration(labelText: 'DNI'),
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'DNI es requerido';
-          }
-          if (value.length < 8) {
-            return 'Ingrese numero valido';
-          }
-          if (utils.isNumeric(value)) {
-            return null;
-          } else {
-            return 'Solo numeros';
-          }
-        },
-        onSaved: (String value) {
-          document = value;
-        },
-      );
-    }
-
-    Widget _buildEmail() {
-      return TextFormField(
-        decoration: InputDecoration(labelText: 'Email'),
-        validator: (value) {
-          if (value.isEmpty) {
-            return 'Email es requerido';
-          }
-          return null;
-        },
-        onSaved: (String value) {
-          email = value;
-        },
-      );
-    }
->>>>>>> test_william
 
   Widget _crearNombre() {
     return TextFormField(
       initialValue: uservet.name,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Nombre de Usuario'),
-      onSaved: (value) =>uservet.name = value,
+      onSaved: (value) => uservet.name = value,
       validator: (value) {
         if (value.isEmpty) {
           return 'El nombre no puede estar vacio';
@@ -177,7 +97,7 @@ class AddUserVetPage extends StatelessWidget {
 
   Widget _crearTelefono() {
     return TextFormField(
-  //    initialValue: uservet.phone.toString(),
+      //    initialValue: uservet.phone.toString(),
       keyboardType: TextInputType.number,
       decoration: InputDecoration(labelText: 'telefono'),
       onSaved: (value) => uservet.phone = int.parse(value),
@@ -199,7 +119,7 @@ class AddUserVetPage extends StatelessWidget {
 
   Widget _crearEdad() {
     return TextFormField(
- //     initialValue: uservet.age.toString(),
+      //     initialValue: uservet.age.toString(),
       keyboardType: TextInputType.number,
       decoration: InputDecoration(labelText: 'Edad'),
       onSaved: (value) => uservet.age = int.parse(value),
@@ -218,7 +138,7 @@ class AddUserVetPage extends StatelessWidget {
 
   Widget _crearDNI() {
     return TextFormField(
-    //  initialValue: uservet.document.toString(),
+      //  initialValue: uservet.document.toString(),
       keyboardType: TextInputType.number,
       decoration: InputDecoration(labelText: 'DNI'),
       onSaved: (value) => uservet.document = int.parse(value),
@@ -291,10 +211,9 @@ class AddUserVetPage extends StatelessWidget {
       label: Text('Registrar'),
       icon: Icon(Icons.save),
       onPressed: () async {
-        final data=uservet;
+        final data = uservet;
 
         print('Posting data...');
-
 
         _submit(context);
       },
@@ -302,49 +221,29 @@ class AddUserVetPage extends StatelessWidget {
   }
 
   void _submit(BuildContext context) async {
-
     if (!formkey.currentState.validate()) {
       return;
     }
     formkey.currentState.save();
-    final data=uservet;
+    final data = uservet;
     //final result =await uvService.createUserv(uservet);
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => Add_Veterinary(data:data),
+      builder: (context) => Add_Veterinary(data: data),
     ));
-
-
   }
 }
-    // Map info = await usuarioProvider.nuevoUsuario(usuario);
+// Map info = await usuarioProvider.nuevoUsuario(usuario);
 
-    // print('todo ok');
-    // print(usuario.usuario);
+// print('todo ok');
+// print(usuario.usuario);
 
-    /*  if (info['ok']) {
+/*  if (info['ok']) {
       utils.mostrarAlerta(context,
           'Se ha registrado correctamente, se ha enviado un código de activación a su correo. loguése nuevamente.');
       //Navigator.pushReplacementNamed(context, '/');
     } else {
       utils.mostrarAlerta(context, info['mensaje']);
     } */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*
 import 'package:flutter/material.dart';
@@ -387,30 +286,8 @@ class _Add_VetState extends State<Add_Vet> {
                 _buildPassword(),
                 _buildPhone(),
                 _buildAge(),
-<<<<<<< HEAD
                 _buildButton(context),
                 SizedBox(height: 100),
-=======
-                SizedBox(height: 100),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    primary: Color.fromRGBO(57, 179, 179, 1.0),
-                    textStyle: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                  label: Text('Registrar'),
-                  icon: Icon(Icons.save),
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Add_Veterinary(),
-                    ));
-                  },
-                )
->>>>>>> test_william
               ],
             ),
           ),
@@ -581,7 +458,6 @@ class _Add_VetState extends State<Add_Vet> {
           color: Colors.white,
         ),
       ),
-<<<<<<< HEAD
       label: Text('Registrar'),
       icon: Icon(Icons.save),
       onPressed: () {
@@ -602,18 +478,9 @@ class _Add_VetState extends State<Add_Vet> {
       return;
     }
     formkey.currentState.save();
-=======
-    );
->>>>>>> test_william
   }
 
 
 }
-<<<<<<< HEAD
 
 */
-
-
-
-=======
->>>>>>> test_william
