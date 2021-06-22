@@ -30,7 +30,6 @@ class _Add_VetState extends State<Add_Vet> {
     uservet.photo="VACIO";
 
 
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Registro de Veterinario'),
