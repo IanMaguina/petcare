@@ -10,11 +10,15 @@ import 'package:petcare/src/pages/list_pet_page.dart';
 import 'package:petcare/src/pages/list_veterinarias_page.dart';
 import 'package:petcare/src/pages/login_page.dart';
 import 'package:petcare/src/pages/pet_detail_page.dart';
+import 'package:petcare/src/pages/pet_detail_vet_page.dart';
+import 'package:petcare/src/pages/services_page_prov.dart';
 import 'package:petcare/src/pages/veterinary_detail_page.dart';
+import 'package:petcare/src/pages/veterinary_vet_detail_page.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
     '/': (BuildContext context) => InitPage(),
+    'login': (BuildContext context) => LoginPage(),
     'home': (BuildContext context) => HomePage(),
     'home_vet': (BuildContext context) => HomeVetPage(),
     'adduser': (BuildContext context) => AddUserPage(),
@@ -25,6 +29,9 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'listvets': (BuildContext context) => ListVeterinariesPage(),
     'makeappointment': (BuildContext context) => AppointmentPage(),
     'detallecita': (BuildContext context) => ListarCitasDetailPage(),
+    'detallevetvet': (BuildContext context) => VeterinaryVetDetailPage(),
+    'vetpetdetail': (BuildContext context) => PetDetailVetPage(),
+    'test': (BuildContext context) => ListServicesPageByProv(),
 
     /*  PetListScreen.routeName: (ctx) => PetListScreen(), */
   };

@@ -38,7 +38,7 @@ Widget _element(BuildContext context, String service, String pago) {
       color: Color.fromRGBO(57, 179, 179, 1),
     ),
     onTap: () {
-      Navigator.pushNamed(context, 'listvets');
+      //Navigator.pushNamed(context, 'listvets');
     },
   );
 }

@@ -123,7 +123,7 @@ class _UserVetInfoPageState extends State<UserVetInfoPage> {
                         splashColor: Theme.of(context).splashColor,
                         child: ListTile(
                           onTap: () =>
-                              Navigator.pushNamed(context, 'veterinarydetail'),
+                              Navigator.pushNamed(context, 'detallevetvet'),
                           title: Text('Mi Veterinaria'),
                           trailing: Icon(Icons.chevron_right_rounded),
                           leading: Icon(

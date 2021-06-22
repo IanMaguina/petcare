@@ -19,7 +19,7 @@ class PreferenciasUsuario {
   // GET y SET del nombre
   get token {
     return _prefs.getString('token') ??
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEyIiwibmJmIjoxNjIyODg0NDI0LCJleHAiOjE2MjM0ODkyMjQsImlhdCI6MTYyMjg4NDQyNH0.O1FVC_7A_lEBBtpSKqK_PVHtigthY18rtRsqrxj_zNU';
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEyIiwibmJmIjoxNjIzNDczNDE4LCJleHAiOjE2MjQwNzgyMTgsImlhdCI6MTYyMzQ3MzQxOH0.UXx68NwdmSLfbojoLKF4oHcQVmJZi2tOgVyBD8MtU88';
   }
 
   set token(String value) {

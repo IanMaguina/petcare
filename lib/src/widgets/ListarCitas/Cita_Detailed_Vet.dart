@@ -120,12 +120,27 @@ class _CitaDetailedVet extends State<CitaDetailedVet> {
                   Padding(
                     padding: EdgeInsets.only(top: 8),
                     child: MaterialButton(
-                      minWidth: 200,
+                      minWidth: 100,
+                      height: 30,
+                      color: Colors.red,
+                      textColor: Colors.white,
+                      child: Text("Culminar Cita"),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 8),
+                    child: MaterialButton(
+                      minWidth: 100,
                       height: 30,
                       color: Color.fromRGBO(57, 179, 179, 1.0),
                       textColor: Colors.white,
-                      child: Text("Culminar Cita"),
-                      onPressed: () {},
+                      child: Text("ver Paciente"),
+                      onPressed: () {
+                        Navigator.pushNamed(context, 'vetpetdetail');
+                      },
                     ),
                   ),
                 ],
