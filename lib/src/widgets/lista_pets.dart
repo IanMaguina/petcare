@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:petcare/src/models/pet.dart';
 
 class ListPets extends StatelessWidget {
-  final List<Pets> pets;
+  final List<Pet> pets;
 
   const ListPets(this.pets);
 
@@ -18,7 +18,7 @@ class ListPets extends StatelessWidget {
 }
 
 class _Pet extends StatelessWidget {
-  final Pets pet;
+  final Pet pet;
   final int index;
 
   const _Pet({@required this.pet, @required this.index});

@@ -18,7 +18,8 @@ class PreferenciasUsuario {
 
   // GET y SET del nombre
   get token {
-    return _prefs.getString('token') ?? '';
+    return _prefs.getString('token') ??
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEyIiwibmJmIjoxNjIzNDczNDE4LCJleHAiOjE2MjQwNzgyMTgsImlhdCI6MTYyMzQ3MzQxOH0.UXx68NwdmSLfbojoLKF4oHcQVmJZi2tOgVyBD8MtU88';
   }
 
   set token(String value) {
@@ -26,7 +27,7 @@ class PreferenciasUsuario {
   }
 
   get iduser {
-    return _prefs.getInt('iduser') ?? '';
+    return _prefs.getInt('iduser') ?? 12;
   }
 
   set iduser(int value) {
