@@ -10,10 +10,15 @@ List<Veterinary> veterinaryFromJson(String str) =>
 String veterinaryToJson(List<Veterinary> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
+
+Veterinary vetFromJson(String str) => Veterinary.fromJson(json.decode(str));
+
+String vetToJson(Veterinary data) => json.encode(data.toJson());
+
 class Veterinary {
   Veterinary({
     this.id,
-    this.businessName,
+    this.businessname,
     this.region,
     this.field,
     this.address,
@@ -22,30 +27,34 @@ class Veterinary {
   });
 
   int id;
-  String businessName;
+  String businessname;
   String region;
   String field;
   String address;
   String email;
   String description;
 
-  factory Veterinary.fromJson(Map<String, dynamic> json) => Veterinary(
-        id: json["id"],
-        businessName: json["businessName"],
-        region: json["region"],
-        field: json["field"],
-        address: json["address"],
-        email: json["email"],
-        description: json["description"],
-      );
+  factory Veterinary.fromJson(Map<String, dynamic> json) {
+    return Veterinary(
+      id: json["id"],
+      businessname: json["businessname"],
+      region: json["region"],
+      field: json["field"],
+      address: json["address"],
+      email: json["email"],
+      description: json["description"],
+    );
+  }
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "businessName": businessName,
-        "region": region,
-        "field": field,
-        "address": address,
-        "email": email,
-        "description": description,
-      };
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "businessName": businessname,
+      "region": region,
+      "field": field,
+      "address": address,
+      "email": email,
+      "description": description,
+    };
+  }
 }

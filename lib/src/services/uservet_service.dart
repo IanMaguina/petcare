@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:petcare/src/models/uservet.dart';
 import 'package:http/http.dart' as http;
@@ -11,7 +12,7 @@ final apiKey = "";
 
 final _prefs = new PreferenciasUsuario();
 
-class VetService with ChangeNotifier {
+class VetService2 with ChangeNotifier {
   List<Uservet> vets = [];
 
   VetService() {
@@ -38,3 +39,4 @@ class VetService with ChangeNotifier {
     notifyListeners();
   }
 }
+*/
