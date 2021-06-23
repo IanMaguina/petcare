@@ -52,10 +52,10 @@ class _EditVeterinaryState extends State<EditVeterinaryPage> {
   Widget _editarNombre() {
     return TextFormField(
       style: TextStyle(fontSize: 18),
-      initialValue: veterinaria.businessName,
+      initialValue: veterinaria.businessname,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Nombre de la Veterinaria'),
-      onSaved: (value) => veterinaria.businessName = value,
+      onSaved: (value) => veterinaria.businessname = value,
       validator: (value) {
         if (value.isEmpty) {
           return 'El nombre no puede estar vacio';
