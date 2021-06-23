@@ -67,4 +67,18 @@ class UserPersonaService with ChangeNotifier {
     }).catchError((_) =>
             APIResponse<bool>(error: true, errorMessage: 'An error occured'));
   }
+
+  Future<APIResponse<UserPersona>> getUser(String uvID) {
+    return http
+        .get(Uri.parse(API + '/people' + uvID), headers: headers)
+        .then((data) {
+      if (data.statusCode == 200) {
+        final jsonData = json.decode(data.body);
+        return APIResponse<UserPersona>(data: UserPersona.fromJson(jsonData));
+      }
+      return APIResponse<UserPersona>(
+          error: true, errorMessage: 'An error occured');
+    }).catchError((_) => APIResponse<UserPersona>(
+            error: true, errorMessage: 'An error occured'));
+  }
 }

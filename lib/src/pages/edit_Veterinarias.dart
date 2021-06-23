@@ -9,6 +9,8 @@ import 'package:petcare/src/models/veterinary.dart';
 import 'package:petcare/src/services/region_service.dart';
 import 'package:petcare/src/services/vet_service.dart';
 
+VetService vetService = new VetService();
+
 class EditVeterinaryPage extends StatefulWidget {
   final Veterinary vet;
   EditVeterinaryPage(this.vet);
@@ -19,7 +21,6 @@ class EditVeterinaryPage extends StatefulWidget {
 class _EditVeterinaryState extends State<EditVeterinaryPage> {
   final formkey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  VetService vetService = new VetService();
 
   Veterinary veterinaria = new Veterinary();
   _EditVeterinaryState(this.veterinaria);
