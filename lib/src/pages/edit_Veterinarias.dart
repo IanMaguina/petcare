@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:http/http.dart' as http;
+import 'package:petcare/src/models/Regionemun.dart';
+import 'package:petcare/src/models/api_response.dart';
+import 'package:petcare/src/models/region.dart';
+import 'package:petcare/src/models/uservet.dart';
 import 'package:petcare/src/models/veterinary.dart';
+import 'package:petcare/src/services/region_service.dart';
+import 'package:petcare/src/services/vet_service.dart';
 
 class EditVeterinaryPage extends StatefulWidget {
   final Veterinary vet;
@@ -11,6 +19,7 @@ class EditVeterinaryPage extends StatefulWidget {
 class _EditVeterinaryState extends State<EditVeterinaryPage> {
   final formkey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  VetService vetService = new VetService();
 
   Veterinary veterinaria = new Veterinary();
   _EditVeterinaryState(this.veterinaria);
@@ -30,7 +39,7 @@ class _EditVeterinaryState extends State<EditVeterinaryPage> {
               children: <Widget>[
                 _editarNombre(),
                 SizedBox(height: 10),
-                _editarRegion(),
+                _editRegion(context),
                 SizedBox(height: 10),
                 _editarField(),
                 SizedBox(height: 10),
@@ -69,20 +78,36 @@ class _EditVeterinaryState extends State<EditVeterinaryPage> {
     );
   }
 
-  Widget _editarRegion() {
-    return TextFormField(
-      style: TextStyle(fontSize: 18),
-      initialValue: veterinaria.region,
-      textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(labelText: 'Region de la veterinaria'),
-      onSaved: (value) => veterinaria.region = value,
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'La region no puede estar en blanco';
-        } else {
-          return null;
-        }
+  Widget _editRegion(BuildContext context) {
+    Regions re = new Regions();
+    print(re.regions[0]);
+    var vista = 'Seleccione una Region';
+    //  vet.region = 'Seleccione una Region';
+
+    return DropdownButton<String>(
+      hint: Text(vista),
+      value: veterinaria.region,
+      icon: const Icon(Icons.arrow_circle_down_rounded),
+      iconSize: 24,
+      elevation: 16,
+      style: const TextStyle(color: Colors.deepPurple),
+      underline: Container(
+        height: 2,
+        color: Colors.deepPurpleAccent,
+      ),
+      onTap: () {},
+      onChanged: (String newValue) {
+        setState(() {
+          vista = newValue;
+          veterinaria.region = newValue.toString();
+        });
       },
+      items: re.regions.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
     );
   }
 
@@ -180,9 +205,24 @@ class _EditVeterinaryState extends State<EditVeterinaryPage> {
   }
 
   void _submit(BuildContext context) async {
-    if (!formkey.currentState.validate()) {
+    if (!formkey.currentState.validate() ||
+        veterinaria.address == 'Seleccione una Region') {
       return;
     }
+
     formkey.currentState.save();
+    //print(list);
+    print("VETERINARIA: ");
+    print(veterinaria.id);
+    print(veterinaria.businessname);
+    print(veterinaria.email);
+    print(veterinaria.address);
+    print(veterinaria.description);
+    print(veterinaria.field);
+    print(veterinaria.region);
+    print("     ");
+
+    final result1 =
+        vetService.updateVet(veterinaria.id.toString(), veterinaria);
   }
 }

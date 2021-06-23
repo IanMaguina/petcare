@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:petcare/src/pages/Cita_Detailed.dart';
 import 'package:petcare/src/pages/add_user_page.dart';
 import 'package:petcare/src/pages/add_user_vet_page.dart';
+import 'package:petcare/src/pages/add_veterinary.dart';
 import 'package:petcare/src/pages/appointment_page.dart';
+import 'package:petcare/src/pages/edit_Veterinarias.dart';
 import 'package:petcare/src/pages/home_page.dart';
 import 'package:petcare/src/pages/home_vet_page.dart';
 import 'package:petcare/src/pages/initpage.dart';
@@ -32,6 +34,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'detallevetvet': (BuildContext context) => VeterinaryVetDetailPage(),
     'vetpetdetail': (BuildContext context) => PetDetailVetPage(),
     'test': (BuildContext context) => ListServicesPageByProv(),
+    'addveterinary': (BuildContext context) => Add_Veterinary(),
 
     /*  PetListScreen.routeName: (ctx) => PetListScreen(), */
   };
