@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:petcare/src/models/service.dart';
+import 'package:petcare/src/models/service_.dart';
 import 'package:http/http.dart' as http;
 
 final urlVet = "https://petcaremobileapi.azurewebsites.net/api";

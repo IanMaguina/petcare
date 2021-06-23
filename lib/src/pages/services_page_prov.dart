@@ -19,7 +19,7 @@ class _ListServicesPageByProvState extends State<ListServicesPageByProv>
             ? Center(
                 child: CircularProgressIndicator(),
               )
-            : ListaServicios(servicios));
+            : servicios);
   }
 
   @override
