@@ -1,6 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:petcare/src/models/veterinary.dart';
+import 'package:petcare/src/pages/edit_Veterinarias.dart';
 
 class VeterinaryVetDetailPage extends StatelessWidget {
+  //Veterinary vet;
+  Veterinary vet = Veterinary.fromJson({
+    'id': 1,
+    'address': 'asdasd',
+    'businessName': 'asdasdas',
+    'email ': 'asdasda@dasd',
+    'description ': 'dasdasdasdas',
+    'region ': 'asdasdasdas',
+    'field ': 'dasdasdasd',
+  });
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +62,16 @@ class VeterinaryVetDetailPage extends StatelessWidget {
                         fontSize: 12,
                       ),
                     ),
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EditVeterinaryPage(vet)));
+                    },
+                    icon: Icon(Icons.edit),
+                    label: Text('Editar'),
                   )
                 ],
               ),
