@@ -76,40 +76,6 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
       );
     }
 
-/*
-    Widget _buildRegion() {
-      return TextFormField(
-        initialValue: vet.region,
-        textCapitalization: TextCapitalization.sentences,
-        decoration: InputDecoration(labelText: 'Region'),
-        onSaved: (value) => vet.region = value,
-        validator: (value) {
-          if (value.isEmpty) {
-            return 'Region es requerido';
-          }if (value.length < 6) {
-            return 'minimo 6 caracteres';
-          }
-          else {
-            return null;
-          }
-        },
-      );
-    }
-
-
-
-    void Elistregion()async{
-      int longitud_regiones=0;
-      _apiResponse3 = await service3.getRegionsList();
-      longitud_regiones=_apiResponse3.data.length;
-      listreg.add('Seleccione una Region',);
-      for(int i=0;i<longitud_regiones;++i){
-        listreg.add(_apiResponse3.data[i].region);
-        print(listreg[i]);
-      }
-
-    }
-*/
     Widget _buildRegion(BuildContext context) {
       Regions re = new Regions();
       print(re.regions[0]);
@@ -219,8 +185,6 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
       );
     }
 
-//--------------------------------------------------
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Registro de Veterinaria'),
@@ -232,8 +196,6 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
           child: Form(
             key: formkey,
             child: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //    mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 _buildBusinessName(),
                 _buildRegion(context),
@@ -282,24 +244,8 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
     //Obtiene todos los veterinarios
     _apiResponse = await service.getUservetsList();
 
-    var list = _apiResponse.data;
-    //obtiene la longitud de la lista
     var last = _apiResponse.data.length;
-    print(last);
 
-    for (int i = 0; i < last; ++i) {
-      print(list[i].id);
-      print(list[i].name);
-      print(list[i].lastName);
-      print(list[i].age);
-      print(list[i].photo);
-      print(list[i].owner);
-      print(list[i].document);
-      print(list[i].email);
-      print(list[i].password);
-      print(list[i].phone);
-      print("     ");
-    }
     formkey.currentState.save();
     //print(list);
     print("VETERINARIA: ");
@@ -311,127 +257,7 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
     print(vet.field);
     print(vet.region);
     print("     ");
-    data.id = 0;
-    print("VETERINARIO: ");
-    print(data.id);
-    print(data.name);
-    print(data.lastName);
-    print(data.age);
-    print(data.photo);
-    print(data.owner);
-    print(data.document);
-    print(data.email);
-    print(data.password);
-    print(data.phone);
-    print("     ");
 
     final result1 = vetService.updateVet(last.toString(), vet);
-
-    // final result =await uvService.createUserv(uservet);
-    //Navigator.of(context).push(MaterialPageRoute(
-    //    builder: (context) => Add_Veterinary(),
-    //  ));
   }
 }
-
-/*
-
-/----------------------------------
-class Add_Veterinary extends StatelessWidget{
-  @override
-  final formkey = GlobalKey<FormState>();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    String businessname;
-    String region;
-    String field;
-    String email;
-    String address;
-    String description;
-
-
-
-
-    Widget _crearBoton(BuildContext context) {
-      return ElevatedButton.icon(
-        style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          primary: Color.fromRGBO(57, 179, 179, 1.0),
-          textStyle: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        label: Text('Registrar'),
-        icon: Icon(Icons.save),
-        onPressed: () async {
-
-          print('Posting data...');
-
-
-          //PostData(uservet);
-          _submit(context);
-        },
-      );
-    }
-
-    void _submit(BuildContext context) async {
-      if (!formkey.currentState.validate()) {
-        return;
-      }
-      //final result =await uvService.createUserv(uservet);
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => Add_Veterinary(),
-      ));
-      formkey.currentState.save();
-
-    }
-    return Scaffold(
-      appBar: AppBar(title: Text('Registrar Veterinaria'
-        , style: TextStyle(color: Colors.white) ,
-           ),
-      )
-      ,
-      body: SingleChildScrollView(
-        child :Container(
-          margin: EdgeInsets.all(50),
-          child: Form(child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              _buildBusinessName(),
-              _buildRegion(),
-              _buildField(),
-              _buildEmail(),
-              _buildAddress(),
-              _buildDescription(),
-
-              SizedBox(height: 100),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  primary: Color.fromRGBO(57, 179, 179, 1.0),
-                  textStyle: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-                label: Text('Registrar'),
-                icon: Icon(Icons.save),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder:(context)=>LoginPage(),
-                  ));
-                },
-              )
-            ],
-          ),),
-        ),
-
-      ),
-    );
-  }
-}*/

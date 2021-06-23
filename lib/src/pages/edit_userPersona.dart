@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petcare/src/models/userperson.dart';
+import 'package:petcare/src/services/user_persona_service.dart';
 
 class EditUserPersonaPage extends StatefulWidget {
   final UserPersona vet;
@@ -11,9 +12,10 @@ class EditUserPersonaPage extends StatefulWidget {
 class _EditUserPersonaState extends State<EditUserPersonaPage> {
   final formkey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  UserPersonaService vetService = new UserPersonaService();
 
-  UserPersona veterinario = new UserPersona();
-  _EditUserPersonaState(this.veterinario);
+  UserPersona perdona = new UserPersona();
+  _EditUserPersonaState(this.perdona);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,10 +58,10 @@ class _EditUserPersonaState extends State<EditUserPersonaPage> {
   Widget _editarNombre() {
     return TextFormField(
       style: TextStyle(fontSize: 18),
-      initialValue: veterinario.name,
+      initialValue: perdona.name,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Nombre'),
-      onSaved: (value) => veterinario.name = value,
+      onSaved: (value) => perdona.name = value,
       validator: (value) {
         if (value.isEmpty) {
           return 'El nombre no puede estar vacio';
@@ -76,10 +78,10 @@ class _EditUserPersonaState extends State<EditUserPersonaPage> {
   Widget _editarLastName() {
     return TextFormField(
       style: TextStyle(fontSize: 18),
-      initialValue: veterinario.lastName,
+      initialValue: perdona.lastName,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Apellido'),
-      onSaved: (value) => veterinario.lastName = value,
+      onSaved: (value) => perdona.lastName = value,
       validator: (value) {
         if (value.isEmpty) {
           return 'La region no puede estar en blanco';
@@ -93,10 +95,10 @@ class _EditUserPersonaState extends State<EditUserPersonaPage> {
   Widget _editarDocument() {
     return TextFormField(
       style: TextStyle(fontSize: 18),
-      initialValue: veterinario.document.toString(),
+      initialValue: perdona.document.toString(),
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Documento de Identidad'),
-      onSaved: (value) => veterinario.document = int.parse(value),
+      onSaved: (value) => perdona.document = int.parse(value),
       validator: (value) {
         if (value.isEmpty) {
           return 'Contraseña es requerido';
@@ -113,10 +115,10 @@ class _EditUserPersonaState extends State<EditUserPersonaPage> {
   Widget _editarEmail() {
     return TextFormField(
       style: TextStyle(fontSize: 18),
-      initialValue: veterinario.email,
+      initialValue: perdona.email,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Correo electronico'),
-      onSaved: (value) => veterinario.email = value,
+      onSaved: (value) => perdona.email = value,
       validator: (value) {
         if (value.isEmpty) {
           return 'El correo elctronico no puede estar vacio';
@@ -133,10 +135,10 @@ class _EditUserPersonaState extends State<EditUserPersonaPage> {
   Widget _editarPassword() {
     return TextFormField(
       style: TextStyle(fontSize: 18),
-      initialValue: veterinario.password,
+      initialValue: perdona.password,
       keyboardType: TextInputType.number,
       decoration: InputDecoration(labelText: 'Contraseña'),
-      onSaved: (value) => veterinario.password = value,
+      onSaved: (value) => perdona.password = value,
       validator: (value) {
         if (value.isEmpty) {
           return 'Debe ingresar una Edad';
@@ -149,10 +151,10 @@ class _EditUserPersonaState extends State<EditUserPersonaPage> {
   Widget _editarPhone() {
     return TextFormField(
       style: TextStyle(fontSize: 18),
-      initialValue: veterinario.phone.toString(),
+      initialValue: perdona.phone.toString(),
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Telefono Celular'),
-      onSaved: (value) => veterinario.document = int.parse(value),
+      onSaved: (value) => perdona.document = int.parse(value),
       validator: (value) {
         if (value.isEmpty) {
           return 'Contraseña es requerido';
@@ -169,10 +171,10 @@ class _EditUserPersonaState extends State<EditUserPersonaPage> {
   Widget _editarAge() {
     return TextFormField(
       style: TextStyle(fontSize: 18),
-      initialValue: veterinario.age.toString(),
+      initialValue: perdona.age.toString(),
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Edad'),
-      onSaved: (value) => veterinario.document = int.parse(value),
+      onSaved: (value) => perdona.document = int.parse(value),
       validator: (value) {
         if (value.isEmpty) {
           return 'Contraseña es requerido';
@@ -189,10 +191,10 @@ class _EditUserPersonaState extends State<EditUserPersonaPage> {
   Widget _editarPhoto() {
     return TextFormField(
       style: TextStyle(fontSize: 18),
-      initialValue: veterinario.photo,
+      initialValue: perdona.photo,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Link de Foto'),
-      onSaved: (value) => veterinario.photo = value,
+      onSaved: (value) => perdona.photo = value,
       validator: (value) {
         if (value.isEmpty) {
           return 'Contraseña es requerido';
@@ -224,9 +226,23 @@ class _EditUserPersonaState extends State<EditUserPersonaPage> {
   }
 
   void _submit(BuildContext context) async {
-    if (!formkey.currentState.validate()) {
-      return;
-    }
+    //Obtiene todos los perdonas
+
     formkey.currentState.save();
+    //print(list);
+    print("VETERINARIA: ");
+    print(perdona.id);
+    print(perdona.name);
+    print(perdona.lastName);
+    print(perdona.email);
+    print(perdona.document);
+    print(perdona.email);
+    print(perdona.password);
+    print(perdona.phone);
+    print(perdona.age);
+    print(perdona.photo);
+    print("     ");
+
+    final result1 = vetService.updateUservet(perdona.id.toString(), perdona);
   }
 }

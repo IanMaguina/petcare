@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:petcare/src/models/api_response.dart';
@@ -13,21 +12,22 @@ class UservService {
   };
 
   Future<APIResponse<bool>> createUserv(Uservet item) {
-    return http.post(Uri.parse( API + '/business')
-       , headers: headers, body: json.encode(item.toJson()))
+    return http
+        .post(Uri.parse(API + '/business'),
+            headers: headers, body: json.encode(item.toJson()))
         .then((data) {
       if (data.statusCode == 201) {
         return APIResponse<bool>(data: true);
       }
       return APIResponse<bool>(error: true, errorMessage: 'An error occured');
-    })
-        .catchError((_) =>
-        APIResponse<bool>(error: true, errorMessage: 'An error occured'));
+    }).catchError((_) =>
+            APIResponse<bool>(error: true, errorMessage: 'An error occured'));
   }
 
-
   Future<APIResponse<List<Uservet>>> getUservetsList() {
-    return http.get(Uri.parse(API + '/business'), headers: headers).then((data) {
+    return http
+        .get(Uri.parse(API + '/business'), headers: headers)
+        .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
         final notes = <Uservet>[];
@@ -38,35 +38,34 @@ class UservService {
       }
       return APIResponse<List<Uservet>>(
           error: true, errorMessage: 'An error occured');
-    })
-        .catchError((_) => APIResponse<List<Uservet>>(
-        error: true, errorMessage: 'An error occured'));
+    }).catchError((_) => APIResponse<List<Uservet>>(
+            error: true, errorMessage: 'An error occured'));
   }
 
   Future<APIResponse<Uservet>> getUservet(String uvID) {
-    return http.get(Uri.parse(API + '/business' + uvID), headers: headers).then((data) {
+    return http.get(Uri.parse(API + '/business' + uvID), headers: headers).then(
+        (data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
         return APIResponse<Uservet>(data: Uservet.fromJson(jsonData));
       }
       return APIResponse<Uservet>(
           error: true, errorMessage: 'An error occured');
-    })
-        .catchError((_) =>
+    }).catchError((_) =>
         APIResponse<Uservet>(error: true, errorMessage: 'An error occured'));
   }
 
-
   Future<APIResponse<bool>> updateUservet(String uvID, Uservet item) {
-    return http.put(Uri.parse(API + '/business' + uvID), headers: headers,
-        body: json.encode(item.toJson())).then((data) {
+    return http
+        .put(Uri.parse(API + '/business' + uvID),
+            headers: headers, body: json.encode(item.toJson()))
+        .then((data) {
       if (data.statusCode == 204) {
         return APIResponse<bool>(data: true);
       }
       return APIResponse<bool>(error: true, errorMessage: 'An error occured');
-    })
-        .catchError((_) =>
-        APIResponse<bool>(error: true, errorMessage: 'An error occured'));
+    }).catchError((_) =>
+            APIResponse<bool>(error: true, errorMessage: 'An error occured'));
   }
 }
 /*
@@ -96,7 +95,6 @@ class UservService {
         .catchError((_) => APIResponse<Note>(error: true, errorMessage: 'An error occured'));
   }
 */
-
 
 /*
 
