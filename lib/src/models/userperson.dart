@@ -12,6 +12,7 @@ String userPersonaToJson(UserPersona data) => json.encode(data.toJson());
 
 class UserPersona {
   UserPersona({
+    this.idUsuario,
     this.id,
     this.name,
     this.lastName,
@@ -22,7 +23,7 @@ class UserPersona {
     this.age,
     this.photo,
   });
-
+  int idUsuario;
   int id;
   String name;
   String lastName;
@@ -34,6 +35,7 @@ class UserPersona {
   String photo;
 
   factory UserPersona.fromJson(Map<String, dynamic> json) => UserPersona(
+        idUsuario: json["idUsuario"],
         id: json["id"],
         name: json["name"],
         lastName: json["lastName"],
@@ -46,6 +48,7 @@ class UserPersona {
       );
 
   Map<String, dynamic> toJson() => {
+        "idUsuario": idUsuario,
         "id": id,
         "name": name,
         "lastName": lastName,

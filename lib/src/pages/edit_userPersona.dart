@@ -243,6 +243,7 @@ class _EditUserPersonaState extends State<EditUserPersonaPage> {
     print(perdona.photo);
     print("     ");
 
-    final result1 = vetService.updateUservet(perdona.id.toString(), perdona);
+    final result1 = vetService.updateUservet(
+        perdona.id.toString(), perdona, perdona.idUsuario.toString());
   }
 }
