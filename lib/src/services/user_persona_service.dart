@@ -55,18 +55,10 @@ class UserPersonaService with ChangeNotifier {
     }
   }
 
-  Future<APIResponse<bool>> updateUservet(
-      String uvID, UserPersona item, String userId) {
+  Future<APIResponse<bool>> updateUserper(String upID, UserPersona item) {
     return http
-        .put(
-            Uri.parse(API +
-                '/people/' +
-                userId +
-                '/providers/' +
-                uvID +
-                ' / reviews'),
-            headers: headers,
-            body: json.encode(item.toJson()))
+        .put(Uri.parse(API + '/people/' + upID),
+            headers: headers, body: json.encode(item.toJson()))
         .then((data) {
       if (data.statusCode == 204) {
         return APIResponse<bool>(data: true);

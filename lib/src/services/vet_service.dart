@@ -65,7 +65,7 @@ class VetService {
     var jsonv = item.toJson();
     print(jsonv);
     return http
-        .put(Uri.parse(API + '/business/' + uvID + '/providers/' + uvID),
+        .put(Uri.parse(API + '/provider/' + uvID),
             headers: headers, body: json.encode(jsonv))
         .then((data) {
       print(data.body.toString());

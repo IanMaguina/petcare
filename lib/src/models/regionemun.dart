@@ -8,8 +8,8 @@ class Regions {
     "Barranco",
     "Breña",
     "Comas",
-    "Chorrillos"
-        "El Agustino",
+    "Chorrillos",
+    "El Agustino",
     "Jesús María",
     "La Molina",
     "La Victoria",

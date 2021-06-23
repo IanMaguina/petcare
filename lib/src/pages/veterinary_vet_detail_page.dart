@@ -4,15 +4,15 @@ import 'package:petcare/src/pages/edit_Veterinarias.dart';
 
 class VeterinaryVetDetailPage extends StatelessWidget {
   //Veterinary vet;
-  Veterinary vet = Veterinary.fromJson({
-    'id': 1,
-    'address': 'asdasd',
-    'businessName': 'asdasdas',
-    'email ': 'asdasda@dasd',
-    'description ': 'dasdasdasdas',
-    'region ': 'asdasdasdas',
-    'field ': 'dasdasdasd',
-  });
+  Veterinary vet = Veterinary(
+    id: 1,
+    businessname: "Veterinaria PUKING",
+    field: "fieldasdasdasdasdasdd",
+    region: "Comas",
+    address: "Av. Direccion Direccion 123123",
+    email: "veterinari@veterinaria.com",
+    description: "Esto es una descripcion bastante acertgada",
+  );
 
   @override
   Widget build(BuildContext context) {
