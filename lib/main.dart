@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
           title: 'Petcare',
           debugShowCheckedModeBanner: false,
-          initialRoute: 'test',
+          initialRoute: '/',
           routes: getApplicationRoutes(),
           theme: ThemeData(
               primaryColor: Color.fromRGBO(57, 179, 179, 1.0),
