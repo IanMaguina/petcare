@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:petcare/src/models/Regionemun.dart';
 import 'package:petcare/src/models/api_response.dart';
 import 'package:petcare/src/models/region.dart';
-import 'package:petcare/src/models/regionenum.dart';
 import 'package:petcare/src/models/uservet.dart';
 import 'package:petcare/src/models/veterinary.dart';
 import 'package:petcare/src/services/region_service.dart';
@@ -180,8 +180,6 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
       );
     }
 
-//--------------------------------------------------
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Registro de Veterinaria'),
@@ -195,7 +193,7 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
             child: Column(
               children: <Widget>[
                 _buildBusinessName(),
-                _buildRegion(/*context*/),
+                _buildRegion(context),
                 _buildField(),
                 _buildEmail(),
                 _buildAddress(),

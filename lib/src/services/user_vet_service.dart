@@ -105,10 +105,14 @@ import 'package:petcare/src/models/uservet.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> development
 final urlPetcare = "https://localhost:44353/api";
 
 final token =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjkiLCJuYmYiOjE2MjA0NTIxOTgsImV4cCI6MTYyMTA1Njk5OCwiaWF0IjoxNjIwNDUyMTk4fQ.G-jOetqvYbgACErTLsF3iimKNKeHSZooUXX0YH8LXFI';
+<<<<<<< HEAD
 =======
 //production:
 //final urlPetcare = "https://petcaremobileapi.azurewebsites.net/api";
@@ -117,6 +121,8 @@ final urlPetcare = "https://localhost:44353/api";
 
 final _prefs = new PreferenciasUsuario();
 >>>>>>> test_william
+=======
+>>>>>>> development
 
 class UserService with ChangeNotifier {
   // final String _firebaseToken = 'AIzaSyAzIGZax6Pn30zGytZkwyXJdEmsKiRDRc8';
@@ -135,7 +141,7 @@ class UserService with ChangeNotifier {
       "age": user.age,
       // 'token' : true
     };
-    final url = Uri.https('$urlPetcare', '/business', {'q': '{http}'});
+    final url = '$urlPetcare/business';
     final resp = await http.post(url,
         headers: {
           'Content-Type': 'application/json',

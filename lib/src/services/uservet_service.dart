@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:petcare/src/models/uservet.dart';
 import 'package:http/http.dart' as http;
@@ -38,3 +39,4 @@ class VetService2 with ChangeNotifier {
     notifyListeners();
   }
 }
+*/

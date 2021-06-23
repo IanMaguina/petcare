@@ -273,8 +273,6 @@ class _Add_VetState extends State<Add_Vet> {
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 50.0),
-          padding: EdgeInsets.all(15.0),
-          key: formkey,
           child: Form(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -291,171 +289,6 @@ class _Add_VetState extends State<Add_Vet> {
               ],
             ),
           ),
-        ),
-      ),);
-  }
-
-
-  postData(Uservet user) async {
-    try {
-      var response = await http.post(
-          Uri.parse("https://localhost:44353/api/business"),
-          body: {
-            "name": user.name,
-            "lastname": user.lastName,
-            "document": user.document,
-            "email": user.email,
-            "password": user.password,
-            "photo": '',
-            "phone": user.phone,
-            "age": user.age,
-            // 'token' : true
-          });
-      print(response.body);
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  Widget _buildName() {
-    return TextFormField(
-      decoration: InputDecoration(labelText: 'Nombre'),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Nombre es requerido';
-        }
-        if (value.length < 6) {
-          return 'minimo 6 caracteres';
-        } else {
-          return null;
-        }
-      },
-      onSaved: (String value) {
-        userV.name = value;
-      },
-    );
-  }
-
-  Widget _buildLastName() {
-    return TextFormField(
-      decoration: InputDecoration(labelText: 'Apellido'),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Apellido requerido';
-        }
-        if (value.length < 6) {
-          return 'minimo 6 caracteres';
-        } else {
-          return null;
-        }
-      },
-      onSaved: (String value) {
-        userV.lastName = value;
-      },
-    );
-  }
-
-  Widget _buildDocument() {
-    return TextFormField(
-      decoration: InputDecoration(labelText: 'DNI'),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'DNI es requerido';
-        }
-        if (value.length < 8) {
-          return 'Ingrese numero valido';
-        }
-        if (utils.isNumeric(value)) {
-          return null;
-        } else {
-          return 'Solo numeros';
-        }
-      },
-      onSaved: (String value) {
-        userV.document = int.parse(value);
-      },
-    );
-  }
-
-  Widget _buildEmail() {
-    return TextFormField(
-      decoration: InputDecoration(labelText: 'Email'),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Email es requerido';
-        }
-      },
-      onSaved: (String value) {
-        userV.email = value;
-      },
-    );
-  }
-
-  Widget _buildPassword() {
-    return TextFormField(
-      decoration: InputDecoration(labelText: 'Contraseña'),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Contraseña es requerido';
-        }
-        if (value.length < 6) {
-          return 'debe tener 6 caracteres como minimo';
-        } else {
-          return null;
-        }
-      },
-      onSaved: (String value) {
-        userV.password = value;
-      },
-    );
-  }
-
-  Widget _buildPhone() {
-    return TextFormField(
-      decoration: InputDecoration(labelText: 'Telefono'),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Telefono es requerido';
-        }
-        if (utils.isNumeric(value)) {
-          return null;
-        } else {
-          return 'Solo numeros';
-        }
-      },
-      onSaved: (String value) {
-        userV.phone = int.parse(value);
-      },
-    );
-  }
-
-  Widget _buildAge() {
-    return TextFormField(
-      decoration: InputDecoration(labelText: 'Edad'),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Edad es requerida';
-        }
-        if (utils.isNumeric(value)) {
-          return null;
-        } else {
-          return 'Solo numeros';
-        }
-      },
-      onSaved: (String value) {
-        userV.age = int.parse(value);
-      },
-    );
-  }
-  Widget _buildButton(BuildContext context) {
-    return ElevatedButton.icon(
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        primary: Color.fromRGBO(57, 179, 179, 1.0),
-        textStyle: TextStyle(
-          color: Colors.white,
         ),
       ),
       label: Text('Registrar'),
@@ -479,8 +312,6 @@ class _Add_VetState extends State<Add_Vet> {
     }
     formkey.currentState.save();
   }
-
-
 }
 
 */
