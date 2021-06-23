@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:petcare/src/models/api_response.dart';
 import 'package:petcare/src/models/region.dart';
+import 'package:petcare/src/models/regionenum.dart';
 import 'package:petcare/src/models/uservet.dart';
 import 'package:petcare/src/models/veterinary.dart';
 import 'package:petcare/src/services/region_service.dart';
@@ -72,44 +73,16 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
       );
     }
 
-    Widget _buildRegion() {
-      return TextFormField(
-        initialValue: vet.region,
-        textCapitalization: TextCapitalization.sentences,
-        decoration: InputDecoration(labelText: 'Region'),
-        onSaved: (value) => vet.region = value,
-        validator: (value) {
-          if (value.isEmpty) {
-            return 'Region es requerido';
-          }
-          if (value.length < 6) {
-            return 'minimo 6 caracteres';
-          } else {
-            return null;
-          }
-        },
-      );
-    }
-
-/*
-    void Elistregion()async{
-      int longitud_regiones=0;
-      _apiResponse3 = await service3.getRegionsList();
-      longitud_regiones=_apiResponse3.data.length;
-      listreg.add('Seleccione una Region',);
-      for(int i=0;i<longitud_regiones;++i){
-        listreg.add(_apiResponse3.data[i].region);
-        print(listreg[i]);
-      }
-
-    }
-
     Widget _buildRegion(BuildContext context) {
+      Regions re = new Regions();
+      print(re.regions[0]);
+      var vista = 'Seleccione una Region';
+      //  vet.region = 'Seleccione una Region';
 
-      vet.region = 'Seleccione una Region';
       return DropdownButton<String>(
+        hint: Text(vista),
         value: vet.region,
-          icon: const Icon(Icons.arrow_circle_down_rounded),
+        icon: const Icon(Icons.arrow_circle_down_rounded),
         iconSize: 24,
         elevation: 16,
         style: const TextStyle(color: Colors.deepPurple),
@@ -117,15 +90,15 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
           height: 2,
           color: Colors.deepPurpleAccent,
         ),
-        onTap:() {
-
-        },
-        onChanged: (String newValue)async {
+        onTap: () {},
+        onChanged: (String newValue) {
           setState(() {
-            vet.region= newValue;
+            vista = newValue;
+            vet.region = newValue.toString();
           });
         },
-        items:listreg.map<DropdownMenuItem<String>>((String value) {
+        // items:listreg.map<DropdownMenuItem<String>>((String value)
+        items: re.regions.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: Text(value),
@@ -133,8 +106,6 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
         }).toList(),
       );
     }
-    ;
-*/
 
     Widget _buildEmail() {
       return TextFormField(

@@ -188,8 +188,8 @@ class _Add_VetState extends State<Add_Vet> {
         if (value.isEmpty) {
           return 'Debe ingresar una contraseña';
         }
-        if (value.length <= 8) {
-          return 'Mininimo 8 caracteres para la contraseña';
+        if (value.length < 8) {
+          return 'Mínimo 8 caracteres para la contraseña';
         } else {
           return null;
         }
