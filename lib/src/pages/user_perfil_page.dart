@@ -238,6 +238,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
         child: ListTile(
           onTap: () {
             //eliminar los datos de sharedPreference
+
             Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
           },
           title: Text(title),
