@@ -41,14 +41,7 @@ class MyApp extends StatelessWidget {
           routes: getApplicationRoutes(),
           theme: ThemeData(
               primaryColor: Color.fromRGBO(57, 179, 179, 1.0),
-              /* appBarTheme: AppBarTheme(
-                actionsIconTheme: IconThemeData(color: Colors.white),
-                titleTextStyle: TextStyle(color: Colors.white),
-              ), */
-/*               bottomAppBarColor: Color.fromRGBO(57, 179, 179, 0.3), */
-              textTheme: TextTheme(
-                  //subtitle1: TextStyle(color: Colors.white),
-                  button: TextStyle(color: Colors.white)))),
+              textTheme: TextTheme(button: TextStyle(color: Colors.white)))),
     );
   }
 }

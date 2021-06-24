@@ -89,7 +89,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              DropDownPets(),
+                              _dropDownPets(),
                               TextFormField(
                                   decoration: InputDecoration(hintText: "Raza"),
                                   keyboardType: TextInputType.text),
@@ -218,7 +218,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
     );
   }
 
-  Widget DropDownPets() {
+  Widget _dropDownPets() {
     return Container(
       width: 190,
       child: DropdownButton<String>(
