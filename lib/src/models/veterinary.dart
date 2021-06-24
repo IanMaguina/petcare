@@ -10,7 +10,6 @@ List<Veterinary> veterinaryFromJson(String str) =>
 String veterinaryToJson(List<Veterinary> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-
 Veterinary vetFromJson(String str) => Veterinary.fromJson(json.decode(str));
 
 String vetToJson(Veterinary data) => json.encode(data.toJson());
@@ -37,7 +36,7 @@ class Veterinary {
   factory Veterinary.fromJson(Map<String, dynamic> json) {
     return Veterinary(
       id: json["id"],
-      businessname: json["businessname"],
+      businessname: json["businessName"],
       region: json["region"],
       field: json["field"],
       address: json["address"],

@@ -13,7 +13,7 @@ final token =
 
 class UserPersonaService with ChangeNotifier {
   // final String _firebaseToken = 'AIzaSyAzIGZax6Pn30zGytZkwyXJdEmsKiRDRc8';
-  static const API = 'https://localhost:44353/api';
+  static const API = 'https://petcarefas.azurewebsites.net/api';
   static const headers = {
     // 'apiKey': '08d771e2-7c49-1789-0eaa-32aff09f1471',
     'Content-Type': 'application/json'
@@ -66,14 +66,21 @@ class UserPersonaService with ChangeNotifier {
     }
   } */
 
-  Future<APIResponse<bool>> updateUserper(String upID, UserPersona item) {
+  Future<APIResponse<bool>> updateUserper(String upID, item) {
+    var jsonv = item.toJson();
+    print(jsonv);
     return http
         .put(Uri.parse(API + '/people/' + upID),
-            headers: headers, body: json.encode(item.toJson()))
+            headers: headers, body: json.encode(jsonv))
         .then((data) {
+      print(data.body.toString());
       if (data.statusCode == 204) {
+        print("FUNCIONA   ");
         return APIResponse<bool>(data: true);
+      } else {
+        print("NO FUNCIONA  ");
       }
+
       return APIResponse<bool>(error: true, errorMessage: 'An error occured');
     }).catchError((_) =>
             APIResponse<bool>(error: true, errorMessage: 'An error occured'));
@@ -81,7 +88,7 @@ class UserPersonaService with ChangeNotifier {
 
   Future<APIResponse<UserPersona>> getUser(String uvID) {
     return http
-        .get(Uri.parse(API + '/people' + uvID), headers: headers)
+        .get(Uri.parse(API + '/people/' + uvID.toString()), headers: headers)
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);

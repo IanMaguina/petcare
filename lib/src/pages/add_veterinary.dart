@@ -5,6 +5,7 @@ import 'package:petcare/src/models/api_response.dart';
 import 'package:petcare/src/models/region.dart';
 import 'package:petcare/src/models/uservet.dart';
 import 'package:petcare/src/models/veterinary.dart';
+import 'package:petcare/src/pages/login_page.dart';
 import 'package:petcare/src/services/region_service.dart';
 import 'package:petcare/src/services/user_vet_service.dart';
 import 'package:petcare/src/services/vet_service.dart';
@@ -284,10 +285,9 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
 
     final result1 = vetService.updateVet(last.toString(), vet);
 
-    // final result =await uvService.createUserv(uservet);
-    //Navigator.of(context).push(MaterialPageRoute(
-    //    builder: (context) => Add_Veterinary(),
-    //  ));
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => LoginPage(),
+    ));
   }
 }
 
