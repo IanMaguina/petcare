@@ -26,7 +26,8 @@ class _TestImagePageState extends State<TestImagePage> {
                           builder: (context) => FullScreen(i)));
                     }, */
                   child: Card(
-                    elevation: 5.0,
+                    semanticContainer: false,
+                    elevation: 2.0,
                     child: Column(
                       children: <Widget>[
                         new ClipRRect(
@@ -36,7 +37,7 @@ class _TestImagePageState extends State<TestImagePage> {
                             child: Image.network(
                               i.secureUrl,
                               width: MediaQuery.of(context).size.width,
-                              height: 208,
+                              height: 250,
                               fit: BoxFit.cover,
                             ),
                           ),

@@ -2,18 +2,19 @@ import 'dart:convert';
 
 import 'package:petcare/src/models/api_response.dart';
 import 'package:http/http.dart' as http;
+import 'package:petcare/src/models/region.dart';
 import 'package:petcare/src/models/uservet.dart';
 
-class UservService {
+class RegionService {
   static const API = 'https://localhost:44353/api';
   static const headers = {
     // 'apiKey': '08d771e2-7c49-1789-0eaa-32aff09f1471',
     'Content-Type': 'application/json'
   };
 
-  Future<APIResponse<bool>> createUserv(Uservet item) {
+  Future<APIResponse<bool>> createRegion(Region item) {
     return http
-        .post(Uri.parse(API + '/business'),
+        .post(Uri.parse(API + '/regions'),
             headers: headers, body: json.encode(item.toJson()))
         .then((data) {
       if (data.statusCode == 201) {
@@ -24,40 +25,40 @@ class UservService {
             APIResponse<bool>(error: true, errorMessage: 'An error occured'));
   }
 
-  Future<APIResponse<List<Uservet>>> getUservetsList() {
+  Future<APIResponse<List<Region>>> getRegionsList() {
     return http
         .get(Uri.parse(API + '/business'), headers: headers)
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
-        final notes = <Uservet>[];
+        final notes = <Region>[];
         for (var item in jsonData) {
-          notes.add(Uservet.fromJson(item));
+          notes.add(Region.fromJson(item));
         }
-        return APIResponse<List<Uservet>>(data: notes);
+        return APIResponse<List<Region>>(data: notes);
       }
-      return APIResponse<List<Uservet>>(
+      return APIResponse<List<Region>>(
           error: true, errorMessage: 'An error occured');
     }).catchError((_) => APIResponse<List<Uservet>>(
             error: true, errorMessage: 'An error occured'));
   }
 
-  Future<APIResponse<Uservet>> getUservet(String uvID) {
-    return http.get(Uri.parse(API + '/business' + uvID), headers: headers).then(
-        (data) {
+  Future<APIResponse<Region>> getRegion(String uvID) {
+    return http
+        .get(Uri.parse(API + '/regions' + uvID), headers: headers)
+        .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
-        return APIResponse<Uservet>(data: Uservet.fromJson(jsonData));
+        return APIResponse<Region>(data: Region.fromJson(jsonData));
       }
-      return APIResponse<Uservet>(
-          error: true, errorMessage: 'An error occured');
+      return APIResponse<Region>(error: true, errorMessage: 'An error occured');
     }).catchError((_) =>
-        APIResponse<Uservet>(error: true, errorMessage: 'An error occured'));
+            APIResponse<Region>(error: true, errorMessage: 'An error occured'));
   }
 
-  Future<APIResponse<bool>> updateUservet(String uvID, Uservet item) {
+  Future<APIResponse<bool>> updateRegion(String uvID, Region item) {
     return http
-        .put(Uri.parse(API + '/business' + uvID),
+        .put(Uri.parse(API + '/regions' + uvID),
             headers: headers, body: json.encode(item.toJson()))
         .then((data) {
       if (data.statusCode == 204) {
@@ -104,25 +105,10 @@ import 'package:http/http.dart' as http;
 import 'package:petcare/src/models/uservet.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> development
 final urlPetcare = "https://localhost:44353/api";
 
 final token =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjkiLCJuYmYiOjE2MjA0NTIxOTgsImV4cCI6MTYyMTA1Njk5OCwiaWF0IjoxNjIwNDUyMTk4fQ.G-jOetqvYbgACErTLsF3iimKNKeHSZooUXX0YH8LXFI';
-<<<<<<< HEAD
-=======
-//production:
-//final urlPetcare = "https://petcaremobileapi.azurewebsites.net/api";
-//local:
-final urlPetcare = "https://localhost:44353/api";
-
-final _prefs = new PreferenciasUsuario();
->>>>>>> test_william
-=======
->>>>>>> development
 
 class UserService with ChangeNotifier {
   // final String _firebaseToken = 'AIzaSyAzIGZax6Pn30zGytZkwyXJdEmsKiRDRc8';

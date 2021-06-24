@@ -1,15 +1,18 @@
 // To parse this JSON data, do
 //
-//     final uservet = uservetFromJson(jsonString);
+//     final UserPersona = UserPersonaFromJson(jsonString);
 
 import 'dart:convert';
 
-Uservet uservetFromJson(String str) => Uservet.fromJson(json.decode(str));
+//UserPersona UserPersonaFromJson(String str) => UserPersona.fromJson(json.decode(str));
+UserPersona userPersonaFromJson(String str) =>
+    UserPersona.fromJson(json.decode(str));
 
-String uservetToJson(Uservet data) => json.encode(data.toJson());
+String userPersonaToJson(UserPersona data) => json.encode(data.toJson());
 
-class Uservet {
-  Uservet({
+class UserPersona {
+  UserPersona({
+    this.idUsuario,
     this.id,
     this.name,
     this.lastName,
@@ -19,9 +22,8 @@ class Uservet {
     this.phone,
     this.age,
     this.photo,
-    this.owner
   });
-
+  int idUsuario;
   int id;
   String name;
   String lastName;
@@ -31,10 +33,9 @@ class Uservet {
   int phone;
   int age;
   String photo;
-  bool owner;
 
-  factory Uservet.fromJson(Map<String, dynamic> json) {
-    return Uservet(
+  factory UserPersona.fromJson(Map<String, dynamic> json) => UserPersona(
+        idUsuario: json["idUsuario"],
         id: json["id"],
         name: json["name"],
         lastName: json["lastName"],
@@ -44,12 +45,10 @@ class Uservet {
         phone: json["phone"],
         age: json["age"],
         photo: json["photo"],
-        owner: json["owner"],
       );
-}
 
-  Map<String, dynamic> toJson() {
-    return{
+  Map<String, dynamic> toJson() => {
+        "idUsuario": idUsuario,
         "id": id,
         "name": name,
         "lastName": lastName,
@@ -59,7 +58,5 @@ class Uservet {
         "phone": phone,
         "age": age,
         "photo": photo,
-        "owner":owner,
-    };
-  }
+      };
 }

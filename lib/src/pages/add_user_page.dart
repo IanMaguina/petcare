@@ -123,7 +123,7 @@ class _AddUserPageState extends State<AddUserPage> {
 
   Widget _crearDNI() {
     return TextFormField(
-      initialValue: usuario.document.toString(),
+      initialValue: '${usuario.document}',
       keyboardType: TextInputType.number,
       decoration: InputDecoration(labelText: 'DNI'),
       onSaved: (value) => usuario.document = value as int,

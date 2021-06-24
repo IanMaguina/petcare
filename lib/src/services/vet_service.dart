@@ -1,17 +1,23 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:petcare/src/models/api_response.dart';
 import 'package:http/http.dart' as http;
 import 'package:petcare/src/models/uservet.dart';
+import 'package:petcare/src/models/veterinary.dart';
+import 'package:petcare/src/services/user_vet_service.dart';
+import 'package:petcare/src/models/uservet.dart';
 
-class UservService {
-  static const API = 'https://localhost:44353/api';
+class VetService {
+  static const API = 'https://127.0.0.1:44353/api';
   static const headers = {
     // 'apiKey': '08d771e2-7c49-1789-0eaa-32aff09f1471',
     'Content-Type': 'application/json'
   };
+  UservService uvService = new UservService();
+  Uservet uservet = new Uservet();
 
-  Future<APIResponse<bool>> createUserv(Uservet item) {
+  Future<APIResponse<bool>> createVet(Veterinary item) {
     return http
         .post(Uri.parse(API + '/business'),
             headers: headers, body: json.encode(item.toJson()))
@@ -24,45 +30,53 @@ class UservService {
             APIResponse<bool>(error: true, errorMessage: 'An error occured'));
   }
 
-  Future<APIResponse<List<Uservet>>> getUservetsList() {
+  Future<APIResponse<List<Veterinary>>> getVetsList() {
     return http
-        .get(Uri.parse(API + '/business'), headers: headers)
+        .get(Uri.parse(API + '/providers'), headers: headers)
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
-        final notes = <Uservet>[];
+        final notes = <Veterinary>[];
         for (var item in jsonData) {
-          notes.add(Uservet.fromJson(item));
+          notes.add(Veterinary.fromJson(item));
         }
-        return APIResponse<List<Uservet>>(data: notes);
+        return APIResponse<List<Veterinary>>(data: notes);
       }
-      return APIResponse<List<Uservet>>(
+      return APIResponse<List<Veterinary>>(
           error: true, errorMessage: 'An error occured');
-    }).catchError((_) => APIResponse<List<Uservet>>(
+    }).catchError((_) => APIResponse<List<Veterinary>>(
             error: true, errorMessage: 'An error occured'));
   }
 
-  Future<APIResponse<Uservet>> getUservet(String uvID) {
-    return http.get(Uri.parse(API + '/business' + uvID), headers: headers).then(
-        (data) {
+  Future<APIResponse<Veterinary>> getVet(int uvID) {
+    return http
+        .get(Uri.parse(API + '/providers/' + uvID.toString()), headers: headers)
+        .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
-        return APIResponse<Uservet>(data: Uservet.fromJson(jsonData));
+        final vet =
+            APIResponse<Veterinary>(data: Veterinary.fromJson(jsonData));
+        return vet;
       }
-      return APIResponse<Uservet>(
+      return APIResponse<Veterinary>(
           error: true, errorMessage: 'An error occured');
-    }).catchError((_) =>
-        APIResponse<Uservet>(error: true, errorMessage: 'An error occured'));
+    }).catchError((_) => APIResponse<Veterinary>(
+            error: true, errorMessage: 'An error occured'));
   }
 
-  Future<APIResponse<bool>> updateUservet(String uvID, Uservet item) {
+  Future<APIResponse<bool>> updateVet(String uvID, Veterinary item) {
+    var jsonv = item.toJson();
+    print(jsonv);
     return http
-        .put(Uri.parse(API + '/business' + uvID),
-            headers: headers, body: json.encode(item.toJson()))
+        .put(Uri.parse(API + '/business/' + uvID + '/providers/' + uvID),
+            headers: headers, body: json.encode(jsonv))
         .then((data) {
+      print(data.body.toString());
       if (data.statusCode == 204) {
+        print("FUNCIONA   " + item.businessname);
         return APIResponse<bool>(data: true);
       }
+      print("NO FUNCIONA  " + item.businessname);
       return APIResponse<bool>(error: true, errorMessage: 'An error occured');
     }).catchError((_) =>
             APIResponse<bool>(error: true, errorMessage: 'An error occured'));
@@ -104,25 +118,10 @@ import 'package:http/http.dart' as http;
 import 'package:petcare/src/models/uservet.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> development
 final urlPetcare = "https://localhost:44353/api";
 
 final token =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjkiLCJuYmYiOjE2MjA0NTIxOTgsImV4cCI6MTYyMTA1Njk5OCwiaWF0IjoxNjIwNDUyMTk4fQ.G-jOetqvYbgACErTLsF3iimKNKeHSZooUXX0YH8LXFI';
-<<<<<<< HEAD
-=======
-//production:
-//final urlPetcare = "https://petcaremobileapi.azurewebsites.net/api";
-//local:
-final urlPetcare = "https://localhost:44353/api";
-
-final _prefs = new PreferenciasUsuario();
->>>>>>> test_william
-=======
->>>>>>> development
 
 class UserService with ChangeNotifier {
   // final String _firebaseToken = 'AIzaSyAzIGZax6Pn30zGytZkwyXJdEmsKiRDRc8';
