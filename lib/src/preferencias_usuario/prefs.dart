@@ -33,6 +33,15 @@ class PreferenciasUsuario {
   set iduser(int value) {
     _prefs.setInt('iduser', value);
   }
+
+  get idvet {
+    return _prefs.getInt('idvet') ?? 12;
+  }
+
+  set idvet(int value) {
+    _prefs.setInt('idvet', value);
+  }
+
 /*   get user {
     return _prefs.getString('user') ?? '';
   } 

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:petcare/src/widgets/login_user_widget.dart';
 import 'package:petcare/src/widgets/login_uservet_widget.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginVetPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _LoginVetPageState createState() => _LoginVetPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginVetPageState extends State<LoginVetPage> {
   @override
   void initState() {
     super.initState();
@@ -26,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
         body: Stack(
           children: <Widget>[
             _fondo(context),
-            LoginUserWidget(),
+            LoginVetWidget(),
           ],
         ),
       ),

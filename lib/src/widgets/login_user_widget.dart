@@ -34,7 +34,7 @@ class LoginUserWidget extends StatelessWidget {
                 ]),
             child: Column(
               children: <Widget>[
-                Text('Ingreso', style: TextStyle(fontSize: 20.0)),
+                Text('Ingreso Usuarios', style: TextStyle(fontSize: 20.0)),
                 SizedBox(
                   height: 60.0,
                 ),

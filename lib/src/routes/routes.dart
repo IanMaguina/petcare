@@ -10,6 +10,7 @@ import 'package:petcare/src/pages/initpage.dart';
 import 'package:petcare/src/pages/list_pet_page.dart';
 import 'package:petcare/src/pages/list_veterinarias_page.dart';
 import 'package:petcare/src/pages/login_page.dart';
+import 'package:petcare/src/pages/login_page_vet.dart';
 import 'package:petcare/src/pages/pet_detail_page.dart';
 import 'package:petcare/src/pages/pet_detail_vet_page.dart';
 import 'package:petcare/src/pages/test_images.dart';
@@ -20,6 +21,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
     '/': (BuildContext context) => InitPage(),
     'login': (BuildContext context) => LoginPage(),
+    'loginvet': (BuildContext context) => LoginVetPage(),
     'home': (BuildContext context) => HomePage(),
     'home_vet': (BuildContext context) => HomeVetPage(),
     'adduser': (BuildContext context) => AddUserPage(),

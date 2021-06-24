@@ -7,29 +7,60 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage>
+    with SingleTickerProviderStateMixin {
+  TabController _controller;
+
   @override
   void initState() {
     super.initState();
+    _controller = TabController(length: 2, vsync: this);
   }
 
   @override
   void dispose() {
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: true,
-      child: Scaffold(
-        body: Stack(
-          children: <Widget>[
-            _fondo(context),
-            LoginUserWidget(),
-          ],
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        toolbarHeight: 55,
+        backgroundColor: Color.fromRGBO(57, 179, 179, 0.6),
+        titleTextStyle: TextStyle(color: Colors.white),
+        bottom: getTabBar(),
       ),
+      body: Stack(
+        children: <Widget>[
+          _fondo(context),
+          getTabBarView(<Widget>[LoginUserWidget(), LoginVetWidget()])
+        ],
+      ),
+    );
+  }
+
+  TabBarView getTabBarView(var displays) {
+    return TabBarView(
+      children: displays,
+      controller: _controller,
+    );
+  }
+
+  TabBar getTabBar() {
+    return TabBar(
+      labelStyle: TextStyle(fontSize: 18.0),
+      tabs: <Tab>[
+        Tab(
+          text: "Usuarios",
+        ),
+        Tab(
+          text: "Veterinarios",
+        ),
+      ],
+      controller: _controller,
     );
   }
 

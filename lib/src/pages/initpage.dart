@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:petcare/const/fronts_constances.dart';
 import 'package:petcare/src/Animation/FadeAnimation.dart';
 import 'package:petcare/src/pages/login_page.dart';
+import 'package:petcare/src/pages/login_page_vet.dart';
 
 class InitPage extends StatefulWidget {
   @override
@@ -23,16 +24,18 @@ class _InitPageState extends State<InitPage> {
               height: 150,
             ),
             FadeAnimation(
-              1.5,
-              Text("Selecciona tu cuenta!",style: kButtonStyle,)
-            ),
+                1.5,
+                Text(
+                  "Selecciona tu cuenta!",
+                  style: kButtonStyle,
+                )),
             SizedBox(
               height: 150,
             ),
             FadeAnimation(
               1.8,
               Padding(
-                padding: const EdgeInsets.only(left:25.0,right: 25.0),
+                padding: const EdgeInsets.only(left: 25.0, right: 25.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -44,20 +47,26 @@ class _InitPageState extends State<InitPage> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => LoginPage()),
+                            MaterialPageRoute(
+                                builder: (context) => LoginPage()),
                           );
                         },
-                        child:Container(
+                        child: Container(
                           color: Colors.white,
-                          height:120 ,
+                          height: 120,
                           width: 100,
-                          child:Column(
+                          child: Column(
                             children: <Widget>[
-                              Image.asset('assets/images/pio.png',),
+                              Image.asset(
+                                'assets/images/pio.png',
+                              ),
                               SizedBox(
                                 height: 2,
                               ),
-                              Text("Owner",style: TextStyle(fontSize: 15),)
+                              Text(
+                                "Owner",
+                                style: TextStyle(fontSize: 15),
+                              )
                             ],
                           ),
                         ),
@@ -74,20 +83,26 @@ class _InitPageState extends State<InitPage> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => LoginPage()),
+                            MaterialPageRoute(
+                                builder: (context) => LoginVetPage()),
                           );
                         },
-                        child:Container(
+                        child: Container(
                           color: Colors.white,
-                          height:120 ,
+                          height: 120,
                           width: 100,
                           child: Column(
                             children: <Widget>[
-                              Image.asset('assets/images/xcxc.png',),
+                              Image.asset(
+                                'assets/images/xcxc.png',
+                              ),
                               SizedBox(
                                 height: 2,
                               ),
-                              Text("Veterinary",style: TextStyle(fontSize: 15),)
+                              Text(
+                                "Veterinary",
+                                style: TextStyle(fontSize: 15),
+                              )
                             ],
                           ),
                         ),

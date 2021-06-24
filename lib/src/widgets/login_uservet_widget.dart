@@ -34,7 +34,7 @@ class LoginVetWidget extends StatelessWidget {
                 ]),
             child: Column(
               children: <Widget>[
-                Text('Ingreso', style: TextStyle(fontSize: 20.0)),
+                Text('Ingreso Veterinarios', style: TextStyle(fontSize: 20.0)),
                 SizedBox(
                   height: 60.0,
                 ),

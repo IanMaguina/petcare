@@ -32,39 +32,6 @@ class UserPersonaService with ChangeNotifier {
     }).catchError((_) =>
             APIResponse<bool>(error: true, errorMessage: 'An error occured'));
   }
-  /*  Future<Map<String, dynamic>> nuevoUsuario(User user) async {
-    final data = {
-      "name": user.name,
-      "lastname": user.lastName,
-      "document": user.document,
-      "email": user.email,
-      "password": user.password,
-      "photo": '',
-      "phone": user.phone,
-      "age": user.age,
-      // 'token' : true
-    };
-    final url = '$urlPetcare/people';
-    final resp = await http.post(Uri.parse(url),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: json.encode(data));
-
-    Map<String, dynamic> decodedResp = json.decode(resp.body);
-
-    print(decodedResp);
-
-    if (decodedResp.containsKey('id')) {
-      //se creo el usuario
-      _prefs.iduser = decodedResp['id'];
-
-      return {'ok': true, 'mensaje': 'usuario creado correctamente!'};
-    } else {
-      return {'ok': false, 'mensaje': 'Error'};
-    }
-  } */
 
   Future<APIResponse<bool>> updateUserper(String upID, item) {
     var jsonv = item.toJson();
