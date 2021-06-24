@@ -9,7 +9,7 @@ import 'package:petcare/src/services/user_vet_service.dart';
 import 'package:petcare/src/models/uservet.dart';
 
 class VetService {
-  static const API = 'https://localhost:44353/api';
+  static const API = 'https://127.0.0.1:44353/api';
   static const headers = {
     // 'apiKey': '08d771e2-7c49-1789-0eaa-32aff09f1471',
     'Content-Type': 'application/json'
@@ -32,7 +32,7 @@ class VetService {
 
   Future<APIResponse<List<Veterinary>>> getVetsList() {
     return http
-        .get(Uri.parse(API + '/business'), headers: headers)
+        .get(Uri.parse(API + '/providers'), headers: headers)
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
@@ -48,17 +48,20 @@ class VetService {
             error: true, errorMessage: 'An error occured'));
   }
 
-  Future<APIResponse<Veterinary>> getVet(String uvID) {
-    return http.get(Uri.parse(API + '/provider' + uvID), headers: headers).then(
-        (data) {
+  Future<APIResponse<Veterinary>> getVet(int uvID) {
+    return http
+        .get(Uri.parse(API + '/providers/' + uvID.toString()), headers: headers)
+        .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
-        return APIResponse<Veterinary>(data: Veterinary.fromJson(jsonData));
+        final vet =
+            APIResponse<Veterinary>(data: Veterinary.fromJson(jsonData));
+        return vet;
       }
       return APIResponse<Veterinary>(
           error: true, errorMessage: 'An error occured');
-    }).catchError((_) =>
-        APIResponse<Veterinary>(error: true, errorMessage: 'An error occured'));
+    }).catchError((_) => APIResponse<Veterinary>(
+            error: true, errorMessage: 'An error occured'));
   }
 
   Future<APIResponse<bool>> updateVet(String uvID, Veterinary item) {

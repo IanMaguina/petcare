@@ -47,8 +47,6 @@ class _EditUservetState extends State<EditUservetPage> {
                 SizedBox(height: 10),
                 _editarAge(),
                 SizedBox(height: 10),
-                _editarPhoto(),
-                SizedBox(height: 30),
                 _editarBoton(context),
               ],
             ),
@@ -61,7 +59,7 @@ class _EditUservetState extends State<EditUservetPage> {
   Widget _editarNombre() {
     return TextFormField(
       style: TextStyle(fontSize: 18),
-      initialValue: veterinario.name,
+      initialValue: veterinario.name.toString(),
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Nombre del veterinario'),
       onSaved: (value) => veterinario.name = value,
@@ -84,7 +82,7 @@ class _EditUservetState extends State<EditUservetPage> {
   Widget _editarLastName() {
     return TextFormField(
       style: TextStyle(fontSize: 18),
-      initialValue: veterinario.lastName,
+      initialValue: veterinario.lastName.toString(),
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Apellido del Dueño'),
       onSaved: (value) => veterinario.lastName = value,
@@ -130,7 +128,7 @@ class _EditUservetState extends State<EditUservetPage> {
   Widget _editarEmail() {
     return TextFormField(
       style: TextStyle(fontSize: 18),
-      initialValue: veterinario.email,
+      initialValue: veterinario.email.toString(),
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Correo electronico'),
       onSaved: (value) => veterinario.email = value,
@@ -150,7 +148,7 @@ class _EditUservetState extends State<EditUservetPage> {
   Widget _editarPassword() {
     return TextFormField(
       style: TextStyle(fontSize: 18),
-      initialValue: veterinario.password,
+      initialValue: veterinario.password.toString(),
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Contraseña'),
       onSaved: (value) => veterinario.password = value,
@@ -203,23 +201,6 @@ class _EditUservetState extends State<EditUservetPage> {
         }
         if (value.contains(RegExp('[A-Z]'))) {
           return 'Edad no pude incluir letras A-Z';
-        } else {
-          return null;
-        }
-      },
-    );
-  }
-
-  Widget _editarPhoto() {
-    return TextFormField(
-      style: TextStyle(fontSize: 18),
-      initialValue: veterinario.photo,
-      textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(labelText: 'Link de Foto'),
-      onSaved: (value) => veterinario.photo = value,
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'Contraseña es requerido';
         } else {
           return null;
         }

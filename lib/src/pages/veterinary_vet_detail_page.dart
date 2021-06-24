@@ -1,18 +1,24 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:petcare/src/models/api_response.dart';
 import 'package:petcare/src/models/veterinary.dart';
 import 'package:petcare/src/pages/edit_Veterinarias.dart';
+import 'package:petcare/src/services/vet_service.dart';
 
 class VeterinaryVetDetailPage extends StatelessWidget {
   //Veterinary vet;
-  Veterinary vet = Veterinary.fromJson({
-    'id': 1,
-    'address': 'asdasd',
-    'businessName': 'asdasdas',
-    'email ': 'asdasda@dasd',
-    'description ': 'dasdasdasdas',
-    'region ': 'asdasdasdas',
-    'field ': 'dasdasdasd',
-  });
+  Veterinary vet = Veterinary(
+    id: 1,
+    businessname: "Veterinaria PUKING",
+    field: "fieldasdasdasdasdasdd",
+    region: "Comas",
+    address: "Av. Direccion Direccion 123123",
+    email: "veterinari@veterinaria.com",
+    description: "Esto es una descripcion bastante acertgada",
+  );
+  VetService vetService = new VetService();
+
+  APIResponse<Veterinary> vetresponse;
 
   @override
   Widget build(BuildContext context) {
@@ -64,11 +70,13 @@ class VeterinaryVetDetailPage extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton.icon(
-                    onPressed: () {
+                    onPressed: () async {
+                      vetresponse = await vetService.getVet(1);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => EditVeterinaryPage(vet)));
+                              builder: (context) =>
+                                  EditVeterinaryPage(vetresponse.data)));
                     },
                     icon: Icon(Icons.edit),
                     label: Text('Editar'),

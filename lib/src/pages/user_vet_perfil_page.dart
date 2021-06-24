@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:petcare/const/colors.dart';
+import 'package:petcare/src/models/api_response.dart';
+import 'package:petcare/src/models/uservet.dart';
+import 'package:petcare/src/models/veterinary.dart';
+import 'package:petcare/src/pages/edit_veterinarios.dart';
+import 'package:petcare/src/services/user_vet_service.dart';
 
 class UserVetInfoPage extends StatefulWidget {
   @override
   _UserVetInfoPageState createState() => _UserVetInfoPageState();
 }
+
+UservService personService = new UservService();
+
+APIResponse<Uservet> personaresponse;
 
 class _UserVetInfoPageState extends State<UserVetInfoPage> {
   //bool _value = false;
@@ -153,6 +162,18 @@ class _UserVetInfoPageState extends State<UserVetInfoPage> {
                       color: Colors.grey,
                     ),
                     _logoutButton('Cerrar Sesión', '', 4, context),
+                    ElevatedButton.icon(
+                      onPressed: () async {
+                        personaresponse = await personService.getUservet("1");
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    EditUservetPage(personaresponse.data)));
+                      },
+                      icon: Icon(Icons.edit),
+                      label: Text('Editar'),
+                    )
                   ],
                 ),
               )

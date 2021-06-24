@@ -9,6 +9,8 @@ import 'package:petcare/src/models/veterinary.dart';
 import 'package:petcare/src/services/region_service.dart';
 import 'package:petcare/src/services/vet_service.dart';
 
+VetService vetService = new VetService();
+
 class EditVeterinaryPage extends StatefulWidget {
   final Veterinary vet;
   EditVeterinaryPage(this.vet);
@@ -19,7 +21,6 @@ class EditVeterinaryPage extends StatefulWidget {
 class _EditVeterinaryState extends State<EditVeterinaryPage> {
   final formkey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  VetService vetService = new VetService();
 
   Veterinary veterinaria = new Veterinary();
   _EditVeterinaryState(this.veterinaria);
@@ -61,15 +62,15 @@ class _EditVeterinaryState extends State<EditVeterinaryPage> {
   Widget _editarNombre() {
     return TextFormField(
       style: TextStyle(fontSize: 18),
-      initialValue: veterinaria.businessname,
+      initialValue: veterinaria.businessname.toString(),
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Nombre de la Veterinaria'),
-      onSaved: (value) => veterinaria.businessname = value,
+      onSaved: (value) => veterinaria.businessname = value.toString(),
       validator: (value) {
         if (value.isEmpty) {
           return 'El nombre no puede estar vacio';
         }
-        if (value.length < 3) {
+        if (value.length < 5) {
           return 'minimo 6 caracteres';
         } else {
           return null;
@@ -82,11 +83,9 @@ class _EditVeterinaryState extends State<EditVeterinaryPage> {
     Regions re = new Regions();
     print(re.regions[0]);
     var vista = 'Seleccione una Region';
-    //  vet.region = 'Seleccione una Region';
 
     return DropdownButton<String>(
-      hint: Text(vista),
-      value: veterinaria.region,
+      value: veterinaria.region.toString(),
       icon: const Icon(Icons.arrow_circle_down_rounded),
       iconSize: 24,
       elevation: 16,
@@ -114,10 +113,10 @@ class _EditVeterinaryState extends State<EditVeterinaryPage> {
   Widget _editarField() {
     return TextFormField(
       style: TextStyle(fontSize: 18),
-      initialValue: veterinaria.field,
+      initialValue: veterinaria.field.toString(),
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Campo'),
-      onSaved: (value) => veterinaria.field = value,
+      onSaved: (value) => veterinaria.field = value.toString(),
       validator: (value) {
         if (value.isEmpty) {
           return 'Contraseña es requerido';
@@ -135,12 +134,12 @@ class _EditVeterinaryState extends State<EditVeterinaryPage> {
     return TextFormField(
       style: TextStyle(fontSize: 18),
       initialValue: veterinaria.address.toString(),
-      keyboardType: TextInputType.number,
+      textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Direccion'),
       onSaved: (value) => veterinaria.address = value,
       validator: (value) {
         if (value.isEmpty) {
-          return 'Debe ingresar una Edad';
+          return 'Debe ingresar una direccion';
         }
         return null;
       },
@@ -150,7 +149,7 @@ class _EditVeterinaryState extends State<EditVeterinaryPage> {
   Widget _editarEmail() {
     return TextFormField(
       style: TextStyle(fontSize: 18),
-      initialValue: veterinaria.email,
+      initialValue: veterinaria.email.toString(),
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Correo electronico'),
       onSaved: (value) => veterinaria.email = value,
@@ -170,7 +169,7 @@ class _EditVeterinaryState extends State<EditVeterinaryPage> {
   Widget _editarDescripcion() {
     return TextFormField(
       style: TextStyle(fontSize: 18),
-      initialValue: veterinaria.description,
+      initialValue: veterinaria.description.toString(),
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Descripcion de la empresa'),
       onSaved: (value) => veterinaria.description = value,

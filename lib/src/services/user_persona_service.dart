@@ -55,18 +55,10 @@ class UserPersonaService with ChangeNotifier {
     }
   }
 
-  Future<APIResponse<bool>> updateUservet(
-      String uvID, UserPersona item, String userId) {
+  Future<APIResponse<bool>> updateUserper(String upID, UserPersona item) {
     return http
-        .put(
-            Uri.parse(API +
-                '/people/' +
-                userId +
-                '/providers/' +
-                uvID +
-                ' / reviews'),
-            headers: headers,
-            body: json.encode(item.toJson()))
+        .put(Uri.parse(API + '/people/' + upID),
+            headers: headers, body: json.encode(item.toJson()))
         .then((data) {
       if (data.statusCode == 204) {
         return APIResponse<bool>(data: true);
@@ -74,5 +66,19 @@ class UserPersonaService with ChangeNotifier {
       return APIResponse<bool>(error: true, errorMessage: 'An error occured');
     }).catchError((_) =>
             APIResponse<bool>(error: true, errorMessage: 'An error occured'));
+  }
+
+  Future<APIResponse<UserPersona>> getUser(String uvID) {
+    return http
+        .get(Uri.parse(API + '/people' + uvID), headers: headers)
+        .then((data) {
+      if (data.statusCode == 200) {
+        final jsonData = json.decode(data.body);
+        return APIResponse<UserPersona>(data: UserPersona.fromJson(jsonData));
+      }
+      return APIResponse<UserPersona>(
+          error: true, errorMessage: 'An error occured');
+    }).catchError((_) => APIResponse<UserPersona>(
+            error: true, errorMessage: 'An error occured'));
   }
 }
