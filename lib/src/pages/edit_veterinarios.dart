@@ -61,17 +61,14 @@ class _EditUservetState extends State<EditUservetPage> {
       style: TextStyle(fontSize: 18),
       initialValue: veterinario.name.toString(),
       textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(labelText: 'Nombre del veterinario'),
-      onSaved: (value) => veterinario.name = value,
+      decoration: InputDecoration(labelText: 'Nombre de la Veterinaria'),
+      onSaved: (value) => veterinario.name = value.toString(),
       validator: (value) {
         if (value.isEmpty) {
           return 'El nombre no puede estar vacio';
         }
-        if (value.length < 3) {
-          return 'minimo 3 caracteres';
-        }
-        if (value.length > 30) {
-          return 'maximo 30 caracteres';
+        if (value.length < 5) {
+          return 'minimo 6 caracteres';
         } else {
           return null;
         }
@@ -85,7 +82,7 @@ class _EditUservetState extends State<EditUservetPage> {
       initialValue: veterinario.lastName.toString(),
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Apellido del Dueño'),
-      onSaved: (value) => veterinario.lastName = value,
+      onSaved: (value) => veterinario.lastName = value.toString(),
       validator: (value) {
         if (value.isEmpty) {
           return 'La region no puede estar en blanco';
@@ -131,7 +128,7 @@ class _EditUservetState extends State<EditUservetPage> {
       initialValue: veterinario.email.toString(),
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Correo electronico'),
-      onSaved: (value) => veterinario.email = value,
+      onSaved: (value) => veterinario.email = value.toString(),
       validator: (value) {
         if (value.isEmpty) {
           return 'El correo elctronico no puede estar vacio';
@@ -151,7 +148,7 @@ class _EditUservetState extends State<EditUservetPage> {
       initialValue: veterinario.password.toString(),
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Contraseña'),
-      onSaved: (value) => veterinario.password = value,
+      onSaved: (value) => veterinario.password = value.toString(),
       validator: (value) {
         if (value.isEmpty) {
           return 'Debe ingresar una contraseña';
@@ -227,6 +224,7 @@ class _EditUservetState extends State<EditUservetPage> {
 
   void _submit(BuildContext context) async {
     //Obtiene todos los veterinarios
+    veterinario.owner = true;
 
     formkey.currentState.save();
     //print(list);

@@ -164,7 +164,7 @@ class _UserVetInfoPageState extends State<UserVetInfoPage> {
                     _logoutButton('Cerrar Sesión', '', 4, context),
                     ElevatedButton.icon(
                       onPressed: () async {
-                        personaresponse = await personService.getUservet("1");
+                        personaresponse = await personService.getUservet(1);
                         Navigator.push(
                             context,
                             MaterialPageRoute(

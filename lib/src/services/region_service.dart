@@ -6,7 +6,7 @@ import 'package:petcare/src/models/region.dart';
 import 'package:petcare/src/models/uservet.dart';
 
 class RegionService {
-  static const API = 'https://localhost:44353/api';
+  static const API = 'https://petcarefas.azurewebsites.net/api';
   static const headers = {
     // 'apiKey': '08d771e2-7c49-1789-0eaa-32aff09f1471',
     'Content-Type': 'application/json'

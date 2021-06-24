@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:petcare/src/models/user.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
-final urlPetcare = "https://petcaremobileapi.azurewebsites.net/api";
+final urlPetcare = "https://petcarefas.azurewebsites.net/api";
 
 final token =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjkiLCJuYmYiOjE2MjA0NTIxOTgsImV4cCI6MTYyMTA1Njk5OCwiaWF0IjoxNjIwNDUyMTk4fQ.G-jOetqvYbgACErTLsF3iimKNKeHSZooUXX0YH8LXFI';

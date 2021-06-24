@@ -9,7 +9,7 @@ import 'package:petcare/src/services/user_vet_service.dart';
 import 'package:petcare/src/models/uservet.dart';
 
 class VetService {
-  static const API = 'https://127.0.0.1:44353/api';
+  static const API = 'https://petcarefas.azurewebsites.net/api';
   static const headers = {
     // 'apiKey': '08d771e2-7c49-1789-0eaa-32aff09f1471',
     'Content-Type': 'application/json'
@@ -75,8 +75,10 @@ class VetService {
       if (data.statusCode == 204) {
         print("FUNCIONA   " + item.businessname);
         return APIResponse<bool>(data: true);
+      } else {
+        print("NO FUNCIONA  " + item.businessname);
       }
-      print("NO FUNCIONA  " + item.businessname);
+
       return APIResponse<bool>(error: true, errorMessage: 'An error occured');
     }).catchError((_) =>
             APIResponse<bool>(error: true, errorMessage: 'An error occured'));
