@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:petcare/src/models/image.dart';
 import 'package:petcare/src/utils/Images_Utils.dart';
 
+import 'FullScreen.dart';
+
 class TestImagePage extends StatefulWidget {
   @override
   _TestImagePageState createState() => _TestImagePageState();
@@ -10,50 +12,64 @@ class TestImagePage extends StatefulWidget {
 class _TestImagePageState extends State<TestImagePage> {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.hasData) {
-          if (snapshot.data != null) {
-            List<Resources> resources = snapshot.data;
-            return GridView.count(
-              crossAxisCount: 1,
-              childAspectRatio: 0.74,
-              shrinkWrap: false,
-              children: resources.map((i) {
-                return GestureDetector(
-                  /* onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => FullScreen(i)));
-                    }, */
-                  child: Card(
-                    semanticContainer: false,
-                    elevation: 2.0,
-                    child: Column(
-                      children: <Widget>[
-                        new ClipRRect(
-                          borderRadius: BorderRadius.circular(4.0),
-                          child: Hero(
-                            tag: i.secureUrl,
-                            child: Image.network(
-                              i.secureUrl,
-                              width: MediaQuery.of(context).size.width,
-                              height: 250,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              }).toList(),
-            );
-          }
-        } else {
-          return Center(child: CircularProgressIndicator());
+    return FutureBuilder<List<Resources>>(
+      future: getImages(),
+      builder: (context, snapshot) {
+        List<Resources> resources = snapshot.data;
+        switch (snapshot.connectionState) {
+          case ConnectionState.done:
+            return _buildListView(resources);
+          default:
+            return _buildLoadingScreen();
         }
       },
-      future: getImages(),
     );
   }
+}
+
+Widget _buildListView(List<Resources> resources) {
+  return ListView.builder(
+    itemBuilder: (ctx, idx) {
+      return ContactCard(resources[idx]);
+    },
+    itemCount: resources.length,
+  );
+}
+
+class ContactCard extends StatelessWidget {
+  final Resources resource;
+
+  ContactCard(this.resource);
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => FullScreen(resource)));
+      },
+      
+      child: new ClipRRect(
+        borderRadius: BorderRadius.circular(4.0),
+        child: Hero(
+          tag: resource.secureUrl,
+          child: Image.network(
+            resource.secureUrl,
+            width: MediaQuery.of(context).size.width,
+            height: 208,
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+Widget _buildLoadingScreen() {
+  return Center(
+    child: Container(
+      width: 50,
+      height: 50,
+      child: CircularProgressIndicator(),
+    ),
+  );
 }
