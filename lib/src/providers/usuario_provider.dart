@@ -5,17 +5,17 @@ import 'package:petcare/src/models/user.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
 //production:
-//final urlPetcare = "https://petcaremobileapi.azurewebsites.net/api";
+final urlPetcare = "https://petcaremobileapi.azurewebsites.net/api";
 //local:
 //final urlPetcare = 'https://10.0.2.2:44353/api';
 
-String get urlPetcare {
+/* String get urlPetcare {
   if (Platform.isAndroid) {
     return 'https://10.0.2.2:5001/api';
   } else {
     return 'https://localhost:5001/api';
   }
-}
+} */
 
 class UsuarioProvider {
   final _prefs = new PreferenciasUsuario();
@@ -28,10 +28,9 @@ class UsuarioProvider {
     };
 
     try {
-      final url =
-          Uri.https('$urlPetcare', '/users/authenticate', {'q': '{http}'});
+      final url = Uri.parse('$urlPetcare' + '/users/authenticate');
 
-      final resp = await http.post(url,
+      http.Response resp = await http.post(url,
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
@@ -77,7 +76,7 @@ class UsuarioProvider {
           'Accept': 'application/json'
         },
         body: json.encode(data));
-    if (resp.statusCode == 200) {
+    if (resp.statusCode == 201) {
       Map<String, dynamic> decodedResp = json.decode(resp.body);
       print(decodedResp);
 

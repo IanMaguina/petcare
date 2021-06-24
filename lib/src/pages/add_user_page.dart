@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:petcare/src/models/user.dart';
 import 'package:petcare/src/providers/usuario_provider.dart';
+import 'package:petcare/src/services/user_persona_service.dart';
 import 'package:petcare/src/utils/utils.dart' as utils;
 
 class AddUserPage extends StatefulWidget {
@@ -13,7 +14,8 @@ class _AddUserPageState extends State<AddUserPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   User usuario = new User();
-  final usuarioProvider = new UsuarioProvider();
+  //final usuarioProvider = new UsuarioProvider();
+  final usuarioProvider = new UserPersonaService();
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +90,7 @@ class _AddUserPageState extends State<AddUserPage> {
       initialValue: usuario.phone.toString(),
       keyboardType: TextInputType.number,
       decoration: InputDecoration(labelText: 'telefono'),
-      onSaved: (value) => usuario.phone = value as int,
+      onSaved: (value) => usuario.phone = int.parse(value),
       validator: (value) {
         if (value.isEmpty) {
           return 'Contraseña es requerido';
@@ -107,7 +109,7 @@ class _AddUserPageState extends State<AddUserPage> {
       initialValue: usuario.age.toString(),
       keyboardType: TextInputType.number,
       decoration: InputDecoration(labelText: 'Edad'),
-      onSaved: (value) => usuario.age = value as int,
+      onSaved: (value) => usuario.age = int.parse(value),
       validator: (value) {
         if (value.isEmpty) {
           return 'Contraseña es requerido';
@@ -123,10 +125,10 @@ class _AddUserPageState extends State<AddUserPage> {
 
   Widget _crearDNI() {
     return TextFormField(
-      initialValue: '${usuario.document}',
+      initialValue: usuario.document.toString(),
       keyboardType: TextInputType.number,
       decoration: InputDecoration(labelText: 'DNI'),
-      onSaved: (value) => usuario.document = value as int,
+      onSaved: (value) => usuario.document = int.parse(value),
       validator: (value) {
         if (value.isEmpty) {
           return 'DNI es requerido';
@@ -199,15 +201,19 @@ class _AddUserPageState extends State<AddUserPage> {
     if (!formkey.currentState.validate()) {
       return;
     }
+    usuario.id = 0;
+    usuario.photo = "VACIO";
     formkey.currentState.save();
 
-    Map info = await usuarioProvider.nuevoUsuario(usuario);
+    print(usuario);
 
-    if (info['ok']) {
-      utils.mostrarAlerta(context, "Se ha registrado correctamente al usuario");
-      Navigator.pop(context);
-    } else {
+    final info = await usuarioProvider.nuevoUsuario(usuario);
+
+    /* if (info['ok']) {
+      utils.mostrarAlerta(context, "Se ha registrado correctamente al usuario"); */
+    Navigator.pop(context);
+    /*  } else {
       utils.mostrarAlerta(context, info['mensaje']);
-    }
+    } */
   }
 }

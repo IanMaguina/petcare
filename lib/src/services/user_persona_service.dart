@@ -6,7 +6,7 @@ import 'package:petcare/src/models/user.dart';
 import 'package:petcare/src/models/userperson.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
-final urlPetcare = "https://petcaremobileapi.azurewebsites.net/api";
+final urlPetcare = "https://petcarefas.azurewebsites.net/api";
 
 final token =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjkiLCJuYmYiOjE2MjA0NTIxOTgsImV4cCI6MTYyMTA1Njk5OCwiaWF0IjoxNjIwNDUyMTk4fQ.G-jOetqvYbgACErTLsF3iimKNKeHSZooUXX0YH8LXFI';
@@ -20,8 +20,19 @@ class UserPersonaService with ChangeNotifier {
   };
 
   final _prefs = new PreferenciasUsuario();
-
-  Future<Map<String, dynamic>> nuevoUsuario(User user) async {
+  Future<APIResponse<bool>> nuevoUsuario(User item) {
+    return http
+        .post(Uri.parse(urlPetcare + '/people'),
+            headers: headers, body: json.encode(item.toJson()))
+        .then((data) {
+      if (data.statusCode == 201) {
+        return APIResponse<bool>(data: true);
+      }
+      return APIResponse<bool>(error: true, errorMessage: 'An error occured');
+    }).catchError((_) =>
+            APIResponse<bool>(error: true, errorMessage: 'An error occured'));
+  }
+  /*  Future<Map<String, dynamic>> nuevoUsuario(User user) async {
     final data = {
       "name": user.name,
       "lastname": user.lastName,
@@ -53,7 +64,7 @@ class UserPersonaService with ChangeNotifier {
     } else {
       return {'ok': false, 'mensaje': 'Error'};
     }
-  }
+  } */
 
   Future<APIResponse<bool>> updateUserper(String upID, UserPersona item) {
     return http
