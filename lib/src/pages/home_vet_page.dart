@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:petcare/src/pages/ListarCitasPage.dart';
 import 'package:petcare/src/pages/ListarCitasPage_vet.dart';
 import 'package:petcare/src/pages/subcription_page.dart';
+import 'package:petcare/src/pages/test_images.dart';
 import 'package:petcare/src/pages/user_perfil_page.dart';
 import 'package:petcare/src/pages/user_vet_perfil_page.dart';
 import 'package:provider/provider.dart';
@@ -29,9 +30,10 @@ class _Paginas extends StatelessWidget {
       controller: navegacionModel.pageController,
       physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
+        TestImagePage(),
         SubcriptionPage(),
         ListarCitasVetPage(),
-        UserVetInfoPage()
+        UserVetInfoPage(),
       ],
     );
   }
@@ -46,6 +48,10 @@ class _Navegacion extends StatelessWidget {
         currentIndex: navegacionModel.paginaActual,
         onTap: (i) => navegacionModel.paginaActual = i,
         items: [
+          BottomNavigationBarItem(
+              backgroundColor: Color.fromRGBO(57, 179, 179, 1),
+              icon: Icon(Icons.new_releases),
+              label: 'Anuncios'),
           BottomNavigationBarItem(
               backgroundColor: Color.fromRGBO(57, 179, 179, 1),
               icon: Icon(Icons.money),

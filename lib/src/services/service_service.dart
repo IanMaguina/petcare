@@ -1,34 +1,56 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:petcare/src/models/api_response.dart';
 import 'package:petcare/src/models/service_.dart';
 import 'package:http/http.dart' as http;
+import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
-final urlVet = "https://petcarefas.azurewebsites.net/api";
+//prod:
+//final urlPetcare = "https://petcarefas.azurewebsites.net/api";
+//local:
+final urlPetcare = "https://localhost:5001/api";
 final apiKey = "";
-final token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjkiLCJuYmYiOjE2MjA0NzUzMDEsImV4cCI6MTYyMTA4MDEwMSwiaWF0IjoxNjIwNDc1MzAxfQ.5dznWV6mObQWEZfQ104bb_TY49bCvcmxGD4ZWg5QwQE";
+
+/* String get urlPetcare {
+  if (Platform.isAndroid) {
+    return 'https://10.0.2.2:5001/api';
+  } else {
+    return 'https://localhost:5001/api';
+  }
+} */
 
 class ServicesService with ChangeNotifier {
   List<Service> servicios = [];
+  final _prefs = new PreferenciasUsuario();
 
   ServicesService() {
     this.getServices();
   }
 
-  getServices() async {
-    //endPoint
-    //var id = '7';
-    final url = '$urlVet/dashboard/products-types';
-    final resp = await http.get(Uri.parse(url), headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token'
-    });
-    var data;
-    if (resp.body.isNotEmpty) {
-      data = serviceFromJson(resp.body);
-    }
+  Future<APIResponse<List<Service>>> getServices() {
+    var token = _prefs.token;
+    final headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    };
 
-    this.servicios.addAll(data);
-    notifyListeners();
+    return http
+        .get(Uri.parse(urlPetcare + '/dashboard/products-types'),
+            headers: headers)
+        .then((data) {
+      if (data.statusCode == 200) {
+        final jsonData = json.decode(data.body);
+        final notes = <Service>[];
+        for (var item in jsonData) {
+          notes.add(Service.fromJson(item));
+        }
+        return APIResponse<List<Service>>(data: notes);
+      }
+      return APIResponse<List<Service>>(
+          error: true, errorMessage: 'An error occured');
+    }).catchError((_) => APIResponse<List<Service>>(
+            error: true, errorMessage: 'An error occured'));
   }
 }

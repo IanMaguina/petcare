@@ -30,14 +30,14 @@ class VetsBloc implements Bloc {
 
   Stream<List<Veterinary>> get favVets => _favVetStateController.stream;
 
-  String get urlPetcare {
+  /*  String get urlPetcare {
     if (Platform.isAndroid) {
       return 'https://10.0.2.2:5001/api';
     } else {
       return 'https://localhost:5001/api';
     }
-  }
-
+  } */
+  static const urlPetcare = 'https://petcarefas.azurewebsites.net/api';
   final apiKey = "";
   final _prefs = new PreferenciasUsuario();
 

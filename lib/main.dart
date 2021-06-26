@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 import 'package:petcare/src/routes/routes.dart';
+import 'package:petcare/src/services/pets_service.dart';
 import 'package:petcare/src/services/region_service.dart';
 import 'package:petcare/src/services/service_service.dart';
 import 'package:petcare/src/services/user_vet_service.dart';
@@ -31,8 +32,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => new ServicesService()),
-        //ChangeNotifierProvider(create: (_) => PetsService()),
+        //ChangeNotifierProvider(create: (_) => new ServicesService()),
+        ChangeNotifierProvider(create: (_) => PetsService()),
       ],
       child: MaterialApp(
           title: 'Petcare',
