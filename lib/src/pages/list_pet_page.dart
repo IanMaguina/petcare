@@ -1,18 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:petcare/src/models/api_response.dart';
+import 'package:petcare/src/models/pet.dart';
+import 'package:petcare/src/services/pets_service.dart';
 
 class ListPetPage extends StatelessWidget {
+  void runFuture(Future list, APIResponse<List<Pet>> lists) {
+    list.then((value) {
+      lists = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final petprovider = new PetsService();
+    APIResponse<List<Pet>> lists;
+    List<Widget> petlist;
+    Future list = petprovider.getPetByCustomerId("1");
+    runFuture(list, lists);
+    for (var i = 0; i < lists.data.length; i++) {
+      petlist.add(
+        pets(context, lists.data[i].name),
+      );
+    }
     return Scaffold(
       body: SafeArea(
         top: true,
         child: ListView(
           padding: EdgeInsets.all(16),
-          children: [
-            pets(context, "perro 1"),
-            pets(context, "perro 2"),
-            pets(context, "perro 3"),
-          ],
+          children: petlist,
         ),
       ),
     );
