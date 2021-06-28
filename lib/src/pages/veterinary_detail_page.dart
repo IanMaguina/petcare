@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:petcare/src/models/api_response.dart';
+import 'package:petcare/src/models/veterinary.dart';
+import 'package:petcare/src/services/vet_service.dart';
 
 class VeterinaryDetailPage extends StatelessWidget {
+  void runFuture(Future list, APIResponse<Veterinary> veterinary) {
+    list.then((value) {
+      veterinary = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final vetprovider = new VetService();
+    APIResponse<Veterinary> veterinary;
+    Future list = vetprovider.getVet(1);
+    runFuture(list, veterinary);
     return Scaffold(
       appBar: AppBar(
         title: Text("Detalle Veterinaria"),
@@ -29,14 +42,15 @@ class VeterinaryDetailPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    "Vet Pet",
+                    veterinary.data.businessname,
+                    //"Vet Pet",
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    "Lima, Peru",
+                    veterinary.data.address,
                     style: TextStyle(
                       fontSize: 12,
                     ),
@@ -44,7 +58,8 @@ class VeterinaryDetailPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: Text(
-                      "Especial cuidado a tus mascotas",
+                      veterinary.data.description,
+                      // "Especial cuidado a tus mascotas",
                       style: TextStyle(
                         fontSize: 12,
                       ),
@@ -70,32 +85,23 @@ class VeterinaryDetailPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Nombres: Vet Pet",
+                      "Nombres:" + veterinary.data.businessname,
                       style: TextStyle(),
                     ),
                     Text(
-                      "Ciudad: Lima",
+                      "Ciudad:" + veterinary.data.region,
                       style: TextStyle(),
                     ),
                     Text(
-                      "Telefono: 555-1234",
+                      "Email:" + veterinary.data.email,
                       style: TextStyle(),
                     ),
                     Text(
-                      "Email: vetpet@gmail.com",
+                      "Dirección:" + veterinary.data.address,
                       style: TextStyle(),
                     ),
                     Text(
-                      "Dirección: Av. Luis 515",
-                      style: TextStyle(),
-                    ),
-                    Text(
-                      "Celular: 987654321",
-                      style: TextStyle(),
-                    ),
-                    Text(
-                      "Descripción: Somos una veterinaria que "
-                      "le brindará un cuidado especial a tu mascota.",
+                      "Descripción:" + veterinary.data.description,
                       style: TextStyle(),
                     ),
                   ],
