@@ -1,4 +1,3 @@
-
 //
 //     final user = userFromJson(jsonString);
 
@@ -55,4 +54,4 @@ class User {
         "age": age,
         "photo": photo,
       };
- }
+}
