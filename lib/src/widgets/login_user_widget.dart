@@ -150,7 +150,7 @@ class _LoginUserWidgetState extends State<LoginUserWidget> {
         builder: (context) => HomePage(),
       ));
     } else {
-      Fluttertoast.showToast(msg: "usuario y/o password incorrectos ");
+      Fluttertoast.showToast(msg: result.errorMessage);
     }
   }
 }

@@ -44,7 +44,7 @@ class PreferenciasUsuario {
 
 //?? ___ : el id usuario veterinario que quieras probar
   get idvet {
-    return _prefs.getInt('idvet') ?? 2;
+    return _prefs.getInt('idvet');
   }
 
   set idvet(int value) {

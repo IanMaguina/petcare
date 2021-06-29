@@ -7,8 +7,6 @@ import 'package:petcare/src/models/user.dart';
 import 'package:petcare/src/models/userperson.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
-final urlPetcare = "https://petcarefas.azurewebsites.net/api";
-
 class UserPersonaService with ChangeNotifier {
   // final String _firebaseToken = 'AIzaSyAzIGZax6Pn30zGytZkwyXJdEmsKiRDRc8';
   // static const API = 'https://petcarefas.azurewebsites.net/api';
@@ -83,6 +81,10 @@ class UserPersonaService with ChangeNotifier {
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
+        if (jsonData['rolId'] != 1) {
+          return APIResponse<LoginResponse>(
+              error: true, errorMessage: 'No existe el usuario');
+        }
         _prefs.token = jsonData['token'];
         _prefs.iduser = jsonData['idf'];
 
@@ -90,7 +92,7 @@ class UserPersonaService with ChangeNotifier {
             data: LoginResponse.fromJson(jsonData));
       }
       return APIResponse<LoginResponse>(
-          error: true, errorMessage: 'An error occured');
+          error: true, errorMessage: 'El usuario y/o Contraseña es incorrecto');
     }).catchError((_) => APIResponse<LoginResponse>(
             error: true, errorMessage: 'An error occured'));
   }

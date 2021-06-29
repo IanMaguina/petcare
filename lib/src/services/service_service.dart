@@ -1,24 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:petcare/src/models/api_response.dart';
 import 'package:petcare/src/models/service_.dart';
 import 'package:http/http.dart' as http;
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
-
-//prod:
-//final urlPetcare = "https://petcarefas.azurewebsites.net/api";
-//local:
-//final urlPetcare = "https://localhost:5001/api";
-
-/* String get urlPetcare {
-  if (Platform.isAndroid) {
-    return 'https://10.0.2.2:5001/api';
-  } else {
-    return 'https://localhost:5001/api';
-  }
-} */
 
 class ServicesService {
   List<Service> servicios = [];

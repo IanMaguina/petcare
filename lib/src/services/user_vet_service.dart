@@ -2,18 +2,22 @@ import 'dart:convert';
 
 import 'package:petcare/src/models/api_response.dart';
 import 'package:http/http.dart' as http;
+import 'package:petcare/src/models/login_response.dart';
 import 'package:petcare/src/models/uservet.dart';
+import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
 class UservService {
-  static const API = 'https://petcarefas.azurewebsites.net/api';
+  // static const API = 'https://petcarefas.azurewebsites.net/api';
   static const headers = {
     // 'apiKey': '08d771e2-7c49-1789-0eaa-32aff09f1471',
     'Content-Type': 'application/json'
   };
+  final _prefs = new PreferenciasUsuario();
 
   Future<APIResponse<bool>> createUserv(Uservet item) {
+    final urlPetcare = _prefs.urlPetcare;
     return http
-        .post(Uri.parse(API + '/business'),
+        .post(Uri.parse(urlPetcare + '/business'),
             headers: headers, body: json.encode(item.toJson()))
         .then((data) {
       if (data.statusCode == 201) {
@@ -25,8 +29,9 @@ class UservService {
   }
 
   Future<APIResponse<List<Uservet>>> getUservetsList() {
+    final urlPetcare = _prefs.urlPetcare;
     return http
-        .get(Uri.parse(API + '/business'), headers: headers)
+        .get(Uri.parse(urlPetcare + '/business'), headers: headers)
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
@@ -43,8 +48,10 @@ class UservService {
   }
 
   Future<APIResponse<Uservet>> getUservet(int uvID) {
+    final urlPetcare = _prefs.urlPetcare;
     return http
-        .get(Uri.parse(API + '/business/' + uvID.toString()), headers: headers)
+        .get(Uri.parse(urlPetcare + '/business/' + uvID.toString()),
+            headers: headers)
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
@@ -57,10 +64,11 @@ class UservService {
   }
 
   Future<APIResponse<bool>> updateUservet(String uvID, Uservet item) {
+    final urlPetcare = _prefs.urlPetcare;
     var jsonv = item.toJson();
     print(jsonv);
     return http
-        .put(Uri.parse(API + '/business/' + uvID),
+        .put(Uri.parse(urlPetcare + '/business/' + uvID),
             headers: headers, body: json.encode(jsonv))
         .then((data) {
       print(data.body.toString());
@@ -72,6 +80,34 @@ class UservService {
       return APIResponse<bool>(error: true, errorMessage: 'An error occured');
     }).catchError((_) =>
             APIResponse<bool>(error: true, errorMessage: 'An error occured'));
+  }
+
+  Future<APIResponse<LoginResponse>> loginvet(String uID, String uPwd) {
+    final urlPetcare = _prefs.urlPetcare;
+    final authData = {
+      'username': uID,
+      'password': uPwd,
+    };
+    return http
+        .post(Uri.parse(urlPetcare + '/users/authenticate'),
+            headers: headers, body: json.encode(authData))
+        .then((data) {
+      if (data.statusCode == 200) {
+        final jsonData = json.decode(data.body);
+        if (jsonData['rolId'] != 2) {
+          return APIResponse<LoginResponse>(
+              error: true, errorMessage: 'No existe el veterinario');
+        }
+        _prefs.token = jsonData['token'];
+        _prefs.idvet = jsonData['idf'];
+
+        return APIResponse<LoginResponse>(
+            data: LoginResponse.fromJson(jsonData));
+      }
+      return APIResponse<LoginResponse>(
+          error: true, errorMessage: 'El usuario y/o Contraseña es incorrecto');
+    }).catchError((_) => APIResponse<LoginResponse>(
+            error: true, errorMessage: 'An error occured'));
   }
 }
 /*
