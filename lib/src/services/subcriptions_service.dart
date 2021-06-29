@@ -20,15 +20,18 @@ class PlanService with ChangeNotifier {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
     });
+    var data;
     if (resp.statusCode == 200) {
-      var body = jsonDecode(resp.body);
-      var data;
+      //var body = jsonDecode(resp.body);
       if (resp.body.isNotEmpty) {
         data = planSubscriptionFromJson(resp.body);
       }
-
       this.plans.addAll(data);
       notifyListeners();
     }
   }
+
+
+
+  
 }
