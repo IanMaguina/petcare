@@ -4,11 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:petcare/src/models/user.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
-//production:
-final urlPetcare = "https://petcaremobileapi.azurewebsites.net/api";
-//local:
-//final urlPetcare = 'https://10.0.2.2:44353/api';
-
 /* String get urlPetcare {
   if (Platform.isAndroid) {
     return 'https://10.0.2.2:5001/api';
@@ -21,12 +16,14 @@ class UsuarioProvider {
   final _prefs = new PreferenciasUsuario();
 
   Future<Map<String, dynamic>> login(String email, String password) async {
+    final urlPetcare = _prefs.urlPetcare;
     final authData = {
       'username': email,
       'password': password,
       // 'returnSecureToken' : true
     };
-
+    bool _state = false;
+    dynamic _message;
     try {
       final url = Uri.parse('$urlPetcare' + '/users/authenticate');
 
@@ -45,18 +42,27 @@ class UsuarioProvider {
           //TO DO: guardar el token en el storage
           _prefs.token = decodedResp['token'];
           _prefs.iduser = decodedResp['id'];
-
-          return {'ok': true, 'token': decodedResp['token']};
+          _state = true;
+          _message = decodedResp['token'];
+          // return {'ok': _state, 'token':_message};
         } else {
-          return {'ok': false, 'mensaje': "Error al loguearse"};
+          _state = false;
+          _message = "Error al loguearse";
+          // return {'ok': false, 'mensaje': };
         }
       }
     } catch (e) {
       print(e);
+      _state = false;
+      _message = e;
+      // return {'ok': false, 'mensaje': "Error al loguearse"};
     }
+    return {'ok': _state, 'token': _message};
   }
 
   Future<Map<String, dynamic>> nuevoUsuario(User user) async {
+    final urlPetcare = _prefs.urlPetcare;
+
     final data = {
       "name": user.name,
       "lastname": user.lastName,

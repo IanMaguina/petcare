@@ -1,8 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:petcare/src/pages/home_page.dart';
+import 'package:petcare/src/services/user_persona_service.dart';
 
-class LoginUserWidget extends StatelessWidget {
+class LoginUserWidget extends StatefulWidget {
+  @override
+  _LoginUserWidgetState createState() => _LoginUserWidgetState();
+}
+
+class _LoginUserWidgetState extends State<LoginUserWidget> {
+  final formkey = GlobalKey<FormState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  String usuario;
+  String password;
+
+  UserPersonaService userService = new UserPersonaService();
+
   @override
   Widget build(BuildContext context) {
+    usuario = "";
+    password = "";
+
     return Container(
       child: _formulario(context),
     );
@@ -32,22 +51,25 @@ class LoginUserWidget extends StatelessWidget {
                       offset: Offset(0.0, 5.0),
                       spreadRadius: 3.0)
                 ]),
-            child: Column(
-              children: <Widget>[
-                Text('Ingreso Usuarios', style: TextStyle(fontSize: 20.0)),
-                SizedBox(
-                  height: 60.0,
-                ),
-                _emailUsuario(),
-                SizedBox(
-                  height: 30.0,
-                ),
-                _passwordUsuario(),
-                SizedBox(
-                  height: 30.0,
-                ),
-                _botonLogin(),
-              ],
+            child: Form(
+              key: formkey,
+              child: Column(
+                children: <Widget>[
+                  Text('Ingreso Usuarios', style: TextStyle(fontSize: 20.0)),
+                  SizedBox(
+                    height: 60.0,
+                  ),
+                  _emailUsuario(),
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  _passwordUsuario(),
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  _botonLogin(context),
+                ],
+              ),
             ),
           ),
           TextButton(
@@ -61,68 +83,74 @@ class LoginUserWidget extends StatelessWidget {
   }
 
   _emailUsuario() {
-    return StreamBuilder(
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return Container(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: TextField(
-            keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(
-              icon: Icon(Icons.alternate_email,
-                  color: Color.fromRGBO(57, 179, 179, 1.0)),
-              hintText: 'ingrese su email',
-              labelText: 'Usuario',
-              // counterText: snapshot.data,
-              // errorText: snapshot.error
-            ),
-          ),
-        );
-      },
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      child: TextFormField(
+        initialValue: usuario,
+        keyboardType: TextInputType.emailAddress,
+        onSaved: (value) => usuario = value.trim(),
+        decoration: InputDecoration(
+          icon: Icon(Icons.alternate_email,
+              color: Color.fromRGBO(57, 179, 179, 1.0)),
+          hintText: 'ingrese su email',
+          labelText: 'Usuario',
+          // counterText: snapshot.data,
+          // errorText: snapshot.error
+        ),
+      ),
     );
   }
 
   _passwordUsuario() {
-    return StreamBuilder(
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return Container(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: TextField(
-            obscureText: true,
-            decoration: InputDecoration(
-                icon: Icon(Icons.lock_outline,
-                    color: Color.fromRGBO(57, 179, 179, 1.0)),
-                labelText: 'Contraseña',
-                // counterText: snapshot.data,
-                errorText: snapshot.error),
-          ),
-        );
-      },
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      child: TextFormField(
+        obscureText: true,
+        initialValue: password,
+        onSaved: (value) => password = value,
+        decoration: InputDecoration(
+          icon: Icon(Icons.lock_outline,
+              color: Color.fromRGBO(57, 179, 179, 1.0)),
+          labelText: 'Contraseña',
+        ),
+      ),
     );
   }
-}
 
-_botonLogin() {
-  return StreamBuilder(
-    builder: (BuildContext context, AsyncSnapshot snapshot) {
-      return ElevatedButton(
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-            child: Text('Ingresar'),
-          ),
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0)),
-            elevation: 0.0,
-            primary: Color.fromRGBO(57, 179, 179, 1.0),
-            textStyle: TextStyle(color: Colors.white),
-          ),
-          onPressed: () {
-            // final route =
-            //     MaterialPageRoute(builder: (context) => home());
+  _botonLogin(BuildContext context) {
+    return ElevatedButton(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
+          child: Text('Ingresar'),
+        ),
+        style: ElevatedButton.styleFrom(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+          elevation: 0.0,
+          primary: Color.fromRGBO(57, 179, 179, 1.0),
+          textStyle: TextStyle(color: Colors.white),
+        ),
+        onPressed: () async {
+          _submit(context);
+        });
+  }
 
-            //Navigator.push(context, route);
-            Navigator.pushNamed(context, 'home');
-          });
-    },
-  );
+  void _submit(BuildContext context) async {
+    if (!formkey.currentState.validate()) {
+      return;
+    }
+    formkey.currentState.save();
+    //final data = uservet;
+    final result = await userService.login(usuario, password);
+
+    if (!result.error) {
+      print(result);
+
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => HomePage(),
+      ));
+    } else {
+      Fluttertoast.showToast(msg: result.errorMessage);
+    }
+  }
 }

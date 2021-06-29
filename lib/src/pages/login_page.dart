@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:petcare/src/widgets/login_user_widget.dart';
-import 'package:petcare/src/widgets/login_uservet_widget.dart';
 
 class LoginPage extends StatefulWidget {
   @override

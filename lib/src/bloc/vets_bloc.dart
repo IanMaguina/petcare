@@ -37,8 +37,8 @@ class VetsBloc implements Bloc {
       return 'https://localhost:5001/api';
     }
   } */
-  static const urlPetcare = 'https://petcarefas.azurewebsites.net/api';
-  final apiKey = "";
+  //static const urlPetcare = 'https://petcarefas.azurewebsites.net/api';
+
   final _prefs = new PreferenciasUsuario();
 
   @override
@@ -61,9 +61,8 @@ class VetsBloc implements Bloc {
   }
 
   _loadData() async {
+    final urlPetcare = _prefs.urlPetcare;
     var token = _prefs.token;
-
-    /* final url = Uri.https('$urlPetcare', '/providers', {'q': '{http}'}); */
     final headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token',
@@ -80,10 +79,6 @@ class VetsBloc implements Bloc {
       }
     }
 
-    /* var json = jsonDecode(data);
-    json.forEach((item) {
-      vets.add(Veterinary.fromJson(item));
-    }); */
     _vets.add(vets);
   }
 
