@@ -37,10 +37,9 @@ class _LoginVetPageState extends State<LoginVetPage> {
         body: Stack(
           children: <Widget>[
             _fondo(context),
-            AddProviderjoinProduct_Page(),
             //prueba
-            //
-           // LoginVetWidget(),
+           // AddProviderjoinProduct_Page(),
+            LoginVetWidget(),
           ],
         ),
       ),
