@@ -6,22 +6,24 @@ import 'package:petcare/src/pages/edit_Veterinarias.dart';
 import 'package:petcare/src/services/vet_service.dart';
 
 class VeterinaryVetDetailPage extends StatelessWidget {
-  //Veterinary vet;
-  Veterinary vet = Veterinary(
-    id: 1,
-    businessname: "Veterinaria PUKING",
-    field: "fieldasdasdasdasdasdd",
-    region: "Comas",
-    address: "Av. Direccion Direccion 123123",
-    email: "veterinari@veterinaria.com",
-    description: "Esto es una descripcion bastante acertgada",
-  );
+  void runFuture(Future list, APIResponse<Veterinary> veterinary) {
+    list.then((value) {
+      veterinary = value;
+    });
+  }
+
+  VeterinaryVetDetailPage(this.id);
+  final id;
+
   VetService vetService = new VetService();
 
   APIResponse<Veterinary> vetresponse;
 
   @override
   Widget build(BuildContext context) {
+    APIResponse<Veterinary> veterinary;
+    Future list = vetService.getVet(id);
+    runFuture(list, veterinary);
     return Scaffold(
       appBar: AppBar(
         title: Text("Detalle Veterinaria"),
@@ -48,14 +50,14 @@ class VeterinaryVetDetailPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    "Vet Pet",
+                    veterinary.data.businessname,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    "Lima, Peru",
+                    veterinary.data.region,
                     style: TextStyle(
                       fontSize: 12,
                     ),
@@ -63,7 +65,7 @@ class VeterinaryVetDetailPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: Text(
-                      "Especial cuidado a tus mascotas",
+                      veterinary.data.description,
                       style: TextStyle(
                         fontSize: 12,
                       ),
@@ -101,32 +103,23 @@ class VeterinaryVetDetailPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Nombres: Vet Pet",
+                      "Nombres: " + veterinary.data.businessname,
                       style: TextStyle(),
                     ),
                     Text(
-                      "Ciudad: Lima",
+                      "Ciudad: " + veterinary.data.region,
                       style: TextStyle(),
                     ),
                     Text(
-                      "Telefono: 555-1234",
+                      "Email: " + veterinary.data.email,
                       style: TextStyle(),
                     ),
                     Text(
-                      "Email: vetpet@gmail.com",
+                      "Dirección: " + veterinary.data.address,
                       style: TextStyle(),
                     ),
                     Text(
-                      "Dirección: Av. Luis 515",
-                      style: TextStyle(),
-                    ),
-                    Text(
-                      "Celular: 987654321",
-                      style: TextStyle(),
-                    ),
-                    Text(
-                      "Descripción: Somos una veterinaria que "
-                      "le brindará un cuidado especial a tu mascota.",
+                      "Descripción: " + veterinary.data.description,
                       style: TextStyle(),
                     ),
                   ],
