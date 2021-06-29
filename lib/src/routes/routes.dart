@@ -32,7 +32,8 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'listvets': (BuildContext context) => ListVeterinariesPage(),
     // 'makeappointment': (BuildContext context) => AppointmentPage(),
     'detallecita': (BuildContext context) => ListarCitasDetailPage(),
-    'detallevetvet': (BuildContext context) => VeterinaryVetDetailPage(),
+    'detallevetvet': (BuildContext context) =>
+        VeterinaryVetDetailPage("1"), //id
     'vetpetdetail': (BuildContext context) => PetDetailVetPage(),
     //'test': (BuildContext context) => ListServicesPageByProv(),
     'addveterinary': (BuildContext context) => Add_Veterinary(),
