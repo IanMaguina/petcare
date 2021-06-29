@@ -8,6 +8,8 @@ import 'package:petcare/src/services/products_service.dart';
 import 'package:petcare/src/services/type_service_service.dart';
 
 class ListarCitasVetPage extends StatelessWidget {
+  ListarCitasVetPage(this.idVet);
+  final idVet;
   void runDate(Future list, APIResponse<List<Date>> lists) {
     list.then((value) {
       lists = value;
@@ -35,7 +37,7 @@ class ListarCitasVetPage extends StatelessWidget {
     APIResponse<TypeService> type;
     APIResponse<List<Date>> lists;
     List<Widget> datelist;
-    Future list = dateprovider.getdateList("1"); //PersonId
+    Future list = dateprovider.getdateList(idVet); //PersonId
     runDate(list, lists);
     // Future types; // = typeproductprovider.getType(pid);
     Future producto;
