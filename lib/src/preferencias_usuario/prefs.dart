@@ -16,10 +16,18 @@ class PreferenciasUsuario {
     this._prefs = await SharedPreferences.getInstance();
   }
 
+  get urlPetcare {
+    return _prefs.getString('urlPetcare') ?? "https://10.0.2.2:5001/api";
+    //return _prefs.getString('url') ?? "https://petcarefas.azurewebsites.net/api";
+  }
+
+  set urlPetcare(String value) {
+    _prefs.setString('urlPetcare', value);
+  }
+
   // GET y SET del nombre
   get token {
-    return _prefs.getString('token') ??
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEyIiwibmJmIjoxNjIzNDczNDE4LCJleHAiOjE2MjQwNzgyMTgsImlhdCI6MTYyMzQ3MzQxOH0.UXx68NwdmSLfbojoLKF4oHcQVmJZi2tOgVyBD8MtU88';
+    return _prefs.getString('token');
   }
 
   set token(String value) {
@@ -27,35 +35,29 @@ class PreferenciasUsuario {
   }
 
   get iduser {
-    return _prefs.getInt('iduser') ?? 12;
+    return _prefs.getInt('iduser');
   }
 
   set iduser(int value) {
     _prefs.setInt('iduser', value);
   }
 
+//?? ___ : el id usuario veterinario que quieras probar
   get idvet {
-    return _prefs.getInt('idvet') ?? 12;
+    return _prefs.getInt('idvet') ?? 2;
   }
 
   set idvet(int value) {
     _prefs.setInt('idvet', value);
   }
 
-/*   get user {
-    return _prefs.getString('user') ?? '';
-  } 
-  set user( String value ) {
-    _prefs.setString('user', value);
-  }
-
-  
   get pass {
     return _prefs.getString('pass') ?? '';
-  } 
-  set pass( String value ) {
+  }
+
+  set pass(String value) {
     _prefs.setString('pass', value);
-  } */
+  }
 
   // GET y SET de la última página
   /* get ultimaPagina {

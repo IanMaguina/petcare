@@ -10,8 +10,7 @@ import 'package:petcare/src/preferencias_usuario/prefs.dart';
 //prod:
 //final urlPetcare = "https://petcarefas.azurewebsites.net/api";
 //local:
-final urlPetcare = "https://localhost:5001/api";
-final apiKey = "";
+//final urlPetcare = "https://localhost:5001/api";
 
 /* String get urlPetcare {
   if (Platform.isAndroid) {
@@ -21,7 +20,7 @@ final apiKey = "";
   }
 } */
 
-class ServicesService with ChangeNotifier {
+class ServicesService {
   List<Service> servicios = [];
   final _prefs = new PreferenciasUsuario();
 
@@ -30,6 +29,7 @@ class ServicesService with ChangeNotifier {
   }
 
   Future<APIResponse<List<Service>>> getServices() {
+    final urlPetcare = _prefs.urlPetcare;
     var token = _prefs.token;
     final headers = {
       HttpHeaders.contentTypeHeader: 'application/json',

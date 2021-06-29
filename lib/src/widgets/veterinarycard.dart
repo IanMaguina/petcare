@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:petcare/const/icons_assets.dart';
 import 'package:petcare/src/models/veterinary.dart';
+import 'package:petcare/src/pages/veterinary_detail_page.dart';
 import 'package:petcare/src/preferencias_usuario/favorite-vets.dart';
 
 class VeterinaryCard extends StatefulWidget {
@@ -35,8 +36,8 @@ class _VeterinaryCardState extends State<VeterinaryCard> {
   }
 
   _getToastMsg() => _vetsRepository.isFavorite(vet.id.toString())
-      ? 'Now this is your fav vet ${vet.businessname} :)'
-      : 'This not your favorite ${vet.businessname} :(';
+      ? 'agregaste ${vet.businessname} como favorita'
+      : 'quitaste ${vet.businessname} de tus favoritos';
 
   _onFavIconTap() {
     setState(() {
@@ -55,13 +56,23 @@ class _VeterinaryCardState extends State<VeterinaryCard> {
             leading: _fotoVeterinaria("assets/images/local3.png"),
             title: _nombreVeterinaria(vet.businessname),
             subtitle: _direccionveterinaria(vet.address),
-            trailing: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Tab(
-                icon: favIcon,
+            trailing: IconButton(
+              icon: Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: Tab(
+                  icon: favIcon,
+                ),
               ),
+              onPressed: () {
+                _onFavIconTap();
+              },
             ),
-            onTap: _onFavIconTap),
+            onTap: () {
+              //hacer algo
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => VeterinaryDetailPage(vet),
+              ));
+            }),
         Divider(),
       ],
     );

@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:petcare/src/models/veterinary.dart';
+import 'package:petcare/src/pages/appointment_page.dart';
 
 class VeterinaryDetailPage extends StatelessWidget {
+  final Veterinary veterinaria;
+
+  VeterinaryDetailPage(this.veterinaria);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Detalle Veterinaria"),
+        title: Text(
+          "Detalle Veterinaria",
+          style: TextStyle(color: Colors.white),
+        ),
+        actionsIconTheme: IconThemeData(color: Colors.white),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -29,14 +38,14 @@ class VeterinaryDetailPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    "Vet Pet",
+                    veterinaria.businessname,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    "Lima, Peru",
+                    veterinaria.address,
                     style: TextStyle(
                       fontSize: 12,
                     ),
@@ -44,7 +53,7 @@ class VeterinaryDetailPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: Text(
-                      "Especial cuidado a tus mascotas",
+                      veterinaria.description,
                       style: TextStyle(
                         fontSize: 12,
                       ),
@@ -70,32 +79,31 @@ class VeterinaryDetailPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Nombres: Vet Pet",
+                      "Nombres: ${veterinaria.businessname} ",
                       style: TextStyle(),
                     ),
                     Text(
-                      "Ciudad: Lima",
+                      "Ciudad: ${veterinaria.region}",
+                      style: TextStyle(),
+                    ),
+                    /* Text(
+                      "Telefono: ${veterinaria.}",
+                      style: TextStyle(),
+                    ), */
+                    Text(
+                      "Email: ${veterinaria.email}",
                       style: TextStyle(),
                     ),
                     Text(
-                      "Telefono: 555-1234",
+                      "Dirección: ${veterinaria.address}",
                       style: TextStyle(),
                     ),
-                    Text(
-                      "Email: vetpet@gmail.com",
+                    /* Text(
+                      "Celular: ${veterinaria.phone}",
                       style: TextStyle(),
-                    ),
+                    ), */
                     Text(
-                      "Dirección: Av. Luis 515",
-                      style: TextStyle(),
-                    ),
-                    Text(
-                      "Celular: 987654321",
-                      style: TextStyle(),
-                    ),
-                    Text(
-                      "Descripción: Somos una veterinaria que "
-                      "le brindará un cuidado especial a tu mascota.",
+                      "Descripción: ${veterinaria.description}",
                       style: TextStyle(),
                     ),
                   ],
@@ -114,7 +122,9 @@ class VeterinaryDetailPage extends StatelessWidget {
                     textColor: Colors.white,
                     child: Text("Reservar Cita"),
                     onPressed: () {
-                      Navigator.pushNamed(context, 'makeappointment');
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => AppointmentPage(),
+                      ));
                     },
                   ),
                 ),
