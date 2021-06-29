@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:petcare/src/models/api_response.dart';
+import 'package:petcare/src/models/providerjoinproduct.dart';
+import 'package:petcare/src/services/providerjoinproduct_service.dart';
 import 'package:petcare/src/widgets/login_uservet_widget.dart';
+
+import 'add_providerjoinproduct_page.dart';
 
 class LoginVetPage extends StatefulWidget {
   @override
@@ -7,10 +13,16 @@ class LoginVetPage extends StatefulWidget {
 }
 
 class _LoginVetPageState extends State<LoginVetPage> {
+  final formkey = GlobalKey<FormState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+  Providerjoinproduct pjp = new Providerjoinproduct();
+ // PJPService get service async => GetIt.I<PJPService>();
+  APIResponse<List< Providerjoinproduct >> _apiResponse;
   @override
   void initState() {
     super.initState();
   }
+
 
   @override
   void dispose() {
@@ -25,12 +37,16 @@ class _LoginVetPageState extends State<LoginVetPage> {
         body: Stack(
           children: <Widget>[
             _fondo(context),
-            LoginVetWidget(),
+            AddProviderjoinProduct_Page(),
+            //prueba
+            //
+           // LoginVetWidget(),
           ],
         ),
       ),
     );
   }
+
 
   Widget _fondo(BuildContext context) {
     final size = MediaQuery.of(context).size;

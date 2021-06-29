@@ -1,4 +1,4 @@
-// To parse this JSON data, do
+// To parse  this JSON data, do
 //
 //     final appointment = appointmentFromJson(jsonString);
 
@@ -11,14 +11,14 @@ String appointmentToJson(Appointment data) => json.encode(data.toJson());
 
 class Appointment {
   Appointment({
-    this.datereservation,
-    this.starttime,
-    this.endtime,
-    this.idUser,
-    this.idPet,
-    this.idVeterinaria,
-    this.idTipoServicio,
-    this.idServicio,
+     this.datereservation,
+     this.starttime,
+     this.endtime,
+     this.idUser,
+     this.idPet,
+     this.idVeterinaria,
+     this.idTipoServicio,
+     this.idServicio,
   });
 
   DateTime datereservation;

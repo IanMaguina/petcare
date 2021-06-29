@@ -33,15 +33,15 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
   VetService vetService = new VetService();
 
   //Para el combo box de region
-  RegionService regionService = new RegionService();
+ // RegionService regionService = new RegionService();
   final listreg = <String>[];
 
   Veterinary vet = new Veterinary();
 
   UservService get service => GetIt.I<UservService>();
   VetService get service2 => GetIt.I<VetService>();
-  RegionService get service3 => GetIt.I<RegionService>();
-  APIResponse<List<Region>> _apiResponse3;
+ // RegionService get service3 => GetIt.I<RegionService>();
+ // APIResponse<List<Region>> _apiResponse3;
   APIResponse<List<Uservet>> _apiResponse;
   APIResponse<List<Veterinary>> _apiResponse2;
 

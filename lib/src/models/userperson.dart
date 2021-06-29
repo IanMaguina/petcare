@@ -1,4 +1,4 @@
-// To parse this JSON data, do
+// To parse  this JSON data, do
 //
 //     final UserPersona = UserPersonaFromJson(jsonString);
 
@@ -12,16 +12,16 @@ String userPersonaToJson(UserPersona data) => json.encode(data.toJson());
 
 class UserPersona {
   UserPersona({
-    this.idUsuario,
-    this.id,
-    this.name,
-    this.lastName,
-    this.document,
-    this.email,
-    this.password,
-    this.phone,
-    this.age,
-    this.photo,
+     this.idUsuario,
+     this.id,
+     this.name,
+     this.lastName,
+     this.document,
+     this.email,
+     this.password,
+     this.phone,
+     this.age,
+     this.photo,
   });
   int idUsuario;
   int id;

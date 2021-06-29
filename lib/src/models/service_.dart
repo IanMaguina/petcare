@@ -6,10 +6,10 @@ String serviceToJson(Service data) => json.encode(data.toJson());
 
 class Service {
   Service({
-    this.name,
-    this.idVeterinaria,
-    this.idVeterinario,
-    this.idTipoServicio,
+     this.name,
+     this.idVeterinaria,
+     this.idVeterinario,
+     this.idTipoServicio,
   });
 
   String name;

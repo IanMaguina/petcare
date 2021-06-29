@@ -1,4 +1,4 @@
-// To parse this JSON data, do
+// To parse  this JSON data, do
 //
 //     final historyItem = historyItemFromJson(jsonString);
 
@@ -11,16 +11,16 @@ String historyItemToJson(HistoryItem data) => json.encode(data.toJson());
 
 class HistoryItem {
   HistoryItem({
-    this.id,
-    this.dateTime,
-    this.description,
-    this.type,
-    this.action,
-    this.idVeterinaria,
-    this.idVetUser,
-    this.idUser,
-    this.idPet,
-    this.idPetProfile,
+     this.id,
+     this.dateTime,
+     this.description,
+     this.type,
+     this.action,
+     this.idVeterinaria,
+     this.idVetUser,
+     this.idUser,
+     this.idPet,
+     this.idPetProfile,
   });
 
   int id;

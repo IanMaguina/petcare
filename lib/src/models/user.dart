@@ -11,15 +11,15 @@ String userToJson(User data) => json.encode(data.toJson());
 
 class User {
   User({
-    this.id,
-    this.name,
-    this.lastName,
-    this.document,
-    this.email,
-    this.password,
-    this.phone,
-    this.age,
-    this.photo,
+     this.id,
+     this.name,
+     this.lastName,
+     this.document,
+     this.email,
+     this.password,
+     this.phone,
+     this.age,
+     this.photo,
   });
 
   int id;

@@ -1,7 +1,7 @@
 // To parse this JSON data, do
 //
 //     final Region = uservetFromJson(jsonString);
-
+/*
 import 'dart:convert';
 
 Region uservetFromJson(String str) => Region.fromJson(json.decode(str));
@@ -35,3 +35,4 @@ class Region {
     };
   }
 }
+*/

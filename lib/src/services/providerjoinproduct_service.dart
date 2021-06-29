@@ -1,74 +1,95 @@
+
 import 'dart:convert';
-/*
+
 import 'package:petcare/src/models/api_response.dart';
 import 'package:http/http.dart' as http;
-import 'package:petcare/src/models/region.dart';
+import 'package:petcare/src/models/providerjoinproduct.dart';
+import 'package:petcare/src/models/typeproductemun.dart';
+import 'package:petcare/src/models/typeproductt.dart';
 import 'package:petcare/src/models/uservet.dart';
 
-class RegionService {
-  static const API = 'https://petcarefas.azurewebsites.net/api';
+
+class PJPService {
+  //static const API = 'https://petcarefas.azurewebsites.net/api';
+  static const API = 'https://localhost:44353/api';
   static const headers = {
     // 'apiKey': '08d771e2-7c49-1789-0eaa-32aff09f1471',
     'Content-Type': 'application/json'
   };
 
-  Future<APIResponse<bool>> createRegion(Region item) {
+  Future<APIResponse<bool>> createPJP(String uvID1,String uvID,String token) {
+    final tp=new TyperProductt();
+    tp.id=0;
+    tp.name="k";
     return http
-        .post(Uri.parse(API + '/regions'),
-            headers: headers, body: json.encode(item.toJson()))
+        .post(Uri.parse(API + '/business/'+uvID+'/providers/'+uvID+'/typeproducts/'+uvID1),
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer $token',
+        },body: json.encode(tp.toJson()))
         .then((data) {
       if (data.statusCode == 201) {
+        print("CONECTA");
         return APIResponse<bool>(data: true);
       }
+      print("NO CONECTA");
       return APIResponse<bool>(error: true, errorMessage: 'An error occured');
     }).catchError((_) =>
             APIResponse<bool>(error: true, errorMessage: 'An error occured'));
   }
 
-  Future<APIResponse<List<Region>>> getRegionsList() {
+  Future<APIResponse<List<Providerjoinproduct >>> getPJPsList() {
     return http
         .get(Uri.parse(API + '/business'), headers: headers)
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
-        final notes = <Region>[];
+        final notes = <Providerjoinproduct >[];
         for (var item in jsonData) {
-          notes.add(Region.fromJson(item));
+          notes.add(Providerjoinproduct .fromJson(item));
         }
-        return APIResponse<List<Region>>(data: notes);
+        return APIResponse<List<Providerjoinproduct >>(data: notes);
       }
-      return APIResponse<List<Region>>(
+      return APIResponse<List<Providerjoinproduct >>(
           error: true, errorMessage: 'An error occured');
-    }).catchError((_) => APIResponse<List<Uservet>>(
+    }).catchError((_) => APIResponse<List<Providerjoinproduct >>(
             error: true, errorMessage: 'An error occured'));
   }
 
-  Future<APIResponse<Region>> getRegion(String uvID) {
+  Future<APIResponse<Providerjoinproduct >> getPJPvet(int uvID) {
     return http
-        .get(Uri.parse(API + '/regions' + uvID), headers: headers)
+        .get(Uri.parse(API + '/business/' + uvID.toString()), headers: headers)
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
-        return APIResponse<Region>(data: Region.fromJson(jsonData));
+        return APIResponse<Providerjoinproduct >(data: Providerjoinproduct .fromJson(jsonData));
       }
-      return APIResponse<Region>(error: true, errorMessage: 'An error occured');
-    }).catchError((_) =>
-            APIResponse<Region>(error: true, errorMessage: 'An error occured'));
+      return APIResponse<Providerjoinproduct >(
+          error: true, errorMessage: 'An error occured');
+    }).catchError((_) => APIResponse<Providerjoinproduct >(
+            error: true, errorMessage: 'An error occured'));
   }
 
-  Future<APIResponse<bool>> updateRegion(String uvID, Region item) {
+  Future<APIResponse<bool>> updatePJP(String uvID, Providerjoinproduct  item) {
+    var jsonv = item.toJson();
+    print(jsonv);
     return http
-        .put(Uri.parse(API + '/regions' + uvID),
-            headers: headers, body: json.encode(item.toJson()))
+        .put(Uri.parse(API + '/business/' + uvID),
+            headers: headers, body: json.encode(jsonv))
         .then((data) {
+      print(data.body.toString());
       if (data.statusCode == 204) {
+        print("FUNCIONA   ");
         return APIResponse<bool>(data: true);
       }
+      print("NO FUNCIONA  ");
       return APIResponse<bool>(error: true, errorMessage: 'An error occured');
     }).catchError((_) =>
             APIResponse<bool>(error: true, errorMessage: 'An error occured'));
   }
 }
+
+
 /*
   Future<APIResponse<List<NoteForListing>>> getNotesList() {
     return http.get(API + '/notes', headers: headers).then((data) {
@@ -102,20 +123,35 @@ class RegionService {
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:petcare/src/models/uservet.dart';
+import 'package:petcare/src/models/Providerjoinproduct .dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> development
 final urlPetcare = "https://localhost:44353/api";
 
 final token =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjkiLCJuYmYiOjE2MjA0NTIxOTgsImV4cCI6MTYyMTA1Njk5OCwiaWF0IjoxNjIwNDUyMTk4fQ.G-jOetqvYbgACErTLsF3iimKNKeHSZooUXX0YH8LXFI';
+<<<<<<< HEAD
+=======
+//production:
+//final urlPetcare = "https://petcaremobileapi.azurewebsites.net/api";
+//local:
+final urlPetcare = "https://localhost:44353/api";
+
+final _prefs = new PreferenciasUsuario();
+>>>>>>> test_william
+=======
+>>>>>>> development
 
 class UserService with ChangeNotifier {
   // final String _firebaseToken = 'AIzaSyAzIGZax6Pn30zGytZkwyXJdEmsKiRDRc8';
 
   final _prefs = new PreferenciasUsuario();
 
-  Future<Map<String, dynamic>> nuevoUsuarioVet(Uservet user) async {
+  Future<Map<String, dynamic>> nuevoUsuarioVet(Providerjoinproduct  user) async {
     final data = {
       "name": user.name,
       "lastname": user.lastName,
@@ -149,5 +185,4 @@ class UserService with ChangeNotifier {
     }
   }
 }
-*/
 */

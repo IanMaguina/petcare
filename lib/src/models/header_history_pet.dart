@@ -12,18 +12,18 @@ String headerPetProfileToJson(HeaderPetProfile data) =>
 
 class HeaderPetProfile {
   HeaderPetProfile({
-    this.id,
-    this.name,
-    this.weight,
-    this.height,
-    this.lenght,
-    this.eyes,
-    this.breed,
-    this.sex,
-    this.color,
-    this.description,
-    this.photo,
-    this.age,
+     this.id,
+     this.name,
+     this.weight,
+     this.height,
+     this.lenght,
+     this.eyes,
+     this.breed,
+     this.sex,
+     this.color,
+     this.description,
+     this.photo,
+     this.age,
   });
 
   int id;

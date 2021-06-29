@@ -1,4 +1,4 @@
-// To parse this JSON data, do
+// To parse  this JSON data, do
 //
 //     final typeService = typeServiceFromJson(jsonString);
 
@@ -12,8 +12,8 @@ String typeServiceToJson(List<TypeService> data) =>
 
 class TypeService {
   TypeService({
-    this.id,
-    this.name,
+     this.id,
+     this.name,
   });
 
   int id;
@@ -39,9 +39,9 @@ part 'service.g.dart';
 class Service {
   final int id;
   final String name;
-  Service({this.id, this.name});
+  Service({ this.id,  this.name});
   factory Service.fromJson(Map<String, dynamic> json) =>
       _$ServiceFromJson(json);
-  Map<String, dynamic> toJson() => _$ServiceToJson(this);
+  Map<String, dynamic> toJson() => _$ServiceToJson( this);
 }
  */

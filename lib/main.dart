@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 import 'package:petcare/src/routes/routes.dart';
 import 'package:petcare/src/services/pets_service.dart';
+import 'package:petcare/src/services/providerjoinproduct_service.dart';
 import 'package:petcare/src/services/region_service.dart';
 import 'package:petcare/src/services/service_service.dart';
 import 'package:petcare/src/services/user_vet_service.dart';
@@ -15,7 +16,8 @@ import 'package:provider/provider.dart';
 void setupLocator() {
   GetIt.I.registerLazySingleton(() => UservService());
   GetIt.I.registerLazySingleton(() => VetService());
-  GetIt.I.registerLazySingleton(() => RegionService());
+  //GetIt.I.registerLazySingleton(() => RegionService());
+  //GetIt.I.registerLazySingleton(() => PJPService());
 }
 
 void main() async {

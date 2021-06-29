@@ -1,4 +1,4 @@
-// To parse this JSON data, do
+// To parse  this JSON data, do
 //
 //     final pets = petsFromJson(jsonString);
 
@@ -12,12 +12,12 @@ String petsToJson(List<Pet> data) =>
 
 class Pet {
   Pet({
-    this.id,
-    this.name,
-    this.age,
-    this.breed,
-    this.photo,
-    this.sex,
+     this.id,
+     this.name,
+     this.age,
+     this.breed,
+     this.photo,
+     this.sex,
   });
 
   int id;

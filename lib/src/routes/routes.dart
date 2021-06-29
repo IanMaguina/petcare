@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petcare/src/pages/Cita_Detailed.dart';
+import 'package:petcare/src/pages/add_providerjoinproduct_page.dart';
 import 'package:petcare/src/pages/add_user_page.dart';
 import 'package:petcare/src/pages/add_user_vet_page.dart';
 import 'package:petcare/src/pages/add_veterinary.dart';
@@ -32,6 +33,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'listvets': (BuildContext context) => ListVeterinariesPage(),
     'makeappointment': (BuildContext context) => AppointmentPage(),
     'detallecita': (BuildContext context) => ListarCitasDetailPage(),
+    'providerjoinproduct': (BuildContext context) => AddProviderjoinProduct_Page(),
     'detallevetvet': (BuildContext context) => VeterinaryVetDetailPage(),
     'vetpetdetail': (BuildContext context) => PetDetailVetPage(),
     //'test': (BuildContext context) => ListServicesPageByProv(),

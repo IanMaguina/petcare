@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petcare/src/pages/ListarCitasPage.dart';
+import 'package:petcare/src/pages/add_providerjoinproduct_page.dart';
 import 'package:petcare/src/pages/list_favveterinarias.dart';
 import 'package:petcare/src/pages/list_pet_page.dart';
 import 'package:petcare/src/pages/services_page.dart';
@@ -53,11 +54,13 @@ class _Paginas extends StatelessWidget {
       controller: navegacionModel.pageController,
       physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
+
         ListServicesPage(),
         ListPetPage(),
         ListarCitasPage(),
         XXXWilliam(),
-        UserInfoPage()
+        UserInfoPage(),
+
       ],
     );
   }
