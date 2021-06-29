@@ -4,6 +4,7 @@ import 'package:petcare/src/models/api_response.dart';
 import 'package:petcare/src/models/userperson.dart';
 import 'package:petcare/src/pages/edit_userPersona.dart';
 import 'package:petcare/src/services/user_persona_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserInfoPage extends StatefulWidget {
   @override
@@ -279,4 +280,10 @@ class _UserInfoPageState extends State<UserInfoPage> {
       ),
     );
   }
+
+  void logOut() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+  }
+  
 }
