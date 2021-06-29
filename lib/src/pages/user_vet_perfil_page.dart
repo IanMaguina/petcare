@@ -2,20 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:petcare/const/colors.dart';
 import 'package:petcare/src/models/api_response.dart';
 import 'package:petcare/src/models/uservet.dart';
-import 'package:petcare/src/models/veterinary.dart';
 import 'package:petcare/src/pages/edit_veterinarios.dart';
 import 'package:petcare/src/services/user_vet_service.dart';
 
-class UserVetInfoPage extends StatefulWidget {
-  @override
-  _UserVetInfoPageState createState() => _UserVetInfoPageState();
-}
-
 UservService personService = new UservService();
 
-APIResponse<Uservet> personaresponse;
+class UserVetInfoPage extends StatefulWidget {
+  UserVetInfoPage(this.id);
+
+  final id;
+  @override
+  _UserVetInfoPageState createState() => _UserVetInfoPageState(id);
+}
 
 class _UserVetInfoPageState extends State<UserVetInfoPage> {
+  void runFuture(Future list, APIResponse<Uservet> lists) {
+    list.then((value) {
+      lists = value;
+    });
+  }
+
+  _UserVetInfoPageState(this.id);
+  final id;
   //bool _value = false;
   ScrollController _scrollController;
   var top = 0.0;
@@ -32,6 +40,11 @@ class _UserVetInfoPageState extends State<UserVetInfoPage> {
 
   @override
   Widget build(BuildContext context) {
+    APIResponse<Uservet> personaresponse = new APIResponse<Uservet>();
+
+    Future list = personService.getUservet(id.toString());
+    runFuture(list, personaresponse);
+
     return Scaffold(
       body: Stack(
         children: [
@@ -149,10 +162,19 @@ class _UserVetInfoPageState extends State<UserVetInfoPage> {
                       thickness: 1,
                       color: Colors.grey,
                     ),
-                    userListTile('Juan', 'Nombre', 0, context),
-                    userListTile('Email', 'Correo', 0, context),
-                    userListTile('64343135', 'Teléfono', 0, context),
-                    userListTile('05/06/2021', 'joined date', 0, context),
+                    userListTile(
+                        personaresponse.data.name +
+                            ' ' +
+                            personaresponse.data.lastName,
+                        'Nombre',
+                        0,
+                        context),
+                    userListTile(
+                        personaresponse.data.email, 'Correo', 0, context),
+                    userListTile(personaresponse.data.phone.toString(),
+                        'Teléfono', 0, context),
+                    userListTile(personaresponse.data.document.toString(),
+                        'DNI', 0, context),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: userTitle('User settings'),
@@ -164,7 +186,8 @@ class _UserVetInfoPageState extends State<UserVetInfoPage> {
                     _logoutButton('Cerrar Sesión', '', 4, context),
                     ElevatedButton.icon(
                       onPressed: () async {
-                        personaresponse = await personService.getUservet(1);
+                        personaresponse =
+                            await personService.getUservet(id.toString());
                         Navigator.push(
                             context,
                             MaterialPageRoute(

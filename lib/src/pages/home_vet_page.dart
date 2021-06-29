@@ -33,7 +33,7 @@ class _Paginas extends StatelessWidget {
         TestImagePage(),
         SubcriptionPage(),
         ListarCitasVetPage("1"), //idvet
-        UserVetInfoPage(),
+        UserVetInfoPage("1"), //idvet
       ],
     );
   }

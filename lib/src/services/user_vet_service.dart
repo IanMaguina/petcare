@@ -47,11 +47,10 @@ class UservService {
             error: true, errorMessage: 'An error occured'));
   }
 
-  Future<APIResponse<Uservet>> getUservet(int uvID) {
+  Future<APIResponse<Uservet>> getUservet(String uvID) {
     final urlPetcare = _prefs.urlPetcare;
     return http
-        .get(Uri.parse(urlPetcare + '/business/' + uvID.toString()),
-            headers: headers)
+        .get(Uri.parse(urlPetcare + '/business/' + uvID), headers: headers)
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
