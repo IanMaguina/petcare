@@ -1,12 +1,9 @@
 import 'dart:convert';
-import 'dart:math';
-
 import 'package:petcare/src/models/api_response.dart';
 import 'package:http/http.dart' as http;
 import 'package:petcare/src/models/uservet.dart';
 import 'package:petcare/src/models/veterinary.dart';
 import 'package:petcare/src/services/user_vet_service.dart';
-import 'package:petcare/src/models/uservet.dart';
 
 class VetService {
   static const API = 'https://petcarefas.azurewebsites.net/api';

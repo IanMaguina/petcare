@@ -5,7 +5,7 @@ import 'package:petcare/src/models/veterinary.dart';
 import 'package:petcare/src/preferencias_usuario/favorite-vets.dart';
 import 'package:petcare/src/widgets/veterinarycard.dart';
 
-class XXXWilliam extends StatelessWidget {
+class HeadVeterinaryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -32,6 +32,13 @@ class _ListVeterinariesWPageState extends State<ListVeterinariesWPage> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    _vetsBloc.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder(
         stream: _vetsBloc.allvets,
@@ -40,11 +47,11 @@ class _ListVeterinariesWPageState extends State<ListVeterinariesWPage> {
             vets = snapshot.data;
             return Scaffold(
               appBar: AppBar(
-                backgroundColor: Colors.grey.shade50,
+                backgroundColor: Color.fromRGBO(57, 179, 179, 1.0),
                 elevation: 0.5,
                 title: Text(
                   'Veterynaries by services',
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
               body: Container(

@@ -37,7 +37,7 @@ class _Navegacion extends StatelessWidget {
           BottomNavigationBarItem(
               icon: Icon(Icons.date_range), label: 'Mis Citas'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.date_range), label: 'Mis veterinarias'),
+              icon: Icon(Icons.store), label: 'Mis veterinarias'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
         ]);
   }
@@ -56,7 +56,7 @@ class _Paginas extends StatelessWidget {
         ListServicesPage(),
         ListPetPage(),
         ListarCitasPage(),
-        XXXWilliam(),
+        HeadVeterinaryList(),
         UserInfoPage()
       ],
     );

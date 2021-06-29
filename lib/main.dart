@@ -16,6 +16,7 @@ void setupLocator() {
   GetIt.I.registerLazySingleton(() => UservService());
   GetIt.I.registerLazySingleton(() => VetService());
   GetIt.I.registerLazySingleton(() => RegionService());
+  GetIt.I.registerLazySingleton(() => ServicesService());
 }
 
 void main() async {
@@ -30,20 +31,14 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        //ChangeNotifierProvider(create: (_) => new ServicesService()),
-        ChangeNotifierProvider(create: (_) => PetsService()),
-      ],
-      child: MaterialApp(
-          title: 'Petcare',
-          debugShowCheckedModeBanner: false,
-          initialRoute: '/',
-          routes: getApplicationRoutes(),
-          theme: ThemeData(
-              primaryColor: Color.fromRGBO(57, 179, 179, 1.0),
-              textTheme: TextTheme(button: TextStyle(color: Colors.white)))),
-    );
+    return MaterialApp(
+        title: 'Petcare',
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/',
+        routes: getApplicationRoutes(),
+        theme: ThemeData(
+            primaryColor: Color.fromRGBO(57, 179, 179, 1.0),
+            textTheme: TextTheme(button: TextStyle(color: Colors.white))));
   }
 }
 
