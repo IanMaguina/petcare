@@ -1,4 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:petcare/src/models/pet.dart';
+import 'package:petcare/src/services/pets_service.dart';
 
 class AppointmentPage extends StatefulWidget {
   @override
@@ -9,8 +13,9 @@ class _AppointmentPageState extends State<AppointmentPage> {
   DateTime now = DateTime.now();
   DateTime _dateTime = DateTime.now();
 
-  String dropdownValue =
-      'Mascota1'; //valor principal por defecto en el widget de dropdown
+ String dropdownValue ='Mascota1'; //valor principal por defecto en el widget de dropdown
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
