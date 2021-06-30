@@ -225,7 +225,7 @@ class _EditVeterinaryState extends State<EditVeterinaryPage> {
     final result1 =
         vetService.updateVet(veterinaria.id.toString(), veterinaria);
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => VeterinaryVetDetailPage("1"), //Id Del login
+      builder: (context) => VeterinaryVetDetailPage(veterinaria),
     ));
   }
 }

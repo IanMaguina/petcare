@@ -6,24 +6,15 @@ import 'package:petcare/src/pages/edit_Veterinarias.dart';
 import 'package:petcare/src/services/vet_service.dart';
 
 class VeterinaryVetDetailPage extends StatelessWidget {
-  void runFuture(Future list, APIResponse<Veterinary> veterinary) {
-    list.then((value) {
-      veterinary = value;
-    });
-  }
+  final Veterinary veterinaria;
 
-  VeterinaryVetDetailPage(this.id);
-  final id;
-
+  VeterinaryVetDetailPage(this.veterinaria);
   VetService vetService = new VetService();
 
   APIResponse<Veterinary> vetresponse;
 
   @override
   Widget build(BuildContext context) {
-    APIResponse<Veterinary> veterinary;
-    Future list = vetService.getVet(id);
-    runFuture(list, veterinary);
     return Scaffold(
       appBar: AppBar(
         title: Text("Detalle Veterinaria"),
@@ -50,14 +41,14 @@ class VeterinaryVetDetailPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    veterinary.data.businessname,
+                    veterinaria.businessname,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    veterinary.data.region,
+                    veterinaria.region,
                     style: TextStyle(
                       fontSize: 12,
                     ),
@@ -65,7 +56,7 @@ class VeterinaryVetDetailPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: Text(
-                      veterinary.data.description,
+                      veterinaria.description,
                       style: TextStyle(
                         fontSize: 12,
                       ),
@@ -103,23 +94,23 @@ class VeterinaryVetDetailPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Nombres: " + veterinary.data.businessname,
+                      "Nombres: " + veterinaria.businessname,
                       style: TextStyle(),
                     ),
                     Text(
-                      "Ciudad: " + veterinary.data.region,
+                      "Ciudad: " + veterinaria.region,
                       style: TextStyle(),
                     ),
                     Text(
-                      "Email: " + veterinary.data.email,
+                      "Email: " + veterinaria.email,
                       style: TextStyle(),
                     ),
                     Text(
-                      "Dirección: " + veterinary.data.address,
+                      "Dirección: " + veterinaria.address,
                       style: TextStyle(),
                     ),
                     Text(
-                      "Descripción: " + veterinary.data.description,
+                      "Descripción: " + veterinaria.description,
                       style: TextStyle(),
                     ),
                   ],
