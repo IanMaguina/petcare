@@ -2,9 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:petcare/src/models/pet.dart';
+import 'package:petcare/src/preferencias_usuario/prefs.dart';
 import 'package:petcare/src/services/pets_service.dart';
 
 class AppointmentPage extends StatefulWidget {
+  final idVeterinaria;
+  AppointmentPage(this.idVeterinaria);
   @override
   _AppointmentPageState createState() => _AppointmentPageState();
 }
@@ -13,8 +16,10 @@ class _AppointmentPageState extends State<AppointmentPage> {
   DateTime now = DateTime.now();
   DateTime _dateTime = DateTime.now();
 
- String dropdownValue ='Mascota1'; //valor principal por defecto en el widget de dropdown
+  final _prefs = new PreferenciasUsuario();
 
+  String dropdownValue =
+      'Mascota1'; //valor principal por defecto en el widget de dropdown
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +158,9 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                       color: Color.fromRGBO(57, 179, 179, 1.0),
                                       textColor: Colors.white,
                                       child: Text("Reservar Cita"),
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        _reservarcita(context);
+                                      },
                                     ),
                                   ),
                                   Container(
@@ -251,5 +258,9 @@ class _AppointmentPageState extends State<AppointmentPage> {
         hint: Text("Seleccionar una mascota"),
       ),
     );
+  }
+
+  void _reservarcita(BuildContext context) {
+    final idUsuario = _prefs.iduser;
   }
 }

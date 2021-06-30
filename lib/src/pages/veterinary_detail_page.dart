@@ -123,7 +123,7 @@ class VeterinaryDetailPage extends StatelessWidget {
                     child: Text("Reservar Cita"),
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => AppointmentPage(),
+                        builder: (context) => AppointmentPage(veterinaria.id),
                       ));
                     },
                   ),
