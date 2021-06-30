@@ -162,7 +162,7 @@ class _EditPetPageState extends State<EditPetPage> {
       Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => ListPetPage(),
       ));
-      Fluttertoast.showToast(msg: "Mascota ${pet.name} agregada !");
+      Fluttertoast.showToast(msg: "Mascota ${pet.name} actualizada !");
     } else {
       Fluttertoast.showToast(msg: result1.errorMessage);
     }

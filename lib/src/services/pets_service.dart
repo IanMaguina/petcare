@@ -54,12 +54,11 @@ class PetsService {
             headers: headers, body: json.encode(jsonv))
         .then((data) {
       print(data.body.toString());
-      if (data.statusCode == 201) {
+      if (data.statusCode == 200) {
         print("FUNCIONA   ");
-        return APIResponse<bool>(data: true);
-      } else {
-        print("NO FUNCIONA   ");
+        return APIResponse<bool>(error: false, data: true);
       }
+
       return APIResponse<bool>(error: true, errorMessage: 'An error occured');
     }).catchError((_) =>
             APIResponse<bool>(error: true, errorMessage: 'An error occured'));
