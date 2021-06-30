@@ -1,35 +1,43 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
+import 'package:petcare/src/models/api_response.dart';
 import 'package:petcare/src/models/pet.dart';
+import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
-final urlPetcare = "https://petcarefas.azurewebsites.net/api";
-
-final apiKey = "";
-final token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjkiLCJuYmYiOjE2MjA0NTIxOTgsImV4cCI6MTYyMTA1Njk5OCwiaWF0IjoxNjIwNDUyMTk4fQ.G-jOetqvYbgACErTLsF3iimKNKeHSZooUXX0YH8LXFI";
-
-class PetsService with ChangeNotifier {
+class PetsService {
   List<Pet> listadoPets = [];
+  final _prefs = new PreferenciasUsuario();
 
   PetsService() {
     this.getPetByCustomerId();
   }
 
-  getPetByCustomerId() async {
-    //endPoint
-    var id = '7';
-    final url = '$urlPetcare/people/$id/pets';
-    final resp = await http.get(Uri.parse(url), headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
-    var data;
-    if (resp.body.isNotEmpty) {
-      data = petsFromJson(resp.body);
-    }
+  Future<APIResponse<List<Pet>>> getPetByCustomerId() {
+    final urlPetcare = _prefs.urlPetcare;
+    var token = _prefs.token;
+    final idCustomer = _prefs.iduser;
+    final headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    };
 
-    this.listadoPets.addAll(data);
-    notifyListeners();
+    return http
+        .get(Uri.parse(urlPetcare + '/people/$idCustomer/pets'),
+            headers: headers)
+        .then((data) {
+      if (data.statusCode == 200) {
+        final jsonData = json.decode(data.body);
+        final notes = <Pet>[];
+        for (var item in jsonData) {
+          notes.add(Pet.fromJson(item));
+        }
+        return APIResponse<List<Pet>>(data: notes);
+      }
+      return APIResponse<List<Pet>>(
+          error: true, errorMessage: 'no se encontraron mascotas');
+    }).catchError((_) => APIResponse<List<Pet>>(
+            error: true, errorMessage: 'An error occured'));
   }
 }
