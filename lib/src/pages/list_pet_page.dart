@@ -4,6 +4,7 @@ import 'package:petcare/src/models/pet.dart';
 import 'package:petcare/src/pages/edit_pet_page.dart';
 import 'package:petcare/src/pages/pet_detail_page.dart';
 import 'package:petcare/src/services/pets_service.dart';
+import 'package:petcare/src/pages/add_pet_page.dart';
 
 class ListPetPage extends StatefulWidget {
   @override
@@ -12,6 +13,7 @@ class ListPetPage extends StatefulWidget {
 
 class _ListPetPageState extends State<ListPetPage> {
   PetsService petService = new PetsService();
+  //Pet pet;
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +31,16 @@ class _ListPetPageState extends State<ListPetPage> {
               final List<Pet> listamasc = snapshot.data.data;
               return _ListaMascotas(listamasc);
             }
-          },
+          },  
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed:(){
+          Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => AddPetPage(),
+        ));
+        },
+        child: Icon(Icons.add_box),
       ),
     );
   }
