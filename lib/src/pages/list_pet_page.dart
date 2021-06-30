@@ -1,59 +1,82 @@
 import 'package:flutter/material.dart';
 import 'package:petcare/src/models/api_response.dart';
 import 'package:petcare/src/models/pet.dart';
+import 'package:petcare/src/pages/edit_pet_page.dart';
+import 'package:petcare/src/pages/pet_detail_page.dart';
 import 'package:petcare/src/services/pets_service.dart';
 
-class ListPetPage extends StatelessWidget {
-  void runFuture(Future list, APIResponse<List<Pet>> lists) {
-    list.then((value) {
-      lists = value;
-    });
-  }
+class ListPetPage extends StatefulWidget {
+  @override
+  _ListPetPageState createState() => _ListPetPageState();
+}
+
+class _ListPetPageState extends State<ListPetPage> {
+  PetsService petService = new PetsService();
 
   @override
   Widget build(BuildContext context) {
-    final petprovider = new PetsService();
-    APIResponse<List<Pet>> lists;
-    List<Widget> petlist;
-    Future list = petprovider.getPetByCustomerId("1");
-    runFuture(list, lists);
-    for (var i = 0; i < lists.data.length; i++) {
-      petlist.add(
-        pets(context, lists.data[i].name),
-      );
-    }
     return Scaffold(
       body: SafeArea(
         top: true,
-        child: ListView(
-          padding: EdgeInsets.all(16),
-          children: petlist,
+        child: FutureBuilder(
+          future: petService.getPetByCustomerId(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              final List<Pet> listamasc = snapshot.data.data;
+              return _ListaMascotas(listamasc);
+            }
+          },
         ),
       ),
     );
   }
 }
 
-Widget pets(BuildContext context, String name) {
-  return Column(
-    children: [
-      ListTile(
-        contentPadding: EdgeInsets.all(12),
-        leading: CircleAvatar(
-          backgroundImage: AssetImage('assets/images/pet1.jpg'),
-          radius: 30,
-        ),
-        title: Text(name),
-        subtitle: Text("2 años"),
-        trailing: Icon(
-          Icons.arrow_forward_ios,
-          color: Color.fromRGBO(57, 179, 179, 1),
-        ),
-        onTap: () {
-          Navigator.pushNamed(context, 'petdetail');
-        },
+class _ListaMascotas extends StatelessWidget {
+  final List<Pet> mascotas;
+  const _ListaMascotas(this.mascotas);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: mascotas.length,
+      itemBuilder: (BuildContext context, int index) {
+        final service = mascotas[index];
+        return _element(context, service);
+      },
+    );
+  }
+}
+
+Widget _element(BuildContext context, Pet mascota) {
+  return ListTile(
+    contentPadding: EdgeInsets.all(12),
+    leading: CircleAvatar(
+      backgroundImage: AssetImage('assets/images/pet1.jpg'),
+      radius: 30,
+    ),
+    title: Text(mascota.name),
+    subtitle: Text(mascota.age),
+    trailing: IconButton(
+      icon: Icon(
+        Icons.edit,
+        color: Color.fromRGBO(57, 179, 179, 1),
       ),
-      Divider(),
-    ],
+      onPressed: () {
+        //por si acaso
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => EditPetPage(mascota),
+        ));
+      },
+    ),
+    onTap: () {
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => PetDetailPage(mascota),
+      ));
+    },
   );
 }

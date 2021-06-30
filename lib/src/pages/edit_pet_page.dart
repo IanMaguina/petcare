@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:petcare/src/models/pet.dart';
+import 'package:petcare/src/pages/list_pet_page.dart';
 import 'package:petcare/src/services/pets_service.dart';
 
 class EditPetPage extends StatefulWidget {
@@ -40,7 +42,6 @@ class _EditPetPageState extends State<EditPetPage> {
                 SizedBox(height: 10),
                 _editarBoton(context),
                 SizedBox(height: 10),
-                
               ],
             ),
           ),
@@ -123,7 +124,7 @@ class _EditPetPageState extends State<EditPetPage> {
     );
   }
 
-   Widget _editarBoton(BuildContext context) {
+  Widget _editarBoton(BuildContext context) {
     return ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
@@ -140,7 +141,6 @@ class _EditPetPageState extends State<EditPetPage> {
     );
   }
 
-
   void _submit(BuildContext context) async {
     //Obtiene todos los pets
 
@@ -153,6 +153,18 @@ class _EditPetPageState extends State<EditPetPage> {
     print(pet.sex);
     print("     ");
 
-    final result1 = perService.updatePetByCustomerId(pet.id.toString(), pet);
+    final result1 =
+        await perService.updatePetByCustomerId(pet.id.toString(), pet);
+
+    if (!result1.error) {
+      print(result1);
+
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => ListPetPage(),
+      ));
+      Fluttertoast.showToast(msg: "Mascota ${pet.name} agregada !");
+    } else {
+      Fluttertoast.showToast(msg: result1.errorMessage);
+    }
   }
 }

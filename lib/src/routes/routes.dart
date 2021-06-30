@@ -11,10 +11,8 @@ import 'package:petcare/src/pages/list_pet_page.dart';
 import 'package:petcare/src/pages/list_veterinarias_page.dart';
 import 'package:petcare/src/pages/login_page.dart';
 import 'package:petcare/src/pages/login_page_vet.dart';
-import 'package:petcare/src/pages/pet_detail_page.dart';
 import 'package:petcare/src/pages/pet_detail_vet_page.dart';
 import 'package:petcare/src/pages/test_images.dart';
-import 'package:petcare/src/pages/veterinary_detail_page.dart';
 import 'package:petcare/src/pages/veterinary_vet_detail_page.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
@@ -26,15 +24,11 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'home_vet': (BuildContext context) => HomeVetPage(),
     'adduser': (BuildContext context) => AddUserPage(),
     'adduservet': (BuildContext context) => Add_Vet(),
-    'petdetail': (BuildContext context) => PetDetailPage(),
-//    'veterinarydetail': (BuildContext context) => VeterinaryDetailPage(),
     'listpet': (BuildContext context) => ListPetPage(),
     'listvets': (BuildContext context) => ListVeterinariesPage(),
-    // 'makeappointment': (BuildContext context) => AppointmentPage(),
     'detallecita': (BuildContext context) => ListarCitasDetailPage(),
     'detallevetvet': (BuildContext context) => VeterinaryVetDetailPage(),
     'vetpetdetail': (BuildContext context) => PetDetailVetPage(),
-    //'test': (BuildContext context) => ListServicesPageByProv(),
     'addveterinary': (BuildContext context) => Add_Veterinary(),
     'test': (BuildContext context) => TestImagePage(),
 

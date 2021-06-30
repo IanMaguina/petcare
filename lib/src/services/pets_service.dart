@@ -1,25 +1,27 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:petcare/src/models/api_response.dart';
 import 'package:petcare/src/models/pet.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
-final apiKey = "";
-final token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjkiLCJuYmYiOjE2MjA0NTIxOTgsImV4cCI6MTYyMTA1Njk5OCwiaWF0IjoxNjIwNDUyMTk4fQ.G-jOetqvYbgACErTLsF3iimKNKeHSZooUXX0YH8LXFI";
-
 class PetsService {
-  static const API = 'https://petcarefas.azurewebsites.net/api';
-  static const headers = {
-    // 'apiKey': '08d771e2-7c49-1789-0eaa-32aff09f1471',
-    'Content-Type': 'application/json'
-  };
+  List<Pet> listadoPets = [];
   final _prefs = new PreferenciasUsuario();
 
-  Future<APIResponse<List<Pet>>> getPetByCustomerId(String id) {
+  Future<APIResponse<List<Pet>>> getPetByCustomerId() {
+    final urlPetcare = _prefs.urlPetcare;
+    var token = _prefs.token;
+    final idCustomer = _prefs.iduser;
+    final headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    };
+
     return http
-        .get(Uri.parse(API + '/people/' + id + '/pets'), headers: headers)
+        .get(Uri.parse(urlPetcare + '/people/$idCustomer/pets'),
+            headers: headers)
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
@@ -30,7 +32,7 @@ class PetsService {
         return APIResponse<List<Pet>>(data: notes);
       }
       return APIResponse<List<Pet>>(
-          error: true, errorMessage: 'An error occured');
+          error: true, errorMessage: 'no se encontraron mascotas');
     }).catchError((_) => APIResponse<List<Pet>>(
             error: true, errorMessage: 'An error occured'));
   }
@@ -38,18 +40,24 @@ class PetsService {
   //Miguel update
   Future<APIResponse<bool>> updatePetByCustomerId(String id, Pet pet) {
     final urlPetcare = _prefs.urlPetcare;
+    var token = _prefs.token;
+    var iduser = _prefs.iduser;
+    final headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    };
+
     var jsonv = pet.toJson();
     print(jsonv);
     return http
-        .put(Uri.parse(urlPetcare +'/people/' + '/pets' + id),
+        .put(Uri.parse(urlPetcare + "/people/$iduser/pets/$id"),
             headers: headers, body: json.encode(jsonv))
         .then((data) {
-          print(data.body.toString());
-      if (data.statusCode == 204) {
+      print(data.body.toString());
+      if (data.statusCode == 201) {
         print("FUNCIONA   ");
         return APIResponse<bool>(data: true);
-      }
-      else{
+      } else {
         print("NO FUNCIONA   ");
       }
       return APIResponse<bool>(error: true, errorMessage: 'An error occured');

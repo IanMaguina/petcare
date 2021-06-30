@@ -17,6 +17,7 @@ void setupLocator() {
   GetIt.I.registerLazySingleton(() => VetService());
   GetIt.I.registerLazySingleton(() => RegionService());
   GetIt.I.registerLazySingleton(() => ServicesService());
+  // GetIt.I.registerLazySingleton(() => PetsService());
 }
 
 void main() async {
