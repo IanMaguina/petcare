@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petcare/src/models/pet.dart';
+import 'package:petcare/src/services/pets_service.dart';
 
 class AddPetPage extends StatefulWidget {
   @override
@@ -10,8 +11,8 @@ class _AddPetPageState extends State<AddPetPage> {
   final formkey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  PetsService petService = new PetsService();
   Pet pet = new Pet();
-  // final petProvider = new UserService();
 
   @override
   Widget build(BuildContext context) {
@@ -122,6 +123,8 @@ class _AddPetPageState extends State<AddPetPage> {
   }
 
   void _submit(BuildContext context) async {
+    formkey.currentState.save();
+    final result1 = petService.createPet(pet);
     if (!formkey.currentState.validate()) {
       return;
     }

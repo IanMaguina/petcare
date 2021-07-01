@@ -1,8 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:petcare/src/models/appointment.dart';
 import 'package:petcare/src/models/pet.dart';
+import 'package:petcare/src/models/service_.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
+import 'package:petcare/src/services/date_service.dart';
 import 'package:petcare/src/services/pets_service.dart';
 
 class AppointmentPage extends StatefulWidget {
@@ -16,7 +19,16 @@ class _AppointmentPageState extends State<AppointmentPage> {
   DateTime now = DateTime.now();
   DateTime _dateTime = DateTime.now();
 
+  final formkey = GlobalKey<FormState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   final _prefs = new PreferenciasUsuario();
+  Appointment date = new Appointment();
+  final dateService = new DateService();
+  Service service = new Service();
+  Pet pet = new Pet();
+  List listapets;
+  String mypet;
+  PetsService petService = new PetsService();
 
   String dropdownValue =
       'Mascota1'; //valor principal por defecto en el widget de dropdown
@@ -29,55 +41,6 @@ class _AppointmentPageState extends State<AppointmentPage> {
       ),
       body: ListView(
         children: [
-          Container(
-            alignment: Alignment.topLeft,
-            padding: EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: Text(
-                    "Datos Personales",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 8),
-                  child: Container(
-                    height: 150,
-                    alignment: Alignment.topLeft,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Nombres: Juan Diego",
-                          style: TextStyle(),
-                        ),
-                        Text(
-                          "Apellidos: Perez Perez",
-                          style: TextStyle(),
-                        ),
-                        Text(
-                          "DNI: 12345678",
-                          style: TextStyle(),
-                        ),
-                        Text(
-                          "Telefono: 987654321",
-                          style: TextStyle(),
-                        ),
-                        Text(
-                          "Email: juanperez@gmail.com",
-                          style: TextStyle(),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
           Wrap(
             children: [
               Container(
@@ -86,30 +49,9 @@ class _AppointmentPageState extends State<AppointmentPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Datos del Paciente",
+                      "Mascota",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: Container(
-                        alignment: Alignment.topLeft,
-                        child: Form(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              _dropDownPets(),
-                              TextFormField(
-                                  decoration: InputDecoration(hintText: "Raza"),
-                                  keyboardType: TextInputType.text),
-                              TextFormField(
-                                  decoration: InputDecoration(hintText: "Sexo"),
-                                  keyboardType: TextInputType.number),
-                            ],
-                          ),
-                        ),
-                      ),
                     ),
                   ],
                 ),
@@ -138,10 +80,35 @@ class _AppointmentPageState extends State<AppointmentPage> {
                             children: [
                               datePicker(),
                               TextFormField(
+                                  initialValue: date.starttime,
+                                  textCapitalization:
+                                      TextCapitalization.sentences,
+                                  onSaved: (value) => date.starttime = value,
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Insertar horario';
+                                    }
+                                    else {
+                                      return null;
+                                    }
+                                  },
                                   decoration:
                                       InputDecoration(hintText: "Horario"),
-                                  keyboardType: TextInputType.number),
+                                  keyboardType: TextInputType.number
+                                  ),
                               TextFormField(
+                                initialValue: service.name,
+                                textCapitalization:
+                                      TextCapitalization.sentences,
+                                onSaved: (value) => service.name = value,
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Insertar servicio';
+                                    }
+                                    else {
+                                      return null;
+                                    }
+                                  },
                                   decoration:
                                       InputDecoration(hintText: "Servicio"),
                                   keyboardType: TextInputType.text),
@@ -234,7 +201,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
     return Container(
       width: 190,
       child: DropdownButton<String>(
-        value: dropdownValue,
+        value: mypet,
         icon: const Icon(Icons.arrow_drop_down),
         iconSize: 24,
         elevation: 16,
@@ -245,16 +212,16 @@ class _AppointmentPageState extends State<AppointmentPage> {
         ),
         onChanged: (String newValue) {
           setState(() {
-            dropdownValue = newValue;
+            mypet = newValue;
+            petService.getPetByCustomerId();
           });
         },
-        items: <String>['Mascota1', 'Mascota2', 'Mascota3']
-            .map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
+        items: listapets ?.map((item){
+          return new DropdownMenuItem(
+            child: new Text(item['name']),
+            value: item['id']
           );
-        }).toList(),
+        })?.toList() ??[],
         hint: Text("Seleccionar una mascota"),
       ),
     );

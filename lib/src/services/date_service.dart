@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:petcare/src/models/api_response.dart';
 import 'package:http/http.dart' as http;
+import 'package:petcare/src/models/appointment.dart';
 import 'package:petcare/src/models/date.dart';
 import 'package:petcare/src/models/pet.dart';
 import 'package:petcare/src/models/product.dart';
@@ -23,17 +24,19 @@ class DateService {
     Pet pet;
     Veterinary vet;
     Product prod;
+    Appointment appot;
     final urlPetcare = _prefs.urlPetcare;
     var token = _prefs.token;
     final idUser = _prefs.iduser;
-    final idVet = _prefs.idvet.toString(); //id veterinario
+    final idVet = _prefs.idvet.toString(); //id veterinario por si acaso 
     final idVetDP = vet.id.toString(); //id veterinaria
     final idPet = pet.id.toString();
     final idProd = prod.id.toString();
+    //final idAppoint = appot.
     
     var jsonv=date.toJson();
     return http
-        .post(Uri.parse(urlPetcare + '/people/$idUser/pets/$idPet/providers/$idVetDP/products/$idProd/requests'),
+        .post(Uri.parse(urlPetcare + '/people/$idUser/pets/$idPet/providers/$idVetDP/products/$idProd/requests/'),
             headers: headers, body: json.encode(jsonv))
         .then((data) {
       if (data.statusCode == 201) {
