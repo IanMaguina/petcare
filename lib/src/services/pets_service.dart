@@ -10,11 +10,11 @@ class PetsService {
   List<Pet> listadoPets = [];
   final _prefs = new PreferenciasUsuario();
 
-    Future<APIResponse<bool>> createPet(Pet pet) {
+  Future<APIResponse<bool>> createPet(Pet pet) {
     final urlPetcare = _prefs.urlPetcare;
     var token = _prefs.token;
     final idCustomer = _prefs.iduser;
-      final headers = {
+    final headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token',
     };
@@ -22,7 +22,7 @@ class PetsService {
         .post(Uri.parse(urlPetcare + '/people/$idCustomer/pets'),
             headers: headers, body: json.encode(pet.toJson()))
         .then((data) {
-      if (data.statusCode == 201) {
+      if (data.statusCode == 200) {
         return APIResponse<bool>(data: true);
       }
       return APIResponse<bool>(error: true, errorMessage: 'An error occured');
