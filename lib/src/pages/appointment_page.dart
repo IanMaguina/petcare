@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:petcare/src/models/api_response.dart';
 import 'package:petcare/src/models/appointment.dart';
 import 'package:petcare/src/models/pet.dart';
 import 'package:petcare/src/models/service_.dart';
@@ -26,12 +27,18 @@ class _AppointmentPageState extends State<AppointmentPage> {
   final dateService = new DateService();
   Service service = new Service();
   Pet pet = new Pet();
-  List listapets;
+  /* APIResponse<List<Pet>> listapets; */
   String mypet;
   PetsService petService = new PetsService();
-
+  List<Pet> listapets = [];
   String dropdownValue =
       'Mascota1'; //valor principal por defecto en el widget de dropdown
+/* 
+  @override
+  void initState() async {
+    super.initState();
+    this.listapets = await petService.getPetByCustomerId();
+  } */
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +60,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
+                    /*   _dropDownPets() */
                   ],
                 ),
               ),
@@ -87,25 +95,22 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                   validator: (value) {
                                     if (value.isEmpty) {
                                       return 'Insertar horario';
-                                    }
-                                    else {
+                                    } else {
                                       return null;
                                     }
                                   },
                                   decoration:
                                       InputDecoration(hintText: "Horario"),
-                                  keyboardType: TextInputType.number
-                                  ),
+                                  keyboardType: TextInputType.number),
                               TextFormField(
-                                initialValue: service.name,
-                                textCapitalization:
+                                  initialValue: service.name,
+                                  textCapitalization:
                                       TextCapitalization.sentences,
-                                onSaved: (value) => service.name = value,
+                                  onSaved: (value) => service.name = value,
                                   validator: (value) {
                                     if (value.isEmpty) {
                                       return 'Insertar servicio';
-                                    }
-                                    else {
+                                    } else {
                                       return null;
                                     }
                                   },
@@ -213,15 +218,13 @@ class _AppointmentPageState extends State<AppointmentPage> {
         onChanged: (String newValue) {
           setState(() {
             mypet = newValue;
-            petService.getPetByCustomerId();
           });
         },
-        items: listapets ?.map((item){
-          return new DropdownMenuItem(
-            child: new Text(item['name']),
-            value: item['id']
-          );
-        })?.toList() ??[],
+        items: this.listapets?.map((item) {
+              return new DropdownMenuItem(
+                  child: new Text(item.name), value: item.id);
+            })?.toList() ??
+            [],
         hint: Text("Seleccionar una mascota"),
       ),
     );

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:petcare/src/models/pet.dart';
+import 'package:petcare/src/pages/home_page.dart';
+import 'package:petcare/src/pages/list_pet_page.dart';
 import 'package:petcare/src/services/pets_service.dart';
 
 class AddPetPage extends StatefulWidget {
@@ -123,10 +126,21 @@ class _AddPetPageState extends State<AddPetPage> {
   }
 
   void _submit(BuildContext context) async {
-    formkey.currentState.save();
-    final result1 = petService.createPet(pet);
     if (!formkey.currentState.validate()) {
       return;
+    }
+
+    formkey.currentState.save();
+
+    final result1 = await petService.createPet(pet);
+
+    if (result1.error) {
+      Fluttertoast.showToast(msg: result1.errorMessage);
+    } else {
+      Fluttertoast.showToast(msg: "Mascota ${pet.name} registrada");
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => HomePage(),
+      ));
     }
   }
 }
