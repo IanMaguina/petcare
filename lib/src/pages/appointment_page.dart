@@ -213,7 +213,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
         onChanged: (String newValue) {
           setState(() {
             mypet = newValue;
-            petService.getPetByCustomerId();
+            petService.getPetByCustomerId();//Por si no funca
           });
         },
         items: listapets ?.map((item){
@@ -228,6 +228,13 @@ class _AppointmentPageState extends State<AppointmentPage> {
   }
 
   void _reservarcita(BuildContext context) {
+    if (!formkey.currentState.validate()) {
+      return;
+    }
+    formkey.currentState.save();
     final idUsuario = _prefs.iduser;
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => Appointment(date.datereservation)
+    ));
   }
 }
