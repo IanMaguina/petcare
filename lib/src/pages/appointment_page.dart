@@ -236,8 +236,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
     }
     formkey.currentState.save();
     final idUsuario = _prefs.iduser;
-    Navigator.of(context).push(MaterialPageRoute(
+    /*Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => Appointment(date.datereservation)
-    ));
+    ));*/
   }
 }
