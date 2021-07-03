@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:petcare/src/models/user.dart';
+import 'package:petcare/src/pages/ejemplo_tapbar.dart';
 import 'package:petcare/src/providers/usuario_provider.dart';
 import 'package:petcare/src/services/user_persona_service.dart';
 import 'package:petcare/src/utils/utils.dart' as utils;
@@ -202,11 +204,13 @@ class _AddUserPageState extends State<AddUserPage> {
 
     final info = await usuarioProvider.nuevoUsuario(usuario);
 
-    /* if (info['ok']) {
-      utils.mostrarAlerta(context, "Se ha registrado correctamente al usuario"); */
-    Navigator.pop(context);
-    /*  } else {
-      utils.mostrarAlerta(context, info['mensaje']);
-    } */
+    if (!info.error) {
+      Fluttertoast.showToast(msg: "Se creó el usuario correctamente");
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => LoginPage(),
+      ));
+    } else {
+      Fluttertoast.showToast(msg: info.errorMessage);
+    }
   }
 }

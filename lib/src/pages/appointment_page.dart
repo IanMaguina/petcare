@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:petcare/src/models/api_response.dart';
 import 'package:petcare/src/models/appointment.dart';
 import 'package:petcare/src/models/pet.dart';
 import 'package:petcare/src/models/service_.dart';
+import 'package:petcare/src/pages/home_page.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 import 'package:petcare/src/services/date_service.dart';
 import 'package:petcare/src/services/pets_service.dart';
@@ -243,16 +245,25 @@ class _AppointmentPageState extends State<AppointmentPage> {
     );
   }
 
-  void _reservarcita(BuildContext context) {
+  void _reservarcita(BuildContext context) async {
     if (!formkey.currentState.validate()) {
       return;
     }
+
     formkey.currentState.save();
-    final idUsuario = _prefs.iduser;
-    final idPet = dropdownValue;
+
+    date.productId = 1;
     date.productTypeId = this.idservtype;
-    /*Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => Appointment(date.datereservation)
-    ));*/
+
+    final info = await dateService.createDate(date);
+
+    if (!info.error) {
+      Fluttertoast.showToast(msg: "Se creó el usuario correctamente");
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => HomePage(),
+      ));
+    } else {
+      Fluttertoast.showToast(msg: info.errorMessage);
+    }
   }
 }
