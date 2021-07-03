@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:petcare/src/models/appointment.dart';
 import 'package:petcare/src/models/date.dart';
 import 'package:petcare/src/models/product.dart';
-import 'package:petcare/src/pages/Cita_Detailed_User.dart';
 import 'package:petcare/src/services/date_service.dart';
 import 'package:petcare/src/services/products_service.dart';
 
@@ -60,11 +59,7 @@ _element(BuildContext context, Appointment citas) {
       color: Color.fromRGBO(57, 179, 179, 1),
     ),
     onTap: () {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => CitasDetailUserPage(citas),
-        ),
-      );
+      Navigator.pushNamed(context, 'vetplaces');
     },
   );
 }

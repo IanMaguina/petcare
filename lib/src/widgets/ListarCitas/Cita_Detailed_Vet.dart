@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:petcare/src/models/appointment.dart';
 
 class CitaDetailedVet extends StatefulWidget {
-  final Appointment cita;
-  CitaDetailedVet(this.cita);
   @override
-  _CitaDetailedVet createState() => new _CitaDetailedVet(cita);
+  _CitaDetailedVet createState() => new _CitaDetailedVet();
 }
 
 class _CitaDetailedVet extends State<CitaDetailedVet> {
-  Appointment cita;
-  _CitaDetailedVet(this.cita);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -24,7 +19,7 @@ class _CitaDetailedVet extends State<CitaDetailedVet> {
               Container(
                 alignment: Alignment.center,
                 child: Text(
-                  cita.productName,
+                  "Ducha antipulgas",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -37,66 +32,79 @@ class _CitaDetailedVet extends State<CitaDetailedVet> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text.rich(
+                      const Text.rich(
                         TextSpan(
                           children: <TextSpan>[
                             TextSpan(
                                 text: ' Hora de inicio :',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                             TextSpan(
-                              text: cita.startTime,
+                              text: ' Hora ',
                               style: TextStyle(),
                             ),
                           ],
                         ),
                       ),
-                      Text.rich(
+                      const Text.rich(
                         TextSpan(
                           children: <TextSpan>[
                             TextSpan(
                                 text: ' Hora de fin :',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                             TextSpan(
-                              text: cita.endTime,
+                              text: ' Hora ',
                               style: TextStyle(),
                             ),
                           ],
                         ),
                       ),
-                      Text.rich(
+                      const Text.rich(
                         TextSpan(
                           children: <TextSpan>[
                             TextSpan(
                                 text: ' Tipo de cita :',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                             TextSpan(
-                              text: cita.productTypeName,
+                              text: ' Ducha anti-pulgas ',
                               style: TextStyle(),
                             ),
                           ],
                         ),
                       ),
-                      Text.rich(
+                      const Text.rich(
                         TextSpan(
                           children: <TextSpan>[
                             TextSpan(
                                 text: ' Nombre del dueño :',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                             TextSpan(
-                              text: cita.personName,
+                              text: ' Juan Perez ',
                               style: TextStyle(),
                             ),
                           ],
                         ),
                       ),
-                      Text.rich(
+                      const Text.rich(
                         TextSpan(
                           children: <TextSpan>[
                             TextSpan(
                                 text: ' Nombre de la mascota :',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                             TextSpan(
-                              text: cita.petName,
+                              text: ' Puking ',
+                              style: TextStyle(),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Text.rich(
+                        TextSpan(
+                          children: <TextSpan>[
+                            TextSpan(
+                                text: ' Celular :',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            TextSpan(
+                              text: ' 932106464 ',
                               style: TextStyle(),
                             ),
                           ],
@@ -106,37 +114,37 @@ class _CitaDetailedVet extends State<CitaDetailedVet> {
                   ),
                 ),
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     Padding(
-              //       padding: EdgeInsets.only(top: 8),
-              //       child: MaterialButton(
-              //         minWidth: 100,
-              //         height: 30,
-              //         color: Colors.red,
-              //         textColor: Colors.white,
-              //         child: Text("Culminar Cita"),
-              //         onPressed: () {
-              //           Navigator.pop(context);
-              //         },
-              //       ),
-              //     ),
-              //     Padding(
-              //       padding: EdgeInsets.only(top: 8),
-              //       child: MaterialButton(
-              //         minWidth: 100,
-              //         height: 30,
-              //         color: Color.fromRGBO(57, 179, 179, 1.0),
-              //         textColor: Colors.white,
-              //         child: Text("ver Paciente"),
-              //         onPressed: () {
-              //           Navigator.pushNamed(context, 'vetpetdetail');
-              //         },
-              //       ),
-              //     ),
-              //   ],
-              // )
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 8),
+                    child: MaterialButton(
+                      minWidth: 100,
+                      height: 30,
+                      color: Colors.red,
+                      textColor: Colors.white,
+                      child: Text("Culminar Cita"),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 8),
+                    child: MaterialButton(
+                      minWidth: 100,
+                      height: 30,
+                      color: Color.fromRGBO(57, 179, 179, 1.0),
+                      textColor: Colors.white,
+                      child: Text("ver Paciente"),
+                      onPressed: () {
+                        Navigator.pushNamed(context, 'vetpetdetail');
+                      },
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),

@@ -4,11 +4,9 @@ import 'package:petcare/src/models/appointment.dart';
 import 'package:petcare/src/models/date.dart';
 import 'package:petcare/src/models/product.dart';
 import 'package:petcare/src/models/type_service.dart';
-import 'package:petcare/src/pages/Citas_Detail_Vet.dart';
 import 'package:petcare/src/services/date_service.dart';
 import 'package:petcare/src/services/products_service.dart';
 import 'package:petcare/src/services/type_service_service.dart';
-import 'package:petcare/src/widgets/ListarCitas/Cita_Detailed_Vet.dart';
 
 class ListarCitasVetPage extends StatefulWidget {
   @override
@@ -49,25 +47,22 @@ class _ListarCitasPageState extends State<ListarCitasVetPage> {
 
 _element(BuildContext context, Appointment citas) {
   return ListTile(
-      contentPadding: EdgeInsets.all(10),
-      leading: Icon(Icons.date_range),
-      title: (Text.rich(
-        TextSpan(
-          text: citas.petName,
-          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-        ),
-      )),
-      subtitle: Text(citas.startTime),
-      hoverColor: Color.fromRGBO(57, 179, 179, 0.3),
-      trailing: Icon(
-        Icons.arrow_forward_ios,
-        color: Color.fromRGBO(57, 179, 179, 1),
+    contentPadding: EdgeInsets.all(10),
+    leading: Icon(Icons.date_range),
+    title: (Text.rich(
+      TextSpan(
+        text: citas.petName,
+        style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
       ),
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => CitasDetailVetPage(citas),
-          ),
-        );
-      });
+    )),
+    subtitle: Text(citas.startTime),
+    hoverColor: Color.fromRGBO(57, 179, 179, 0.3),
+    trailing: Icon(
+      Icons.arrow_forward_ios,
+      color: Color.fromRGBO(57, 179, 179, 1),
+    ),
+    onTap: () {
+      Navigator.pushNamed(context, 'vetplaces');
+    },
+  );
 }
