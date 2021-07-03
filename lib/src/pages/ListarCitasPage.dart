@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petcare/src/models/appointment.dart';
 import 'package:petcare/src/models/date.dart';
 import 'package:petcare/src/models/product.dart';
 import 'package:petcare/src/services/date_service.dart';
@@ -24,63 +25,15 @@ class _ListarCitasPageState extends State<ListarCitasPage> {
                 child: CircularProgressIndicator(),
               );
             } else {
-              final List<Date> listaCitas = snapshot.data.data;
-              return _ListaCitas(listaCitas);
-            }
-          },
-        ),
-      ),
-    );
-  }
-}
-
-Future<List<Product>> llenarProducts(
-    List<Date> citas, ProductService productprovider) async {
-  List<Product> productos;
-
-  for (var i = 0; i < citas.length; i++) {
-    var prod = await productprovider.getProduct(citas[i].service_id.toString());
-    productos.add(prod.data);
-  }
-  return productos;
-}
-
-class _ListaCitas extends StatelessWidget {
-  final List<Date> citas;
-
-  _ListaCitas(this.citas);
-  ProductService productprovider = new ProductService();
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        top: true,
-        child: FutureBuilder(
-          future: llenarProducts(citas, productprovider),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
+              final List<Appointment> listaCitas = snapshot.data.data;
+              return ListView.builder(
+                itemCount: listaCitas.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final date = listaCitas[index];
+                  final product = snapshot.data.data[index];
+                  return _element(context, product);
+                },
               );
-            } else {
-              if (citas.length > 0) {
-                return ListView.builder(
-                  itemCount: citas.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final date = citas[index];
-                    final product = snapshot.data.data[index];
-
-                    return _element(context, date, product);
-                  },
-                );
-              } else {
-                return Center(
-                  child: Text("NO HAY CITAS DISPONIBLES D:",
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                );
-              }
             }
           },
         ),
@@ -89,17 +42,17 @@ class _ListaCitas extends StatelessWidget {
   }
 }
 
-_element(BuildContext context, Date citas, Product service) {
+_element(BuildContext context, Appointment citas) {
   return ListTile(
     contentPadding: EdgeInsets.all(10),
     leading: Icon(Icons.date_range),
     title: (Text.rich(
       TextSpan(
-        text: service.name,
+        text: citas.veterinaryName,
         style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
       ),
     )),
-    subtitle: Text(citas.star_time.toString()),
+    subtitle: Text(citas.startTime),
     hoverColor: Color.fromRGBO(57, 179, 179, 0.3),
     trailing: Icon(
       Icons.arrow_forward_ios,

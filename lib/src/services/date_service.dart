@@ -54,7 +54,7 @@ class DateService {
             APIResponse<bool>(error: true, errorMessage: 'An error occured'));
   }
 
-  Future<APIResponse<List<Date>>> getdateList() {
+  Future<APIResponse<List<Appointment>>> getdateList() {
     final urlPetcare = _prefs.urlPetcare;
     final iduser = _prefs.iduser.toString();
     final token = _prefs.token;
@@ -70,15 +70,15 @@ class DateService {
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
-        final notes = <Date>[];
+        final notes = <Appointment>[];
         for (var item in jsonData) {
-          notes.add(Date.fromJson(item));
+          notes.add(Appointment.fromJson(item));
         }
-        return APIResponse<List<Date>>(data: notes);
+        return APIResponse<List<Appointment>>(data: notes);
       }
-      return APIResponse<List<Date>>(
+      return APIResponse<List<Appointment>>(
           error: true, errorMessage: 'An error occured');
-    }).catchError((_) => APIResponse<List<Date>>(
+    }).catchError((_) => APIResponse<List<Appointment>>(
             error: true, errorMessage: 'An error occured'));
   }
 }
