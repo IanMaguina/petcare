@@ -15,10 +15,14 @@ class AppointmentPage extends StatefulWidget {
   final idVeterinaria;
   AppointmentPage(this.idVeterinaria);
   @override
-  _AppointmentPageState createState() => _AppointmentPageState();
+  _AppointmentPageState createState() =>
+      _AppointmentPageState(this.idVeterinaria);
 }
 
 class _AppointmentPageState extends State<AppointmentPage> {
+  final idVet;
+  _AppointmentPageState(this.idVet);
+
   DateTime now = DateTime.now();
   DateTime _dateTime = DateTime.now();
 
@@ -92,7 +96,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                             children: [
                               datePicker(),
                               TextFormField(
-                                  initialValue: date.startTime,
+                                  initialValue: "13:00",
                                   textCapitalization:
                                       TextCapitalization.sentences,
                                   onSaved: (value) => date.startTime = value,
@@ -105,7 +109,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                   },
                                   decoration:
                                       InputDecoration(hintText: "Horario"),
-                                  keyboardType: TextInputType.number),
+                                  keyboardType: TextInputType.text),
                               TextFormField(
                                   initialValue: '0',
                                   textCapitalization:
@@ -247,11 +251,20 @@ class _AppointmentPageState extends State<AppointmentPage> {
     if (!formkey.currentState.validate()) {
       return;
     }
+    date.productId = 1;
+    date.providerId = this.idVet;
+
+    print("fecha reservacion" + date.dateReservation);
+    print("hora reservacion" + date.startTime);
+
+    print("product id " + date.productId.toString());
+    print("veterinaria id " + date.providerId.toString());
+
+    print("tipo de servicio id " + date.productTypeId.toString());
 
     formkey.currentState.save();
-
-    date.productId = 1;
-
+    print("---------------------");
+    print(date.toString());
     final info = await dateService.createDate(date);
 
     if (!info.error) {

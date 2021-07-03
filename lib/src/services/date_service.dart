@@ -25,8 +25,8 @@ class DateService {
       HttpHeaders.contentTypeHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token',
     };
-    final idUser = _prefs.iduser; //id usuario
-    final datereservation = date.dateReservation; //fecha
+    final idUser = _prefs.iduser.toString(); //id usuario
+    final datereservation = date.dateReservation.toString(); //fecha
     final starttime = date.startTime.toString(); //hora inicio
     final endtime = "14:00"; //hora final
     final idVetDP = date.providerId.toString(); //idveterinaria
@@ -43,7 +43,7 @@ class DateService {
     return http
         .post(
             Uri.parse(urlPetcare +
-                '/people/$idUser/pets/$idPet/providers/$idVetDP/product-types/$typeProdId/products/$idProd/requests/'),
+                '/people/$idUser/pets/$idPet/providers/$idVetDP/product-types/$typeProdId/products/$idProd/requests'),
             headers: headers,
             body: json.encode(cita))
         .then((data) {
