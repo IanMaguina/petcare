@@ -10,6 +10,26 @@ class PetsService {
   List<Pet> listadoPets = [];
   final _prefs = new PreferenciasUsuario();
 
+  Future<APIResponse<bool>> createPet(Pet pet) {
+    final urlPetcare = _prefs.urlPetcare;
+    var token = _prefs.token;
+    final idCustomer = _prefs.iduser;
+    final headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    };
+    return http
+        .post(Uri.parse(urlPetcare + '/people/$idCustomer/pets'),
+            headers: headers, body: json.encode(pet.toJson()))
+        .then((data) {
+      if (data.statusCode == 200) {
+        return APIResponse<bool>(data: true);
+      }
+      return APIResponse<bool>(error: true, errorMessage: 'An error occured');
+    }).catchError((_) =>
+            APIResponse<bool>(error: true, errorMessage: 'An error occured'));
+  }
+
   Future<APIResponse<List<Pet>>> getPetByCustomerId() {
     final urlPetcare = _prefs.urlPetcare;
     var token = _prefs.token;
@@ -57,6 +77,33 @@ class PetsService {
       if (data.statusCode == 200) {
         print("FUNCIONA   ");
         return APIResponse<bool>(error: false, data: true);
+      }
+
+      return APIResponse<bool>(error: true, errorMessage: 'An error occured');
+    }).catchError((_) =>
+            APIResponse<bool>(error: true, errorMessage: 'An error occured'));
+  }
+
+  Future<APIResponse<bool>> deletePet(Pet pet) {
+    int id = pet.id;
+    final urlPetcare = _prefs.urlPetcare;
+    var token = _prefs.token;
+    var iduser = _prefs.iduser;
+    final headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    };
+
+    var jsonv = pet.toJson();
+    print(jsonv);
+    return http
+        .delete(Uri.parse(urlPetcare + "/people/$iduser/pets/$id"),
+            headers: headers, body: json.encode(jsonv))
+        .then((data) {
+      print(data.body.toString());
+      if (data.statusCode == 200) {
+        print("FUNCIONA   ");
+        return APIResponse<bool>(error: false);
       }
 
       return APIResponse<bool>(error: true, errorMessage: 'An error occured');

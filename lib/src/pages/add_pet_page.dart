@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:petcare/src/models/pet.dart';
+import 'package:petcare/src/pages/home_page.dart';
+import 'package:petcare/src/pages/list_pet_page.dart';
+import 'package:petcare/src/services/pets_service.dart';
 
 class AddPetPage extends StatefulWidget {
   @override
@@ -10,8 +14,8 @@ class _AddPetPageState extends State<AddPetPage> {
   final formkey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  PetsService petService = new PetsService();
   Pet pet = new Pet();
-  // final petProvider = new UserService();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +47,7 @@ class _AddPetPageState extends State<AddPetPage> {
 
   Widget _crearNombre() {
     return TextFormField(
-      initialValue: pet.name,
+      initialValue: "",
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Nombre de mascota'),
       onSaved: (value) => pet.name = value,
@@ -62,20 +66,10 @@ class _AddPetPageState extends State<AddPetPage> {
 
   Widget _crearSexo() {
     return TextFormField(
-      initialValue: pet.sex,
+      initialValue: "",
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Sexo (F) o (M)'),
       onSaved: (value) => pet.sex = value,
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'Contraseña es requerido';
-        }
-        if (value.length < 3) {
-          return 'minimo 6 caracteres';
-        } else {
-          return null;
-        }
-      },
     );
   }
 
@@ -85,16 +79,6 @@ class _AddPetPageState extends State<AddPetPage> {
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Url de imagen'),
       onSaved: (value) => pet.photo = value,
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'Contraseña es requerido';
-        }
-        if (value.length < 3) {
-          return 'minimo 6 caracteres';
-        } else {
-          return null;
-        }
-      },
     );
   }
 
@@ -104,22 +88,12 @@ class _AddPetPageState extends State<AddPetPage> {
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Raza'),
       onSaved: (value) => pet.breed = value,
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'Ingrese la Raza de su mascota';
-        }
-        if (value.length < 6) {
-          return 'minimo 6 caracteres';
-        } else {
-          return null;
-        }
-      },
     );
   }
 
   Widget _crearEdad() {
     return TextFormField(
-      initialValue: pet.age.toString(),
+      initialValue: "",
       keyboardType: TextInputType.number,
       decoration: InputDecoration(labelText: 'Edad'),
       onSaved: (value) => pet.age = value,
@@ -128,11 +102,6 @@ class _AddPetPageState extends State<AddPetPage> {
           return 'Debe ingresar una Edad';
         }
         return null;
-        /* if (utils.isNumeric(value)) {
-          return null;
-        } else {
-          return 'Solo numeros';
-        } */
       },
     );
   }
@@ -160,19 +129,18 @@ class _AddPetPageState extends State<AddPetPage> {
     if (!formkey.currentState.validate()) {
       return;
     }
+
     formkey.currentState.save();
 
-    // Map info = await usuarioProvider.nuevoUsuario(usuario);
+    final result1 = await petService.createPet(pet);
 
-    // print('todo ok');
-    // print(usuario.usuario);
-
-    /*  if (info['ok']) {
-      utils.mostrarAlerta(context,
-          'Se ha registrado correctamente, se ha enviado un código de activación a su correo. loguése nuevamente.');
-      //Navigator.pushReplacementNamed(context, '/');
+    if (result1.error) {
+      Fluttertoast.showToast(msg: result1.errorMessage);
     } else {
-      utils.mostrarAlerta(context, info['mensaje']);
-    } */
+      Fluttertoast.showToast(msg: "Mascota ${pet.name} registrada");
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => HomePage(),
+      ));
+    }
   }
 }
