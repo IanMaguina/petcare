@@ -30,7 +30,7 @@ class VeterinaryVetDetailPage extends StatelessWidget {
               );
             } else {
               final Veterinary listamasc = snapshot.data.data;
-              return _detalle(listamasc, vetresponse, context);
+              return _detalle(listamasc, vetresponse, context, id);
             }
           },
         ),
@@ -40,7 +40,7 @@ class VeterinaryVetDetailPage extends StatelessWidget {
 }
 
 _detalle(Veterinary veterinary, APIResponse<Veterinary> vetresponse,
-    BuildContext context) {
+    BuildContext context, String id) {
   return Padding(
     padding: const EdgeInsets.all(16),
     child: Wrap(
@@ -86,7 +86,7 @@ _detalle(Veterinary veterinary, APIResponse<Veterinary> vetresponse,
               ),
               ElevatedButton.icon(
                 onPressed: () async {
-                  vetresponse = await vetService.getVet(1);
+                  vetresponse = await vetService.getVet(id);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
