@@ -27,14 +27,21 @@ class _ListarCitasPageState extends State<ListarCitasPage> {
               );
             } else {
               final List<Appointment> listaCitas = snapshot.data.data;
-              return ListView.builder(
-                itemCount: listaCitas.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final date = listaCitas[index];
-                  final product = snapshot.data.data[index];
-                  return _element(context, product);
-                },
-              );
+              if (listaCitas.length == 0) {
+                return Center(
+                  child: (Text("NO HAY CITAS DISPONIBLES D:",
+                      textAlign: TextAlign.center)),
+                );
+              } else {
+                return ListView.builder(
+                  itemCount: listaCitas.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final date = listaCitas[index];
+                    final product = snapshot.data.data[index];
+                    return _element(context, product);
+                  },
+                );
+              }
             }
           },
         ),
