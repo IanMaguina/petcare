@@ -26,9 +26,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'adduservet': (BuildContext context) => Add_Vet(),
     'listpet': (BuildContext context) => ListPetPage(),
     'listvets': (BuildContext context) => ListVeterinariesPage(),
-    'detallecita': (BuildContext context) => ListarCitasDetailPage(),
-    'detallevetvet': (BuildContext context) =>
-        VeterinaryVetDetailPage("1"), //id
     'vetpetdetail': (BuildContext context) => PetDetailVetPage(),
     'addveterinary': (BuildContext context) => Add_Veterinary(),
     'test': (BuildContext context) => TestImagePage(),
