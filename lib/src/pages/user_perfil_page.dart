@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:petcare/const/colors.dart';
 import 'package:petcare/src/models/api_response.dart';
 import 'package:petcare/src/models/userperson.dart';
 import 'package:petcare/src/pages/edit_userPersona.dart';
+import 'package:petcare/src/preferencias_usuario/prefs.dart';
+import 'package:petcare/src/services/profile.dart';
 import 'package:petcare/src/services/user_persona_service.dart';
 
 class UserInfoPage extends StatefulWidget {
@@ -10,11 +14,15 @@ class UserInfoPage extends StatefulWidget {
   _UserInfoPageState createState() => _UserInfoPageState();
 }
 
-UserPersonaService personService = new UserPersonaService();
-
 APIResponse<UserPersona> personaresponse;
 
 class _UserInfoPageState extends State<UserInfoPage> {
+  UserPersonaService personService = new UserPersonaService();
+
+  Profile profile = Profile();
+
+  File profilePhoto;
+
   //bool _value = false;
   ScrollController _scrollController;
   var top = 0.0;
@@ -114,66 +122,80 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 }),
               ),
               SliverToBoxAdapter(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: userTitle('User Pets')),
-                    Divider(
-                      thickness: 1,
-                      color: Colors.grey,
-                    ),
-                    Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        splashColor: Theme.of(context).splashColor,
-                        child: ListTile(
-                          onTap: () => Navigator.pushNamed(context, 'listpet'),
-                          title: Text('Mis Mascotas'),
-                          trailing: Icon(Icons.chevron_right_rounded),
-                          leading: Icon(
-                            Icons.pets,
-                            color: Color.fromRGBO(57, 179, 179, 1.0),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: userTitle('User Information')),
-                    Divider(
-                      thickness: 1,
-                      color: Colors.grey,
-                    ),
-                    userListTile('Juan', 'Nombre', 0, context),
-                    userListTile('Email', 'Correo', 0, context),
-                    userListTile('64343135', 'Teléfono', 0, context),
-                    userListTile('05/06/2021', 'joined date', 0, context),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: userTitle('User settings'),
-                    ),
-                    Divider(
-                      thickness: 1,
-                      color: Colors.grey,
-                    ),
-                    _logoutButton('Cerrar Sesión', '', 4, context),
-                    ElevatedButton.icon(
-                      onPressed: () async {
-                        personaresponse = await personService.getUser("1");
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    EditUserPersonaPage(personaresponse.data)));
-                      },
-                      icon: Icon(Icons.edit),
-                      label: Text('Editar'),
-                    )
-                  ],
-                ),
+                child: FutureBuilder(
+                    future: personService.getUser(),
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        final UserPersona userPersona = snapshot.data.data;
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: userTitle('User Pets')),
+                            Divider(
+                              thickness: 1,
+                              color: Colors.grey,
+                            ),
+                            Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                splashColor: Theme.of(context).splashColor,
+                                child: ListTile(
+                                  onTap: () =>
+                                      Navigator.pushNamed(context, 'listpet'),
+                                  title: Text('Mis Mascotas'),
+                                  trailing: Icon(Icons.chevron_right_rounded),
+                                  leading: Icon(
+                                    Icons.pets,
+                                    color: Color.fromRGBO(57, 179, 179, 1.0),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: userTitle('User Information')),
+                            Divider(
+                              thickness: 1,
+                              color: Colors.grey,
+                            ),
+                            userListTile(userPersona.name, 'Nombre', 0, context),
+                             userListTile(userPersona.lastName, 'joined date', 0, context),
+                            userListTile(userPersona.email, 'Email', 0, context),
+                            userListTile(userPersona.phone.toString(), 'Teléfono', 0, context),
+                           
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: userTitle('User settings'),
+                            ),
+                            Divider(
+                              thickness: 1,
+                              color: Colors.grey,
+                            ),
+                            _logoutButton('Cerrar Sesión', '', 4, context),
+                            ElevatedButton.icon(
+                              onPressed: () async {
+                                personaresponse = await personService.getUser();
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            EditUserPersonaPage(
+                                                personaresponse.data)));
+                              },
+                              icon: Icon(Icons.edit),
+                              label: Text('Editar'),
+                            )
+                          ],
+                        );
+                      }
+                    }),
               )
             ],
           ),

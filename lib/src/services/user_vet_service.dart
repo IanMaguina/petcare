@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:http/http.dart';
 import 'package:petcare/src/models/api_response.dart';
 import 'package:http/http.dart' as http;
 import 'package:petcare/src/models/login_response.dart';
@@ -8,13 +9,25 @@ import 'package:petcare/src/models/uservet.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
 class UservService {
+  String name;
+  String lastName;
+  int document;
+  String email;
+  String password;
+  int phone;
+  int age;
+  String photo;
+  bool owner;
+
+  PreferenciasUsuario prefs;
+
   // static const API = 'https://petcarefas.azurewebsites.net/api';
   static const headers = {
     // 'apiKey': '08d771e2-7c49-1789-0eaa-32aff09f1471',
     'Content-Type': 'application/json'
   };
   final _prefs = new PreferenciasUsuario();
-
+ 
   Future<APIResponse<bool>> createUserv(Uservet item) {
     final urlPetcare = _prefs.urlPetcare;
     return http

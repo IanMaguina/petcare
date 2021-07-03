@@ -52,11 +52,12 @@ class UserPersonaService with ChangeNotifier {
             APIResponse<bool>(error: true, errorMessage: 'An error occured'));
   }
 
-  Future<APIResponse<UserPersona>> getUser(String uvID) {
+  Future<APIResponse<UserPersona>> getUser() {
     final urlPetcare = _prefs.urlPetcare;
+    final userId  = _prefs.iduser;
     final token = _prefs.token;
     return http
-        .get(Uri.parse(urlPetcare + '/people/' + uvID.toString()),
+        .get(Uri.parse(urlPetcare + '/people/' + userId.toString()),
             headers: headers)
         .then((data) {
       if (data.statusCode == 200) {
