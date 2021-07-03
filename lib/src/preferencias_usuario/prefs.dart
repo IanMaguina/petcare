@@ -17,8 +17,9 @@ class PreferenciasUsuario {
   }
 
   get urlPetcare {
-    return _prefs.getString('urlPetcare') ?? "https://10.0.2.2:5001/api";
-    //return _prefs.getString('url') ?? "https://petcarefas.azurewebsites.net/api";
+    //return _prefs.getString('urlPetcare') ?? "https://10.0.2.2:5001/api";
+    return _prefs.getString('url') ??
+        "https://petcarefas.azurewebsites.net/api";
   }
 
   set urlPetcare(String value) {
