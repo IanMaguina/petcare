@@ -1,15 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 import 'package:petcare/src/models/api_response.dart';
 import 'package:http/http.dart' as http;
 import 'package:petcare/src/models/appointment.dart';
-import 'package:petcare/src/models/date.dart';
-import 'package:petcare/src/models/pet.dart';
-import 'package:petcare/src/models/product.dart';
-import 'package:petcare/src/pages/veterinary_detail_page.dart';
-import 'package:petcare/src/providers/usuario_provider.dart';
-import 'package:petcare/src/models/veterinary.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
 class DateService {
@@ -26,14 +19,24 @@ class DateService {
       HttpHeaders.authorizationHeader: 'Bearer $token',
     };
     final idUser = _prefs.iduser.toString(); //id usuario
-    final datereservation = date.dateReservation.toString(); //fecha
+    final idPet = date.petId.toString(); // id mascota
+    final idVetDP = date.providerId.toString(); //idveterinaria
+    final typeProdId = "9"; // tipo de servicio
+    final idProd = date.productId.toString(); //id servicio
+    print("idUser " + idUser.toString());
+    print("idPet " + idPet.toString());
+    print("idVetDP " + idVetDP.toString());
+    print("typeProdId " + typeProdId.toString());
+    print("idProd " + idProd.toString());
+    //body
+    final datereservation = date.dateReservation; //fecha
     final starttime = date.startTime.toString(); //hora inicio
     final endtime = "14:00"; //hora final
-    final idVetDP = date.providerId.toString(); //idveterinaria
-    final idPet = date.petId.toString();
-    final idProd = date.productId.toString(); //id servicio
-    final typeProdId = "9";
     //final idAppoint = appot.
+    print("date " + datereservation);
+    print("starttime " + starttime);
+    print("endtime " + endtime);
+
     final cita = {
       "datereservation": datereservation,
       "starttime": starttime,
@@ -43,16 +46,29 @@ class DateService {
     return http
         .post(
             Uri.parse(urlPetcare +
-                '/people/$idUser/pets/$idPet/providers/$idVetDP/product-types/$typeProdId/products/$idProd/requests'),
+                '/people/' +
+                idUser +
+                '/pets/' +
+                idPet +
+                '/providers/' +
+                idVetDP +
+                '/product-types/' +
+                typeProdId +
+                '/products/' +
+                idProd +
+                '/requests'),
             headers: headers,
             body: json.encode(cita))
         .then((data) {
+      print(data.body.toString());
+
       if (data.statusCode == 200) {
         return APIResponse<bool>(data: true);
       }
-      return APIResponse<bool>(error: true, errorMessage: 'An error occured');
-    }).catchError((_) =>
-            APIResponse<bool>(error: true, errorMessage: 'An error occured'));
+      return APIResponse<bool>(
+          error: true, errorMessage: 'Ocurrió un problema');
+    }).catchError((_) => APIResponse<bool>(
+            error: true, errorMessage: 'Ocurrió un problema'));
   }
 
   Future<APIResponse<List<Appointment>>> getdateList() {

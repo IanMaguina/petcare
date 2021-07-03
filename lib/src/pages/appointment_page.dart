@@ -253,9 +253,19 @@ class _AppointmentPageState extends State<AppointmentPage> {
     }
     date.productId = 1;
     date.providerId = this.idVet;
+    date.productTypeId = 9;
+    date.endTime = "15:00";
+    date.id = 0;
+    date.petName = "vacio";
+    date.personProfileId = 0;
+    date.personName = "vacio";
+    date.productName = "vacio";
+    date.veterinaryName = "vacio";
+    date.productTypeName = "vacio";
+    date.status = 1;
 
-    print("fecha reservacion" + date.dateReservation);
-    print("hora reservacion" + date.startTime);
+    print("fecha reservacion" + date.dateReservation.toString());
+    print("hora reservacion" + date.startTime.toString());
 
     print("product id " + date.productId.toString());
     print("veterinaria id " + date.providerId.toString());
