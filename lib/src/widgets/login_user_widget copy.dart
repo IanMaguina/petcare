@@ -3,7 +3,7 @@ import 'package:petcare/src/bloc/login_bloc.dart';
 import 'package:petcare/src/providers/usuario_provider.dart';
 import 'package:provider/provider.dart';
 
-class LoginUserWidget extends StatelessWidget {
+class copy extends StatelessWidget {
   final usuarioServicio = new UsuarioProvider();
   @override
   Widget build(BuildContext context) {

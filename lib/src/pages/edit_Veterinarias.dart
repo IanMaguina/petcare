@@ -14,12 +14,15 @@ VetService vetService = new VetService();
 
 class EditVeterinaryPage extends StatefulWidget {
   final Veterinary vet;
+
   EditVeterinaryPage(this.vet);
   @override
   _EditVeterinaryState createState() => _EditVeterinaryState(vet);
 }
 
 class _EditVeterinaryState extends State<EditVeterinaryPage> {
+  final Regions re = new Regions();
+
   final formkey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -81,11 +84,14 @@ class _EditVeterinaryState extends State<EditVeterinaryPage> {
   }
 
   Widget _editRegion(BuildContext context) {
-    Regions re = new Regions();
-    print(re.regions[0]);
-    var vista = 'Seleccione una Region';
-
+    print(re.regions);
     return DropdownButton<String>(
+      items: re.regions.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
       value: veterinaria.region.toString(),
       icon: const Icon(Icons.arrow_circle_down_rounded),
       iconSize: 24,
@@ -98,16 +104,9 @@ class _EditVeterinaryState extends State<EditVeterinaryPage> {
       onTap: () {},
       onChanged: (String newValue) {
         setState(() {
-          vista = newValue;
           veterinaria.region = newValue.toString();
         });
       },
-      items: re.regions.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
     );
   }
 

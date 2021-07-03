@@ -25,31 +25,6 @@ class Profile{
 
 PreferenciasUsuario prefs;
 
-Future<APIResponse<void>> getData() async {
-    final userId  = await prefs.iduser;
-    final url = '$urlPetcare/people';
-    try{
-      Response resp = await http.get(Uri.parse(url),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-      );
-
-      Map data = jsonDecode(utf8.decode(resp.bodyBytes));
-      name= data['name'];
-      lastName=data['name'];
-      age=data['name'];
-      phone=data['name'];
-      email=data['name'];
-      document=data['name'];
-      photo=data['name'];
-
-    } catch(e){
-      print('caught error $e');
-
-    }
-}
 
 Future<APIResponse<void>> updateData() async {
     final userId  = await prefs.iduser;
