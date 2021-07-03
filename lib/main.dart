@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 import 'package:petcare/src/routes/routes.dart';
 import 'package:petcare/src/services/pets_service.dart';
+import 'package:petcare/src/services/providerjoinproduct_service.dart';
 import 'package:petcare/src/services/region_service.dart';
 import 'package:petcare/src/services/service_service.dart';
 import 'package:petcare/src/services/user_vet_service.dart';
@@ -17,6 +18,7 @@ void setupLocator() {
   GetIt.I.registerLazySingleton(() => VetService());
   GetIt.I.registerLazySingleton(() => RegionService());
   GetIt.I.registerLazySingleton(() => ServicesService());
+  GetIt.I.registerLazySingleton(() => PJPService());
   // GetIt.I.registerLazySingleton(() => PetsService());
 }
 
@@ -32,6 +34,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
         title: 'Petcare',
         debugShowCheckedModeBanner: false,

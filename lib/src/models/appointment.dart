@@ -25,7 +25,6 @@ class Appointment {
     this.startTime,
     this.status,
     this.personName,
-    this.productTypeName,
   });
 
   int id;
@@ -42,14 +41,12 @@ class Appointment {
   String startTime;
   int status;
   String personName;
-  String productTypeName;
 
   factory Appointment.fromJson(Map<String, dynamic> json) => Appointment(
         id: json["id"],
         endTime: json["endTime"],
         providerId: json["providerId"],
         productTypeId: json["productTypeId"],
-        productTypeName: json["productTypeName"],
         petId: json["petId"],
         personProfileId: json["personProfileId"],
         productId: json["productId"],
@@ -67,7 +64,6 @@ class Appointment {
         "endTime": endTime,
         "providerId": providerId,
         "productTypeId": productTypeId,
-        "productTypeName": productTypeName,
         "petId": petId,
         "personProfileId": personProfileId,
         "productId": productId,
