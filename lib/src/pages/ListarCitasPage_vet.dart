@@ -4,7 +4,7 @@ import 'package:petcare/src/models/appointment.dart';
 import 'package:petcare/src/models/date.dart';
 import 'package:petcare/src/models/product.dart';
 import 'package:petcare/src/models/type_service.dart';
-import 'package:petcare/src/pages/Cita_Detailed.dart';
+import 'package:petcare/src/pages/Citas_Detail_Vet.dart';
 import 'package:petcare/src/services/date_service.dart';
 import 'package:petcare/src/services/products_service.dart';
 import 'package:petcare/src/services/type_service_service.dart';

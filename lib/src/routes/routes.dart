@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:petcare/src/pages/Cita_Detailed.dart';
+import 'package:petcare/src/pages/Citas_Detail_Vet.dart';
 import 'package:petcare/src/pages/add_user_page.dart';
 import 'package:petcare/src/pages/add_user_vet_page.dart';
 import 'package:petcare/src/pages/add_veterinary.dart';
