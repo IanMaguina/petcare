@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:petcare/src/models/api_response.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:petcare/src/models/pet.dart';
 import 'package:petcare/src/pages/edit_pet_page.dart';
 import 'package:petcare/src/pages/pet_detail_page.dart';
 import 'package:petcare/src/services/pets_service.dart';
+import 'package:petcare/src/pages/add_pet_page.dart';
+import 'package:petcare/src/widgets/lista_pets.dart';
+import 'package:provider/provider.dart';
 
 class ListPetPage extends StatefulWidget {
   @override
@@ -12,6 +15,8 @@ class ListPetPage extends StatefulWidget {
 
 class _ListPetPageState extends State<ListPetPage> {
   PetsService petService = new PetsService();
+
+  //Pet pet;
 
   @override
   Widget build(BuildContext context) {
@@ -32,21 +37,56 @@ class _ListPetPageState extends State<ListPetPage> {
           },
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color.fromRGBO(57, 179, 179, 1.0),
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => AddPetPage(),
+          ));
+        },
+        child: Icon(Icons.add_box),
+      ),
     );
   }
 }
 
-class _ListaMascotas extends StatelessWidget {
+class _ListaMascotas extends StatefulWidget {
   final List<Pet> mascotas;
   const _ListaMascotas(this.mascotas);
 
   @override
+  __ListaMascotasState createState() => __ListaMascotasState();
+}
+
+class __ListaMascotasState extends State<_ListaMascotas> {
+  PetsService petService2 = new PetsService();
+
+  @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: mascotas.length,
+      itemCount: widget.mascotas.length,
       itemBuilder: (BuildContext context, int index) {
-        final service = mascotas[index];
-        return _element(context, service);
+        final service = widget.mascotas[index];
+        return Dismissible(
+          key: Key(widget.mascotas[index].name),
+          onDismissed: (DismissDirection direction) async {
+            final info = await petService2.deletePet(widget.mascotas[index]);
+
+            if (!info.error) {
+              setState(() {
+                widget.mascotas.removeAt(index);
+                Fluttertoast.showToast(msg: "Mascota Eliminada");
+              });
+            } else {
+              Fluttertoast.showToast(msg: info.errorMessage);
+            }
+          },
+          background: Container(
+            child: Icon(Icons.delete),
+            color: Colors.red[900],
+          ),
+          child: _element(context, service),
+        );
       },
     );
   }

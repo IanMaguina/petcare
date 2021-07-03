@@ -203,6 +203,7 @@ class _AddUserPageState extends State<AddUserPage> {
     }
     usuario.id = 0;
     usuario.photo = "VACIO";
+
     formkey.currentState.save();
 
     print(usuario);
