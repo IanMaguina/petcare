@@ -59,8 +59,7 @@ class VetService {
     };
 
     return http
-        .get(Uri.parse(urlPetcare + '/providers/' + uvID.toString()),
-            headers: headers)
+        .get(Uri.parse(urlPetcare + '/providers/' + uvID), headers: headers)
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
