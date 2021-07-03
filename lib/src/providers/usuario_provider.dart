@@ -1,27 +1,33 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:petcare/src/models/user.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
-final urlPetcare = "https://localhost:44353/api";
+/* String get urlPetcare {
+  if (Platform.isAndroid) {
+    return 'https://10.0.2.2:5001/api';
+  } else {
+    return 'https://localhost:5001/api';
+  }
+} */
 
 class UsuarioProvider {
-  // final String _firebaseToken = 'AIzaSyAzIGZax6Pn30zGytZkwyXJdEmsKiRDRc8';
-
   final _prefs = new PreferenciasUsuario();
 
   Future<Map<String, dynamic>> login(String email, String password) async {
+    final urlPetcare = _prefs.urlPetcare;
     final authData = {
       'username': email,
       'password': password,
       // 'returnSecureToken' : true
     };
-
+    bool _state = false;
+    dynamic _message;
     try {
-      final url =
-          Uri.https('$urlPetcare', '/users/authenticate', {'q': '{http}'});
+      final url = Uri.parse('$urlPetcare' + '/users/authenticate');
 
-      final resp = await http.post(url,
+      http.Response resp = await http.post(url,
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
@@ -36,18 +42,27 @@ class UsuarioProvider {
           //TO DO: guardar el token en el storage
           _prefs.token = decodedResp['token'];
           _prefs.iduser = decodedResp['id'];
-
-          return {'ok': true, 'token': decodedResp['token']};
+          _state = true;
+          _message = decodedResp['token'];
+          // return {'ok': _state, 'token':_message};
         } else {
-          return {'ok': false, 'mensaje': "Error al loguearse"};
+          _state = false;
+          _message = "Error al loguearse";
+          // return {'ok': false, 'mensaje': };
         }
       }
     } catch (e) {
       print(e);
+      _state = false;
+      _message = e;
+      // return {'ok': false, 'mensaje': "Error al loguearse"};
     }
+    return {'ok': _state, 'token': _message};
   }
 
   Future<Map<String, dynamic>> nuevoUsuario(User user) async {
+    final urlPetcare = _prefs.urlPetcare;
+
     final data = {
       "name": user.name,
       "lastname": user.lastName,
@@ -59,14 +74,15 @@ class UsuarioProvider {
       "age": user.age,
       // 'token' : true
     };
-    final url = Uri.https('$urlPetcare', '/people', {'q': '{http}'});
-    final resp = await http.post(url,
+    final url = Uri.parse('$urlPetcare/people');
+
+    http.Response resp = await http.post(url,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
         body: json.encode(data));
-    if (resp.statusCode == 200) {
+    if (resp.statusCode == 201) {
       Map<String, dynamic> decodedResp = json.decode(resp.body);
       print(decodedResp);
 
@@ -80,6 +96,7 @@ class UsuarioProvider {
       }
     } else {
       print('Request failed with status: ${resp.statusCode}.');
+      return {'ok': false, 'mensaje': 'Error'};
     }
   }
 }

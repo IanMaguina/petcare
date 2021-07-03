@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petcare/src/pages/ListarCitasPage.dart';
+import 'package:petcare/src/pages/list_favveterinarias.dart';
 import 'package:petcare/src/pages/list_pet_page.dart';
 import 'package:petcare/src/pages/services_page.dart';
 import 'package:petcare/src/pages/user_perfil_page.dart';
@@ -35,6 +36,8 @@ class _Navegacion extends StatelessWidget {
               icon: Icon(Icons.pets), label: 'Mis Mascotas'),
           BottomNavigationBarItem(
               icon: Icon(Icons.date_range), label: 'Mis Citas'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.store), label: 'Mis veterinarias'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
         ]);
   }
@@ -52,7 +55,8 @@ class _Paginas extends StatelessWidget {
       children: <Widget>[
         ListServicesPage(),
         ListPetPage(),
-        ListarCitasPage(),
+        ListarCitasPage("1"), // id del login
+        HeadVeterinaryList(),
         UserInfoPage()
       ],
     );

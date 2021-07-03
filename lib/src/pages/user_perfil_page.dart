@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:petcare/const/colors.dart';
+import 'package:petcare/src/models/api_response.dart';
+import 'package:petcare/src/models/userperson.dart';
+import 'package:petcare/src/pages/edit_userPersona.dart';
+import 'package:petcare/src/services/user_persona_service.dart';
 
 class UserInfoPage extends StatefulWidget {
   @override
   _UserInfoPageState createState() => _UserInfoPageState();
 }
+
+UserPersonaService personService = new UserPersonaService();
+
+APIResponse<UserPersona> personaresponse;
 
 class _UserInfoPageState extends State<UserInfoPage> {
   //bool _value = false;
@@ -152,6 +160,18 @@ class _UserInfoPageState extends State<UserInfoPage> {
                       color: Colors.grey,
                     ),
                     _logoutButton('Cerrar Sesión', '', 4, context),
+                    ElevatedButton.icon(
+                      onPressed: () async {
+                        personaresponse = await personService.getUser("1");
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    EditUserPersonaPage(personaresponse.data)));
+                      },
+                      icon: Icon(Icons.edit),
+                      label: Text('Editar'),
+                    )
                   ],
                 ),
               )
@@ -238,6 +258,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
         child: ListTile(
           onTap: () {
             //eliminar los datos de sharedPreference
+
             Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
           },
           title: Text(title),

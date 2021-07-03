@@ -1,40 +1,112 @@
 import 'package:flutter/material.dart';
+import 'package:petcare/src/models/api_response.dart';
+import 'package:petcare/src/models/date.dart';
+import 'package:petcare/src/models/product.dart';
+import 'package:petcare/src/models/type_service.dart';
+import 'package:petcare/src/services/date_service.dart';
+import 'package:petcare/src/services/products_service.dart';
 import 'package:petcare/src/widgets/CustomWidgets.dart';
 
-class ListarCitasPage extends StatelessWidget {
+class ListarCitasPage extends StatefulWidget {
+  ListarCitasPage(this.id);
+  String id;
+  @override
+  _ListarCitasPageState createState() => _ListarCitasPageState(id);
+}
+
+class _ListarCitasPageState extends State<ListarCitasPage> {
+  _ListarCitasPageState(this.id);
+  String id;
+  DateService dateprovider = new DateService();
   @override
   Widget build(BuildContext context) {
-    // final servicesService = Provider.of<ServicesService>(context);
     return Scaffold(
-        body: SafeArea(
-      top: true,
-      child: ListView(
-        children: [
-          _element(context, "8AM - 10 PM", "Ducha Antipulgas"),
-          Divider(),
-          _element(context, "10AM - 12 PM", "Revision Medica"),
-          Divider(),
-          _element(context, " 3 PM - 4 PM", "Actividad Dental"),
-          Divider(),
-          _element(context, "4PM - 6 PM", "Consulta Medica"),
-          Divider(),
-        ],
+      body: SafeArea(
+        top: true,
+        child: FutureBuilder(
+          future: dateprovider.getdateList(id),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              final List<Date> listamasc = snapshot.data.data;
+              return _ListaCitas(listamasc, id);
+            }
+          },
+        ),
       ),
-    ));
+    );
   }
 }
 
-_element(BuildContext context, String service, String tipoServicio) {
+Future<List<Product>> llenarProducts(
+    List<Date> citas, ProductService productprovider) async {
+  List<Product> productos;
+
+  for (var i = 0; i < citas.length; i++) {
+    var prod = await productprovider.getProduct(citas[i].service_id.toString());
+    productos.add(prod.data);
+  }
+  return productos;
+}
+
+class _ListaCitas extends StatelessWidget {
+  final List<Date> citas;
+  String id;
+  _ListaCitas(this.citas, this.id);
+  ProductService productprovider = new ProductService();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        top: true,
+        child: FutureBuilder(
+          future: llenarProducts(citas, productprovider),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              if (citas.length > 0) {
+                return ListView.builder(
+                  itemCount: citas.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final date = citas[index];
+                    final product = snapshot.data.data[index];
+
+                    return _element(context, date, product);
+                  },
+                );
+              } else {
+                return Center(
+                  child: Text("NO HAY CITAS DISPONIBLES D:",
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                );
+              }
+            }
+          },
+        ),
+      ),
+    );
+  }
+}
+
+_element(BuildContext context, Date citas, Product service) {
   return ListTile(
     contentPadding: EdgeInsets.all(10),
     leading: Icon(Icons.date_range),
     title: (Text.rich(
       TextSpan(
-        text: service,
+        text: service.name,
         style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
       ),
     )),
-    subtitle: Text(tipoServicio),
+    subtitle: Text(citas.star_time.toString()),
     hoverColor: Color.fromRGBO(57, 179, 179, 0.3),
     trailing: Icon(
       Icons.arrow_forward_ios,

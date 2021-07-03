@@ -1,40 +1,66 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
+import 'package:petcare/src/models/api_response.dart';
 import 'package:petcare/src/models/pet.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
-//production:
-//final urlPetcare = "https://petcaremobileapi.azurewebsites.net/api";
-//local:
-final urlPetcare = "https://localhost:44353/api";
-final apiKey = "";
-
-final _prefs = new PreferenciasUsuario();
-
-class PetsService with ChangeNotifier {
+class PetsService {
   List<Pet> listadoPets = [];
+  final _prefs = new PreferenciasUsuario();
 
-  PetsService() {
-    this.getPetByCustomerId();
+  Future<APIResponse<List<Pet>>> getPetByCustomerId() {
+    final urlPetcare = _prefs.urlPetcare;
+    var token = _prefs.token;
+    final idCustomer = _prefs.iduser;
+    final headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    };
+
+    return http
+        .get(Uri.parse(urlPetcare + '/people/$idCustomer/pets'),
+            headers: headers)
+        .then((data) {
+      if (data.statusCode == 200) {
+        final jsonData = json.decode(data.body);
+        final notes = <Pet>[];
+        for (var item in jsonData) {
+          notes.add(Pet.fromJson(item));
+        }
+        return APIResponse<List<Pet>>(data: notes);
+      }
+      return APIResponse<List<Pet>>(
+          error: true, errorMessage: 'no se encontraron mascotas');
+    }).catchError((_) => APIResponse<List<Pet>>(
+            error: true, errorMessage: 'An error occured'));
   }
 
-  getPetByCustomerId() async {
-    //endPoint
-    var id = _prefs.iduser;
+  //Miguel update
+  Future<APIResponse<bool>> updatePetByCustomerId(String id, Pet pet) {
+    final urlPetcare = _prefs.urlPetcare;
     var token = _prefs.token;
+    var iduser = _prefs.iduser;
+    final headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    };
 
-    final url = Uri.https('$urlPetcare', '/people/$id/pets', {'q': '{http}'});
-    final resp = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
-    var data;
-    if (resp.body.isNotEmpty) {
-      data = petsFromJson(resp.body);
-    }
+    var jsonv = pet.toJson();
+    print(jsonv);
+    return http
+        .put(Uri.parse(urlPetcare + "/people/$iduser/pets/$id"),
+            headers: headers, body: json.encode(jsonv))
+        .then((data) {
+      print(data.body.toString());
+      if (data.statusCode == 200) {
+        print("FUNCIONA   ");
+        return APIResponse<bool>(error: false, data: true);
+      }
 
-    this.listadoPets.addAll(data);
-    notifyListeners();
+      return APIResponse<bool>(error: true, errorMessage: 'An error occured');
+    }).catchError((_) =>
+            APIResponse<bool>(error: true, errorMessage: 'An error occured'));
   }
 }

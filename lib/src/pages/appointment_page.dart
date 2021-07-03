@@ -1,4 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:petcare/src/models/pet.dart';
+import 'package:petcare/src/services/pets_service.dart';
 
 class AppointmentPage extends StatefulWidget {
   @override
@@ -6,6 +10,12 @@ class AppointmentPage extends StatefulWidget {
 }
 
 class _AppointmentPageState extends State<AppointmentPage> {
+  DateTime now = DateTime.now();
+  DateTime _dateTime = DateTime.now();
+
+ String dropdownValue ='Mascota1'; //valor principal por defecto en el widget de dropdown
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,10 +94,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              TextFormField(
-                                  decoration:
-                                      InputDecoration(hintText: "Nombres"),
-                                  keyboardType: TextInputType.text),
+                              _dropDownPets(),
                               TextFormField(
                                   decoration: InputDecoration(hintText: "Raza"),
                                   keyboardType: TextInputType.text),
@@ -124,10 +131,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              TextFormField(
-                                  decoration:
-                                      InputDecoration(hintText: "Fecha"),
-                                  keyboardType: TextInputType.datetime),
+                              datePicker(),
                               TextFormField(
                                   decoration:
                                       InputDecoration(hintText: "Horario"),
@@ -179,6 +183,72 @@ class _AppointmentPageState extends State<AppointmentPage> {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget datePicker() {
+    return Row(
+      children: [
+        Container(
+          height: 30,
+          decoration: BoxDecoration(
+              border: Border(
+                  bottom: BorderSide(
+            color: Colors.black38,
+          ))),
+          child: Text(
+            _dateTime == null ? 'Colocar fecha ' : _dateTime.toString(),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 30),
+          child: ElevatedButton(
+            child: Text("Fecha"),
+            onPressed: () {
+              showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2020),
+                      lastDate: DateTime(2022))
+                  .then((date) {
+                setState(() {
+                  _dateTime = date;
+                });
+              });
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _dropDownPets() {
+    return Container(
+      width: 190,
+      child: DropdownButton<String>(
+        value: dropdownValue,
+        icon: const Icon(Icons.arrow_drop_down),
+        iconSize: 24,
+        elevation: 16,
+        style: const TextStyle(color: Colors.black38),
+        underline: Container(
+          height: 1,
+          color: Colors.black38,
+        ),
+        onChanged: (String newValue) {
+          setState(() {
+            dropdownValue = newValue;
+          });
+        },
+        items: <String>['Mascota1', 'Mascota2', 'Mascota3']
+            .map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+        hint: Text("Seleccionar una mascota"),
       ),
     );
   }

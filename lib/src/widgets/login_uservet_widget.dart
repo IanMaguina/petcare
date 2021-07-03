@@ -1,8 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:petcare/src/pages/home_vet_page.dart';
+import 'package:petcare/src/services/user_vet_service.dart';
 
-class LoginVetWidget extends StatelessWidget {
+class LoginVetWidget extends StatefulWidget {
+  @override
+  _LoginVetWidgetState createState() => _LoginVetWidgetState();
+}
+
+class _LoginVetWidgetState extends State<LoginVetWidget> {
+  final formkey = GlobalKey<FormState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  String usuario;
+  String password;
+
+  UservService uvetService = new UservService();
   @override
   Widget build(BuildContext context) {
+    usuario = "";
+    password = "";
     return Container(
       child: _formulario(context),
     );
@@ -32,22 +49,26 @@ class LoginVetWidget extends StatelessWidget {
                       offset: Offset(0.0, 5.0),
                       spreadRadius: 3.0)
                 ]),
-            child: Column(
-              children: <Widget>[
-                Text('Ingreso', style: TextStyle(fontSize: 20.0)),
-                SizedBox(
-                  height: 60.0,
-                ),
-                _emailUsuario(),
-                SizedBox(
-                  height: 30.0,
-                ),
-                _passwordUsuario(),
-                SizedBox(
-                  height: 30.0,
-                ),
-                _botonLogin(),
-              ],
+            child: Form(
+              key: formkey,
+              child: Column(
+                children: <Widget>[
+                  Text('Ingreso Veterinarios',
+                      style: TextStyle(fontSize: 20.0)),
+                  SizedBox(
+                    height: 60.0,
+                  ),
+                  _emailUsuario(),
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  _passwordUsuario(),
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  _botonLogin(context),
+                ],
+              ),
             ),
           ),
           TextButton(
@@ -61,68 +82,72 @@ class LoginVetWidget extends StatelessWidget {
   }
 
   _emailUsuario() {
-    return StreamBuilder(
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return Container(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: TextField(
-            keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(
-              icon: Icon(Icons.alternate_email,
-                  color: Color.fromRGBO(57, 179, 179, 1.0)),
-              hintText: 'ingrese su email',
-              labelText: 'Veterinario',
-              // counterText: snapshot.data,
-              // errorText: snapshot.error
-            ),
-          ),
-        );
-      },
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      child: TextFormField(
+        initialValue: usuario,
+        keyboardType: TextInputType.emailAddress,
+        onSaved: (value) => usuario = value.trim(),
+        decoration: InputDecoration(
+          icon: Icon(Icons.alternate_email,
+              color: Color.fromRGBO(57, 179, 179, 1.0)),
+          hintText: 'ingrese su email',
+          labelText: 'Veterinario',
+        ),
+      ),
     );
   }
 
   _passwordUsuario() {
-    return StreamBuilder(
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return Container(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: TextField(
-            obscureText: true,
-            decoration: InputDecoration(
-                icon: Icon(Icons.lock_outline,
-                    color: Color.fromRGBO(57, 179, 179, 1.0)),
-                labelText: 'Contraseña',
-                // counterText: snapshot.data,
-                errorText: snapshot.error),
-          ),
-        );
-      },
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      child: TextFormField(
+        obscureText: true,
+        initialValue: password,
+        onSaved: (value) => password = value,
+        decoration: InputDecoration(
+          icon: Icon(Icons.lock_outline,
+              color: Color.fromRGBO(57, 179, 179, 1.0)),
+          labelText: 'Contraseña',
+        ),
+      ),
     );
   }
-}
 
-_botonLogin() {
-  return StreamBuilder(
-    builder: (BuildContext context, AsyncSnapshot snapshot) {
-      return ElevatedButton(
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-            child: Text('Ingresar'),
-          ),
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0)),
-            elevation: 0.0,
-            primary: Color.fromRGBO(57, 179, 179, 1.0),
-            textStyle: TextStyle(color: Colors.white),
-          ),
-          onPressed: () {
-            // final route =
-            //     MaterialPageRoute(builder: (context) => home());
+  _botonLogin(BuildContext context) {
+    return ElevatedButton(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
+          child: Text('Ingresar'),
+        ),
+        style: ElevatedButton.styleFrom(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+          elevation: 0.0,
+          primary: Color.fromRGBO(57, 179, 179, 1.0),
+          textStyle: TextStyle(color: Colors.white),
+        ),
+        onPressed: () async {
+          _submit(context);
+        });
+  }
 
-            //Navigator.push(context, route);
-            Navigator.pushNamed(context, 'home_vet');
-          });
-    },
-  );
+  void _submit(BuildContext context) async {
+    if (!formkey.currentState.validate()) {
+      return;
+    }
+    formkey.currentState.save();
+    //final data = uservet;
+    final result = await uvetService.loginvet(usuario, password);
+
+    if (!result.error) {
+      print(result);
+
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => HomeVetPage(),
+      ));
+    } else {
+      Fluttertoast.showToast(msg: result.errorMessage);
+    }
+  }
 }
