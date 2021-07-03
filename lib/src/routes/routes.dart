@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:petcare/src/pages/Cita_Detailed.dart';
+import 'package:petcare/src/pages/Citas_Detail_Vet.dart';
 import 'package:petcare/src/pages/add_user_page.dart';
 import 'package:petcare/src/pages/add_user_vet_page.dart';
 import 'package:petcare/src/pages/add_veterinary.dart';
@@ -26,9 +26,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'adduservet': (BuildContext context) => Add_Vet(),
     'listpet': (BuildContext context) => ListPetPage(),
     'listvets': (BuildContext context) => ListVeterinariesPage(),
-    'detallecita': (BuildContext context) => ListarCitasDetailPage(),
-    'detallevetvet': (BuildContext context) =>
-        VeterinaryVetDetailPage("1"), //id
     'vetpetdetail': (BuildContext context) => PetDetailVetPage(),
     'addveterinary': (BuildContext context) => Add_Veterinary(),
     'test': (BuildContext context) => TestImagePage(),

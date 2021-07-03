@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:petcare/src/models/appointment.dart';
 
-class CitaDetailedVet extends StatefulWidget {
+class CitaDetailedUser extends StatefulWidget {
   final Appointment cita;
-  CitaDetailedVet(this.cita);
+  CitaDetailedUser(this.cita);
   @override
   _CitaDetailedVet createState() => new _CitaDetailedVet(cita);
 }
 
-class _CitaDetailedVet extends State<CitaDetailedVet> {
+class _CitaDetailedVet extends State<CitaDetailedUser> {
   Appointment cita;
   _CitaDetailedVet(this.cita);
   @override
