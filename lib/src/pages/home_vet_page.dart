@@ -32,7 +32,7 @@ class _Paginas extends StatelessWidget {
       children: <Widget>[
         TestImagePage(),
         SubcriptionPage(),
-        ListarCitasVetPage("1"), //idvet
+        ListarCitasVetPage(), //idvet
         UserVetInfoPage("1"), //idvet
       ],
     );

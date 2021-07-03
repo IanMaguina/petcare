@@ -9,8 +9,7 @@ import 'package:petcare/src/preferencias_usuario/favorite-vets.dart';
 class VeterinaryCard extends StatefulWidget {
   final Veterinary vet;
   final Image icon;
-
-  const VeterinaryCard(this.vet, this.icon);
+  VeterinaryCard(this.vet, this.icon);
 
   @override
   State<StatefulWidget> createState() => _VeterinaryCardState(vet, icon);

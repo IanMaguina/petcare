@@ -6,6 +6,8 @@ import 'package:petcare/src/preferencias_usuario/favorite-vets.dart';
 import 'package:petcare/src/widgets/veterinarycard.dart';
 
 class HeadVeterinaryList extends StatelessWidget {
+  HeadVeterinaryList();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

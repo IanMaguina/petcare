@@ -51,8 +51,9 @@ class DateService {
             APIResponse<bool>(error: true, errorMessage: 'An error occured'));
   }
 
-  Future<APIResponse<List<Date>>> getdateList(String id) {
+  Future<APIResponse<List<Date>>> getdateList() {
     final urlPetcare = _prefs.urlPetcare;
+    final iduser = _prefs.iduser.toString();
     final token = _prefs.token =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEyIiwibmJmIjoxNjI1Mjc2OTIyLCJleHAiOjE2MjU4ODE3MjIsImlhdCI6MTYyNTI3NjkyMn0.u_HdPVpyOM7hT0kx7WAbwWtgTVOHq-Ts2N4j05ls8Og";
     final headers = {
@@ -61,7 +62,7 @@ class DateService {
     };
 
     return http
-        .get(Uri.parse(urlPetcare + '/people/' + id + '/requests'),
+        .get(Uri.parse(urlPetcare + '/people/' + iduser + '/requests'),
             headers: headers)
         .then((data) {
       if (data.statusCode == 200) {

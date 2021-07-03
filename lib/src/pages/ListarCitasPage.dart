@@ -8,15 +8,11 @@ import 'package:petcare/src/services/products_service.dart';
 import 'package:petcare/src/widgets/CustomWidgets.dart';
 
 class ListarCitasPage extends StatefulWidget {
-  ListarCitasPage(this.id);
-  String id;
   @override
-  _ListarCitasPageState createState() => _ListarCitasPageState(id);
+  _ListarCitasPageState createState() => _ListarCitasPageState();
 }
 
 class _ListarCitasPageState extends State<ListarCitasPage> {
-  _ListarCitasPageState(this.id);
-  String id;
   DateService dateprovider = new DateService();
   @override
   Widget build(BuildContext context) {
@@ -24,15 +20,15 @@ class _ListarCitasPageState extends State<ListarCitasPage> {
       body: SafeArea(
         top: true,
         child: FutureBuilder(
-          future: dateprovider.getdateList(id),
+          future: dateprovider.getdateList(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: CircularProgressIndicator(),
               );
             } else {
-              final List<Date> listamasc = snapshot.data.data;
-              return _ListaCitas(listamasc, id);
+              final List<Date> listaCitas = snapshot.data.data;
+              return _ListaCitas(listaCitas);
             }
           },
         ),
@@ -54,8 +50,8 @@ Future<List<Product>> llenarProducts(
 
 class _ListaCitas extends StatelessWidget {
   final List<Date> citas;
-  String id;
-  _ListaCitas(this.citas, this.id);
+
+  _ListaCitas(this.citas);
   ProductService productprovider = new ProductService();
   @override
   Widget build(BuildContext context) {

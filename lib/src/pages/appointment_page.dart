@@ -17,6 +17,8 @@ class AppointmentPage extends StatefulWidget {
 }
 
 class _AppointmentPageState extends State<AppointmentPage> {
+  int idservtype;
+
   DateTime now = DateTime.now();
   DateTime _dateTime = DateTime.now();
 
@@ -26,14 +28,14 @@ class _AppointmentPageState extends State<AppointmentPage> {
   final _prefs = new PreferenciasUsuario();
   Appointment date = new Appointment();
   final dateService = new DateService();
-  Service service = new Service();
+
   Pet pet = new Pet();
   /* APIResponse<List<Pet>> listapets; */
-  String mypet;
+  //String mypet;
   PetsService petService = new PetsService();
   List<Pet> listapets = [];
-  String dropdownValue =
-      'Mascota1'; //valor principal por defecto en el widget de dropdown
+  int dropdownValue = 0;
+  //valor principal por defecto en el widget de dropdown
 /* 
   @override
   void initState() async {
@@ -52,7 +54,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
           Wrap(
             children: [
               Container(
-                padding: EdgeInsets.only(left: 16),
+                padding: EdgeInsets.only(left: 16, top: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -61,7 +63,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    /*   _dropDownPets() */
+                    _dropDownPets()
                   ],
                 ),
               ),
@@ -83,6 +85,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                       child: Container(
                         alignment: Alignment.topLeft,
                         child: Form(
+                          key: formkey,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -104,10 +107,11 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                       InputDecoration(hintText: "Horario"),
                                   keyboardType: TextInputType.number),
                               TextFormField(
-                                  initialValue: service.name,
+                                  initialValue: '0',
                                   textCapitalization:
                                       TextCapitalization.sentences,
-                                  onSaved: (value) => service.name = value,
+                                  onSaved: (value) =>
+                                      date.idServicio = int.parse(value),
                                   validator: (value) {
                                     if (value.isEmpty) {
                                       return 'Insertar servicio';
@@ -194,6 +198,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                   .then((date) {
                 setState(() {
                   _dateTime = date;
+                  this.date.datereservation = date;
                 });
               });
             },
@@ -204,30 +209,37 @@ class _AppointmentPageState extends State<AppointmentPage> {
   }
 
   Widget _dropDownPets() {
-    return Container(
-      width: 190,
-      child: DropdownButton<String>(
-        value: mypet,
-        icon: const Icon(Icons.arrow_drop_down),
-        iconSize: 24,
-        elevation: 16,
-        style: const TextStyle(color: Colors.black38),
-        underline: Container(
-          height: 1,
-          color: Colors.black38,
-        ),
-        onChanged: (String newValue) {
-          setState(() {
-            mypet = newValue;
-          });
-        },
-        items: this.listapets?.map((item) {
-              return new DropdownMenuItem(
-                  child: new Text(item.name), value: item.id);
-            })?.toList() ??
-            [],
-        hint: Text("Seleccionar una mascota"),
-      ),
+    return FutureBuilder(
+      future: petService.getPetByCustomerId(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else {
+          final List<Pet> mismascotas = snapshot.data.data;
+          final data = mismascotas.toList();
+          dropdownValue = data[0].id;
+          return DropdownButton<int>(
+            value: dropdownValue,
+            onChanged: (newValue) {
+              setState(() {
+                dropdownValue = newValue;
+                print("el id de la mascota es :" + dropdownValue.toString());
+                date.idPet = dropdownValue;
+              });
+            },
+            items: mismascotas.map((item) {
+                  return DropdownMenuItem<int>(
+                      value: item.id, child: Text(item.name));
+                }).toList() ??
+                [],
+            hint: Text("Seleccionar una mascota"),
+
+            /* hint: Text("Seleccionar una mascota"), */
+          );
+        }
+      },
     );
   }
 
@@ -237,6 +249,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
     }
     formkey.currentState.save();
     final idUsuario = _prefs.iduser;
+    final idPet = dropdownValue;
+    date.idTipoServicio = this.idservtype;
     /*Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => Appointment(date.datereservation)
     ));*/

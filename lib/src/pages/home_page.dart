@@ -3,7 +3,9 @@ import 'package:petcare/src/pages/ListarCitasPage.dart';
 import 'package:petcare/src/pages/list_favveterinarias.dart';
 import 'package:petcare/src/pages/list_pet_page.dart';
 import 'package:petcare/src/pages/services_page.dart';
+import 'package:petcare/src/pages/test_images.dart';
 import 'package:petcare/src/pages/user_perfil_page.dart';
+import 'package:petcare/src/preferencias_usuario/prefs.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -31,13 +33,12 @@ class _Navegacion extends StatelessWidget {
           BottomNavigationBarItem(
               backgroundColor: Color.fromRGBO(57, 179, 179, 1.0),
               icon: Icon(Icons.medical_services),
-              label: 'Servicios'),
+              label: 'Consejos'),
+          BottomNavigationBarItem(icon: Icon(Icons.store), label: 'Servicios'),
           BottomNavigationBarItem(
               icon: Icon(Icons.pets), label: 'Mis Mascotas'),
           BottomNavigationBarItem(
               icon: Icon(Icons.date_range), label: 'Mis Citas'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.store), label: 'Mis veterinarias'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
         ]);
   }
@@ -47,16 +48,16 @@ class _Paginas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navegacionModel = Provider.of<_NavegacionModel>(context);
-
+    final _pref = new PreferenciasUsuario();
     return PageView(
       //physics: BouncingScrollPhysics(),
       controller: navegacionModel.pageController,
       physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
+        TestImagePage(),
         ListServicesPage(),
         ListPetPage(),
-        ListarCitasPage("1"), // id del login
-        HeadVeterinaryList(),
+        ListarCitasPage(), // id del login
         UserInfoPage()
       ],
     );

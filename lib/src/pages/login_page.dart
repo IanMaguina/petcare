@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
         body: Stack(
           children: <Widget>[
             _fondo(context),
-            UserVetInfoPage("1"),
+            LoginUserWidget(),
           ],
         ),
       ),
