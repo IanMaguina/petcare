@@ -27,11 +27,12 @@ class DateService {
     };
     final idUser = _prefs.iduser; //id usuario
     final datereservation = date.dateReservation; //fecha
-    final starttime = date.startTime; //hora inicio
+    final starttime = date.startTime.toString(); //hora inicio
     final endtime = "14:00"; //hora final
     final idVetDP = date.providerId.toString(); //idveterinaria
     final idPet = date.petId.toString();
     final idProd = date.productId.toString(); //id servicio
+    final typeProdId = "9";
     //final idAppoint = appot.
     final cita = {
       "datereservation": datereservation,
@@ -42,7 +43,7 @@ class DateService {
     return http
         .post(
             Uri.parse(urlPetcare +
-                '/people/$idUser/pets/$idPet/providers/$idVetDP/products/$idProd/requests/'),
+                '/people/$idUser/pets/$idPet/providers/$idVetDP/product-types/$typeProdId/products/$idProd/requests/'),
             headers: headers,
             body: json.encode(cita))
         .then((data) {

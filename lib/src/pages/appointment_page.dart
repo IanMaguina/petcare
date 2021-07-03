@@ -19,8 +19,6 @@ class AppointmentPage extends StatefulWidget {
 }
 
 class _AppointmentPageState extends State<AppointmentPage> {
-  int idservtype;
-
   DateTime now = DateTime.now();
   DateTime _dateTime = DateTime.now();
 
@@ -253,7 +251,6 @@ class _AppointmentPageState extends State<AppointmentPage> {
     formkey.currentState.save();
 
     date.productId = 1;
-    date.productTypeId = this.idservtype;
 
     final info = await dateService.createDate(date);
 

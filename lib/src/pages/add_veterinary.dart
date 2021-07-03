@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:petcare/src/models/Regionemun.dart';
 import 'package:petcare/src/models/api_response.dart';
@@ -6,6 +7,7 @@ import 'package:petcare/src/models/region.dart';
 import 'package:petcare/src/models/uservet.dart';
 import 'package:petcare/src/models/veterinary.dart';
 import 'package:petcare/src/pages/login_page.dart';
+import 'package:petcare/src/pages/login_page_vet.dart';
 import 'package:petcare/src/services/region_service.dart';
 import 'package:petcare/src/services/user_vet_service.dart';
 import 'package:petcare/src/services/vet_service.dart';
@@ -283,11 +285,16 @@ class _Add_VeterinaryState extends State<Add_Veterinary> {
     print(data.phone);
     print("     ");
 
-    final result1 = vetService.updateVet(last.toString(), vet);
+    final result1 = await vetService.updateVet(last.toString(), vet);
 
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => LoginPage(),
-    ));
+    if (!result1.error && !result.error) {
+      Fluttertoast.showToast(msg: "veterinario creado");
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => LoginVetPage(),
+      ));
+    } else {
+      Fluttertoast.showToast(msg: result1.errorMessage);
+    }
   }
 }
 

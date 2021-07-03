@@ -142,7 +142,7 @@ class _LoginVetWidgetState extends State<LoginVetWidget> {
 
     if (!result.error) {
       print(result);
-
+      Fluttertoast.showToast(msg: "Bienvenido !");
       Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => HomeVetPage(),
       ));
