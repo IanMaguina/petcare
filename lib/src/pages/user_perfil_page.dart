@@ -158,18 +158,48 @@ class _UserInfoPageState extends State<UserInfoPage> {
                                 ),
                               ),
                             ),
-                            Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
-                                child: userTitle('User Information')),
                             Divider(
                               thickness: 1,
                               color: Colors.grey,
                             ),
-                            userListTile(userPersona.name, 'Nombre', 0, context),
-                             userListTile(userPersona.lastName, 'joined date', 0, context),
-                            userListTile(userPersona.email, 'Email', 0, context),
-                            userListTile(userPersona.phone.toString(), 'Teléfono', 0, context),
-                           
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: userTitle('User Information')),
+                                ElevatedButton.icon(
+                                  onPressed: () async {
+                                    personaresponse =
+                                        await personService.getUser();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            EditUserPersonaPage(
+                                                personaresponse.data),
+                                      ),
+                                    );
+                                  },
+                                  icon: Icon(Icons.edit),
+                                  label: Text('Editar'),
+                                ),
+                              ],
+                            ),
+                            Divider(
+                              thickness: 1,
+                              color: Colors.grey,
+                            ),
+                            userListTile(
+                                userPersona.name + " " + userPersona.lastName,
+                                'Nombre',
+                                0,
+                                context),
+                            userListTile(
+                                userPersona.email, 'Email', 0, context),
+                            userListTile(userPersona.phone.toString(),
+                                'Teléfono', 0, context),
                             Padding(
                               padding: const EdgeInsets.only(left: 8.0),
                               child: userTitle('User settings'),
@@ -179,19 +209,6 @@ class _UserInfoPageState extends State<UserInfoPage> {
                               color: Colors.grey,
                             ),
                             _logoutButton('Cerrar Sesión', '', 4, context),
-                            ElevatedButton.icon(
-                              onPressed: () async {
-                                personaresponse = await personService.getUser();
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            EditUserPersonaPage(
-                                                personaresponse.data)));
-                              },
-                              icon: Icon(Icons.edit),
-                              label: Text('Editar'),
-                            )
                           ],
                         );
                       }
@@ -199,49 +216,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
               )
             ],
           ),
-          _buildFab()
         ],
-      ),
-    );
-  }
-
-  Widget _buildFab() {
-    //starting fab position
-    final double defaultTopMargin = 200.0 - 4.0;
-    //pixels from top where scaling should start
-    final double scaleStart = 160.0;
-    //pixels from top where scaling should end
-    final double scaleEnd = scaleStart / 2;
-
-    double top = defaultTopMargin;
-    double scale = 1.0;
-    if (_scrollController.hasClients) {
-      double offset = _scrollController.offset;
-      top -= offset;
-      if (offset < defaultTopMargin - scaleStart) {
-        //offset small => don't scale down
-        scale = 1.0;
-      } else if (offset < defaultTopMargin - scaleEnd) {
-        //offset between scaleStart and scaleEnd => scale down
-        scale = (defaultTopMargin - scaleEnd - offset) / scaleEnd;
-      } else {
-        //offset passed scaleEnd => hide fab
-        scale = 0.0;
-      }
-    }
-
-    return Positioned(
-      top: top,
-      right: 16.0,
-      child: Transform(
-        transform: Matrix4.identity()..scale(scale),
-        alignment: Alignment.center,
-        child: FloatingActionButton(
-          heroTag: "btn1",
-          onPressed: () {},
-          child: Icon(Icons.camera_alt_outlined),
-          backgroundColor: ColorsConsts.starterColor,
-        ),
       ),
     );
   }

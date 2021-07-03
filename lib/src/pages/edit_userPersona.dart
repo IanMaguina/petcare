@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petcare/src/models/userperson.dart';
+import 'package:petcare/src/pages/user_perfil_page.dart';
 import 'package:petcare/src/services/user_persona_service.dart';
 
 class EditUserPersonaPage extends StatefulWidget {
@@ -222,5 +223,8 @@ class _EditUserPersonaState extends State<EditUserPersonaPage> {
     print("     ");
 
     final result1 = perService.updateUserper(persona.id.toString(), persona);
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => UserInfoPage(), //Id Del login
+    ));
   }
 }

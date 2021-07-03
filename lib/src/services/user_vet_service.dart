@@ -64,7 +64,7 @@ class UservService {
   Future<APIResponse<Uservet>> getUservet() {
     final urlPetcare = _prefs.urlPetcare;
     final token = _prefs.token;
-    final uvID = _prefs.idvet;
+    final uvID = _prefs.idvet.toString();
     final headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token',

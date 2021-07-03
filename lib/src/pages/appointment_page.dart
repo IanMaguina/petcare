@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:petcare/src/models/api_response.dart';
 import 'package:petcare/src/models/appointment.dart';
 import 'package:petcare/src/models/pet.dart';
 import 'package:petcare/src/models/service_.dart';
+import 'package:petcare/src/pages/home_page.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 import 'package:petcare/src/services/date_service.dart';
 import 'package:petcare/src/services/pets_service.dart';
@@ -13,11 +15,13 @@ class AppointmentPage extends StatefulWidget {
   final idVeterinaria;
   AppointmentPage(this.idVeterinaria);
   @override
-  _AppointmentPageState createState() => _AppointmentPageState();
+  _AppointmentPageState createState() =>
+      _AppointmentPageState(this.idVeterinaria);
 }
 
 class _AppointmentPageState extends State<AppointmentPage> {
-  int idservtype;
+  final idVet;
+  _AppointmentPageState(this.idVet);
 
   DateTime now = DateTime.now();
   DateTime _dateTime = DateTime.now();
@@ -92,7 +96,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                             children: [
                               datePicker(),
                               TextFormField(
-                                  initialValue: date.startTime,
+                                  initialValue: "13:00",
                                   textCapitalization:
                                       TextCapitalization.sentences,
                                   onSaved: (value) => date.startTime = value,
@@ -105,7 +109,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                   },
                                   decoration:
                                       InputDecoration(hintText: "Horario"),
-                                  keyboardType: TextInputType.number),
+                                  keyboardType: TextInputType.text),
                               TextFormField(
                                   initialValue: '0',
                                   textCapitalization:
@@ -243,16 +247,33 @@ class _AppointmentPageState extends State<AppointmentPage> {
     );
   }
 
-  void _reservarcita(BuildContext context) {
+  void _reservarcita(BuildContext context) async {
     if (!formkey.currentState.validate()) {
       return;
     }
+    date.productId = 1;
+    date.providerId = this.idVet;
+
+    print("fecha reservacion" + date.dateReservation);
+    print("hora reservacion" + date.startTime);
+
+    print("product id " + date.productId.toString());
+    print("veterinaria id " + date.providerId.toString());
+
+    print("tipo de servicio id " + date.productTypeId.toString());
+
     formkey.currentState.save();
-    final idUsuario = _prefs.iduser;
-    final idPet = dropdownValue;
-    date.productTypeId = this.idservtype;
-    /*Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => Appointment(date.datereservation)
-    ));*/
+    print("---------------------");
+    print(date.toString());
+    final info = await dateService.createDate(date);
+
+    if (!info.error) {
+      Fluttertoast.showToast(msg: "Se creó el usuario correctamente");
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => HomePage(),
+      ));
+    } else {
+      Fluttertoast.showToast(msg: info.errorMessage);
+    }
   }
 }
