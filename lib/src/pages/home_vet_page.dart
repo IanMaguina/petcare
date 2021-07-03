@@ -29,29 +29,27 @@ class HomeVetPage extends StatelessWidget {
 }
 
 class _Paginas extends StatelessWidget {
-  PJPService pjpS= new PJPService();
+  PJPService pjpS = new PJPService();
   PJPService get service => GetIt.I<PJPService>();
   APIResponse<List<Providerjoinproduct>> _apiResponse;
-  var tpemun= new Typeproduct() ;
-  bool lec=false;
-  var pjp=new   Providerjoinproduct();
+  var tpemun = new Typeproduct();
+  bool lec = false;
+  var pjp = new Providerjoinproduct();
   //objetos para pasar luego a prudct ,necesito ids
-  var pjplist=<Providerjoinproduct>[];
+  var pjplist = <Providerjoinproduct>[];
   //para la mostrar
-  var pjplist2=<String>[];
+  var pjplist2 = <String>[];
   final _prefs = new PreferenciasUsuario();
 
   @override
-
-
   Widget build(BuildContext context) {
     final id = _prefs.idvet;
     final token = _prefs.token;
-    bool open=false;
+    bool open = false;
     final navegacionModel = Provider.of<_NavegacionModel>(context);
-    if(!open){
+    if (!open) {
       _submit(context);
-      open=true;
+      open = true;
     }
     return PageView(
       //physics: BouncingScrollPhysics(),
@@ -60,9 +58,10 @@ class _Paginas extends StatelessWidget {
       children: <Widget>[
         TestImagePage(),
         //SubcriptionPage(),
-        ListProviderjoinProduct_Page(data:pjplist,data2: pjplist2,id: id,token: token),
+        ListProviderjoinProduct_Page(
+            data: pjplist, data2: pjplist2, id: id, token: token),
         ListarCitasVetPage(), //idvet
-        UserVetInfoPage("1"), //idvet
+        UserVetInfoPage(), //idvet
       ],
     );
   }
@@ -73,9 +72,9 @@ class _Paginas extends StatelessWidget {
     }*/
     final id = _prefs.idvet;
     final token = _prefs.token;
-    if(!lec){
+    if (!lec) {
       print("entra");
-      _apiResponse = await service.getPJPsList(id.toString(),token);
+      _apiResponse = await service.getPJPsList(id.toString(), token);
       var last = _apiResponse.data.length;
       print(last);
       var list = _apiResponse.data;
@@ -107,7 +106,7 @@ class _Paginas extends StatelessWidget {
 
         print("     ");
       }
-      lec=true;
+      lec = true;
     }
     /*Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => ListProviderjoinProduct_Page(data:pjplist,data2: pjplist2,id: 2,token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjMiLCJuYmYiOjE2MjUwMDAwODIsImV4cCI6MTYyNTYwNDg4MiwiaWF0IjoxNjI1MDAwMDgyfQ.Q5yjhBMuOjy0uCwe0R4i46FmRFpHpKm5LqAOsHrzRPw'),

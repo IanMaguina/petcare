@@ -49,10 +49,10 @@ class VetService {
 
   PreferenciasUsuario _prefs = new PreferenciasUsuario();
 
-  Future<APIResponse<Veterinary>> getVet(String uvID) {
+  Future<APIResponse<Veterinary>> getVet() {
     final urlPetcare = _prefs.urlPetcare;
-    final token = _prefs.token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEyIiwibmJmIjoxNjI1Mjc2OTIyLCJleHAiOjE2MjU4ODE3MjIsImlhdCI6MTYyNTI3NjkyMn0.u_HdPVpyOM7hT0kx7WAbwWtgTVOHq-Ts2N4j05ls8Og";
+    final token = _prefs.token;
+    final uvID = _prefs.idvet;
     final headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token',

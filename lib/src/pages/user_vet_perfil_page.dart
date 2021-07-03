@@ -8,16 +8,11 @@ import 'package:petcare/src/services/user_vet_service.dart';
 UservService personService = new UservService();
 
 class UserVetInfoPage extends StatefulWidget {
-  UserVetInfoPage(this.id);
-
-  final id;
   @override
-  _UserVetInfoPageState createState() => _UserVetInfoPageState(id);
+  _UserVetInfoPageState createState() => _UserVetInfoPageState();
 }
 
 class _UserVetInfoPageState extends State<UserVetInfoPage> {
-  _UserVetInfoPageState(this.id);
-  final id;
   //bool _value = false;
   ScrollController _scrollController;
   var top = 0.0;
@@ -39,7 +34,7 @@ class _UserVetInfoPageState extends State<UserVetInfoPage> {
       body: SafeArea(
         top: true,
         child: FutureBuilder(
-          future: personService.getUservet(id),
+          future: personService.getUservet(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
@@ -190,7 +185,7 @@ class _UserVetInfoPageState extends State<UserVetInfoPage> {
                   _logoutButton('Cerrar Sesión', '', 4, context),
                   ElevatedButton.icon(
                     onPressed: () async {
-                      personaresponse = await personService.getUservet(id);
+                      personaresponse = await personService.getUservet();
                       Navigator.push(
                           context,
                           MaterialPageRoute(

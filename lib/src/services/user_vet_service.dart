@@ -27,7 +27,7 @@ class UservService {
     'Content-Type': 'application/json'
   };
   final _prefs = new PreferenciasUsuario();
- 
+
   Future<APIResponse<bool>> createUserv(Uservet item) {
     final urlPetcare = _prefs.urlPetcare;
     return http
@@ -61,10 +61,10 @@ class UservService {
             error: true, errorMessage: 'An error occured'));
   }
 
-  Future<APIResponse<Uservet>> getUservet(String uvID) {
+  Future<APIResponse<Uservet>> getUservet() {
     final urlPetcare = _prefs.urlPetcare;
-    final token = _prefs.token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEyIiwibmJmIjoxNjI1Mjc2OTIyLCJleHAiOjE2MjU4ODE3MjIsImlhdCI6MTYyNTI3NjkyMn0.u_HdPVpyOM7hT0kx7WAbwWtgTVOHq-Ts2N4j05ls8Og";
+    final token = _prefs.token;
+    final uvID = _prefs.idvet;
     final headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token',

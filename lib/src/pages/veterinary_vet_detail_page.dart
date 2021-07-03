@@ -6,9 +6,6 @@ import 'package:petcare/src/pages/edit_Veterinarias.dart';
 import 'package:petcare/src/services/vet_service.dart';
 
 class VeterinaryVetDetailPage extends StatelessWidget {
-  VeterinaryVetDetailPage(this.id);
-  final id;
-
   VetService vetService = new VetService();
 
   APIResponse<Veterinary> vetresponse;
@@ -22,7 +19,7 @@ class VeterinaryVetDetailPage extends StatelessWidget {
       body: SafeArea(
         top: true,
         child: FutureBuilder(
-          future: vetService.getVet(id),
+          future: vetService.getVet(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
@@ -30,7 +27,7 @@ class VeterinaryVetDetailPage extends StatelessWidget {
               );
             } else {
               final Veterinary listamasc = snapshot.data.data;
-              return _detalle(listamasc, vetresponse, context, id);
+              return _detalle(listamasc, vetresponse, context);
             }
           },
         ),
@@ -40,7 +37,7 @@ class VeterinaryVetDetailPage extends StatelessWidget {
 }
 
 _detalle(Veterinary veterinary, APIResponse<Veterinary> vetresponse,
-    BuildContext context, String id) {
+    BuildContext context) {
   return Padding(
     padding: const EdgeInsets.all(16),
     child: Wrap(
@@ -86,7 +83,7 @@ _detalle(Veterinary veterinary, APIResponse<Veterinary> vetresponse,
               ),
               ElevatedButton.icon(
                 onPressed: () async {
-                  vetresponse = await vetService.getVet(id);
+                  vetresponse = await vetService.getVet();
                   Navigator.push(
                       context,
                       MaterialPageRoute(
