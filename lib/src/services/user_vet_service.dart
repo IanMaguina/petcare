@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:petcare/src/models/api_response.dart';
 import 'package:http/http.dart' as http;
@@ -49,6 +50,13 @@ class UservService {
 
   Future<APIResponse<Uservet>> getUservet(String uvID) {
     final urlPetcare = _prefs.urlPetcare;
+    final token = _prefs.token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEyIiwibmJmIjoxNjI1Mjc2OTIyLCJleHAiOjE2MjU4ODE3MjIsImlhdCI6MTYyNTI3NjkyMn0.u_HdPVpyOM7hT0kx7WAbwWtgTVOHq-Ts2N4j05ls8Og";
+    final headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    };
+
     return http
         .get(Uri.parse(urlPetcare + '/business/' + uvID), headers: headers)
         .then((data) {
