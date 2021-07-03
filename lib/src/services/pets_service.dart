@@ -85,7 +85,7 @@ class PetsService {
   }
 
   Future<APIResponse<bool>> deletePet(Pet pet) {
-    String id;//interno
+    int id = pet.id;
     final urlPetcare = _prefs.urlPetcare;
     var token = _prefs.token;
     var iduser = _prefs.iduser;
@@ -97,13 +97,13 @@ class PetsService {
     var jsonv = pet.toJson();
     print(jsonv);
     return http
-        .put(Uri.parse(urlPetcare + "/people/$iduser/pets/$id"),
+        .delete(Uri.parse(urlPetcare + "/people/$iduser/pets/$id"),
             headers: headers, body: json.encode(jsonv))
         .then((data) {
       print(data.body.toString());
       if (data.statusCode == 200) {
         print("FUNCIONA   ");
-        return APIResponse<bool>(error: false, data: true);
+        return APIResponse<bool>(error: false);
       }
 
       return APIResponse<bool>(error: true, errorMessage: 'An error occured');
