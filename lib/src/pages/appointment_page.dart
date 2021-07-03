@@ -22,6 +22,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
 
   final formkey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
   final _prefs = new PreferenciasUsuario();
   Appointment date = new Appointment();
   final dateService = new DateService();
