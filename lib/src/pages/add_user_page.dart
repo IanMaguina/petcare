@@ -49,51 +49,43 @@ class _AddUserPageState extends State<AddUserPage> {
 
   Widget _crearNombre() {
     return TextFormField(
-      initialValue: usuario.name,
+      initialValue: "",
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Nombre de Usuario'),
       onSaved: (value) => usuario.name = value,
       validator: (value) {
         if (value.isEmpty) {
-          return 'Contraseña es requerido';
+          return 'Nombre es requerido';
         }
-        if (value.length < 3) {
-          return 'minimo 6 caracteres';
-        } else {
-          return null;
-        }
+        return null;
       },
     );
   }
 
   Widget _crearApellido() {
     return TextFormField(
-      initialValue: usuario.lastName,
+      initialValue: "",
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Apellido de Usuario'),
       onSaved: (value) => usuario.lastName = value,
       validator: (value) {
         if (value.isEmpty) {
-          return 'Contraseña es requerido';
+          return 'Apellido es requerido';
         }
-        if (value.length < 6) {
-          return 'minimo 6 caracteres';
-        } else {
-          return null;
-        }
+        return null;
       },
     );
   }
 
   Widget _crearTelefono() {
     return TextFormField(
-      initialValue: usuario.phone.toString(),
+      initialValue: "",
       keyboardType: TextInputType.number,
       decoration: InputDecoration(labelText: 'telefono'),
       onSaved: (value) => usuario.phone = int.parse(value),
       validator: (value) {
         if (value.isEmpty) {
-          return 'Contraseña es requerido';
+          return 'Telefono es requerido';
         }
         if (utils.isNumeric(value)) {
           return null;
@@ -106,13 +98,13 @@ class _AddUserPageState extends State<AddUserPage> {
 
   Widget _crearEdad() {
     return TextFormField(
-      initialValue: usuario.age.toString(),
+      initialValue: "",
       keyboardType: TextInputType.number,
       decoration: InputDecoration(labelText: 'Edad'),
       onSaved: (value) => usuario.age = int.parse(value),
       validator: (value) {
         if (value.isEmpty) {
-          return 'Contraseña es requerido';
+          return 'Edad es requerida';
         }
         if (utils.isNumeric(value)) {
           return null;
@@ -125,7 +117,7 @@ class _AddUserPageState extends State<AddUserPage> {
 
   Widget _crearDNI() {
     return TextFormField(
-      initialValue: usuario.document.toString(),
+      initialValue: "",
       keyboardType: TextInputType.number,
       decoration: InputDecoration(labelText: 'DNI'),
       onSaved: (value) => usuario.document = int.parse(value),
@@ -144,13 +136,13 @@ class _AddUserPageState extends State<AddUserPage> {
 
   Widget _crearEmail() {
     return TextFormField(
-      initialValue: usuario.email,
+      initialValue: "",
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(labelText: 'email'),
       onSaved: (value) => usuario.email = value,
       validator: (value) {
         if (value.isEmpty) {
-          return 'Contraseña es requerido';
+          return 'Email es requerido';
         } else {
           return null;
         }
@@ -160,7 +152,7 @@ class _AddUserPageState extends State<AddUserPage> {
 
   Widget _crearPwd() {
     return TextFormField(
-      initialValue: usuario.password,
+      initialValue: "",
       // keyboardType: TextInputType.visiblePassword,
       obscureText: true,
       decoration: InputDecoration(labelText: 'Contraseña'),

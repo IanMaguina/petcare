@@ -11,45 +11,68 @@ String appointmentToJson(Appointment data) => json.encode(data.toJson());
 
 class Appointment {
   Appointment({
-    this.datereservation,
-    this.starttime,
-    this.endtime,
-    this.idUser,
-    this.idPet,
-    this.idVeterinaria,
-    this.idTipoServicio,
-    this.idServicio,
+    this.id,
+    this.endTime,
+    this.providerId,
+    this.productTypeId,
+    this.petId,
+    this.personProfileId,
+    this.productId,
+    this.veterinaryName,
+    this.productName,
+    this.petName,
+    this.dateReservation,
+    this.startTime,
+    this.status,
+    this.personName,
   });
 
-  DateTime datereservation;
-  String starttime;
-  String endtime;
-  int idUser;
-  int idPet;
-  int idVeterinaria;
-  int idTipoServicio;
-  int idServicio;
+  int id;
+  String endTime;
+  int providerId;
+  int productTypeId;
+  int petId;
+  int personProfileId;
+  int productId;
+  String veterinaryName;
+  String productName;
+  String petName;
+  String dateReservation;
+  String startTime;
+  int status;
+  String personName;
 
   factory Appointment.fromJson(Map<String, dynamic> json) => Appointment(
-        datereservation: DateTime.parse(json["datereservation"]),
-        starttime: json["starttime"],
-        endtime: json["endtime"],
-        idUser: json["id_user"],
-        idPet: json["id_pet"],
-        idVeterinaria: json["id_veterinaria"],
-        idTipoServicio: json["id_tipo_servicio"],
-        idServicio: json["id_servicio"],
+        id: json["id"],
+        endTime: json["endTime"],
+        providerId: json["providerId"],
+        productTypeId: json["productTypeId"],
+        petId: json["petId"],
+        personProfileId: json["personProfileId"],
+        productId: json["productId"],
+        veterinaryName: json["veterinaryName"],
+        productName: json["productName"],
+        petName: json["petName"],
+        dateReservation: json["dateReservation"],
+        startTime: json["startTime"],
+        status: json["status"],
+        personName: json["personName"],
       );
 
   Map<String, dynamic> toJson() => {
-        "datereservation":
-            "${datereservation.year.toString().padLeft(4, '0')}-${datereservation.month.toString().padLeft(2, '0')}-${datereservation.day.toString().padLeft(2, '0')}",
-        "starttime": starttime,
-        "endtime": endtime,
-        "id_user": idUser,
-        "id_pet": idPet,
-        "id_veterinaria": idVeterinaria,
-        "id_tipo_servicio": idTipoServicio,
-        "id_servicio": idServicio,
+        "id": id,
+        "endTime": endTime,
+        "providerId": providerId,
+        "productTypeId": productTypeId,
+        "petId": petId,
+        "personProfileId": personProfileId,
+        "productId": productId,
+        "veterinaryName": veterinaryName,
+        "productName": productName,
+        "petName": petName,
+        "dateReservation": dateReservation,
+        "startTime": startTime,
+        "status": status,
+        "personName": personName,
       };
 }

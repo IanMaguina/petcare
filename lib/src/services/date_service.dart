@@ -14,36 +14,39 @@ import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
 class DateService {
   static const API = 'https://petcarefas.azurewebsites.net/api';
-  static const headers = {
-    // 'apiKey': '08d771e2-7c49-1789-0eaa-32aff09f1471',
-    'Content-Type': 'application/json'
-  };
+
   final _prefs = new PreferenciasUsuario();
 
   //Miguel date
-  Future<APIResponse<bool>> createDate(Date date) {
-    Pet pet;
-    Veterinary vet;
-    Product prod;
-    Appointment appot;
+  Future<APIResponse<bool>> createDate(Appointment date) {
     final urlPetcare = _prefs.urlPetcare;
     var token = _prefs.token;
-    final idUser = _prefs.iduser;
-    final idVet = _prefs.idvet.toString(); //id veterinario por si acaso
-    final idVetDP = vet.id.toString(); //id veterinaria
-    final idPet = pet.id.toString();
-    final idProd = prod.id.toString();
+    final headers = {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer $token',
+    };
+    final idUser = _prefs.iduser; //id usuario
+    final datereservation = date.dateReservation; //fecha
+    final starttime = date.startTime; //hora inicio
+    final endtime = "14:00"; //hora final
+    final idVetDP = date.providerId.toString(); //idveterinaria
+    final idPet = date.petId.toString();
+    final idProd = date.productId.toString(); //id servicio
     //final idAppoint = appot.
-
-    var jsonv = date.toJson();
+    final cita = {
+      "datereservation": datereservation,
+      "starttime": starttime,
+      "endtime": endtime
+    };
+    //var jsonv = cita.toJson();
     return http
         .post(
             Uri.parse(urlPetcare +
                 '/people/$idUser/pets/$idPet/providers/$idVetDP/products/$idProd/requests/'),
             headers: headers,
-            body: json.encode(jsonv))
+            body: json.encode(cita))
         .then((data) {
-      if (data.statusCode == 201) {
+      if (data.statusCode == 200) {
         return APIResponse<bool>(data: true);
       }
       return APIResponse<bool>(error: true, errorMessage: 'An error occured');
@@ -54,8 +57,8 @@ class DateService {
   Future<APIResponse<List<Date>>> getdateList() {
     final urlPetcare = _prefs.urlPetcare;
     final iduser = _prefs.iduser.toString();
-    final token = _prefs.token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEyIiwibmJmIjoxNjI1Mjc2OTIyLCJleHAiOjE2MjU4ODE3MjIsImlhdCI6MTYyNTI3NjkyMn0.u_HdPVpyOM7hT0kx7WAbwWtgTVOHq-Ts2N4j05ls8Og";
+    final token = _prefs.token;
+    print("id de usuario es " + token.toString());
     final headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
       HttpHeaders.authorizationHeader: 'Bearer $token',

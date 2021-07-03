@@ -92,10 +92,10 @@ class _AppointmentPageState extends State<AppointmentPage> {
                             children: [
                               datePicker(),
                               TextFormField(
-                                  initialValue: date.starttime,
+                                  initialValue: date.startTime,
                                   textCapitalization:
                                       TextCapitalization.sentences,
-                                  onSaved: (value) => date.starttime = value,
+                                  onSaved: (value) => date.startTime = value,
                                   validator: (value) {
                                     if (value.isEmpty) {
                                       return 'Insertar horario';
@@ -111,7 +111,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                   textCapitalization:
                                       TextCapitalization.sentences,
                                   onSaved: (value) =>
-                                      date.idServicio = int.parse(value),
+                                      date.productId = int.parse(value),
                                   validator: (value) {
                                     if (value.isEmpty) {
                                       return 'Insertar servicio';
@@ -198,7 +198,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                   .then((date) {
                 setState(() {
                   _dateTime = date;
-                  this.date.datereservation = date;
+                  this.date.dateReservation = date.toString();
                 });
               });
             },
@@ -226,7 +226,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
               setState(() {
                 dropdownValue = newValue;
                 print("el id de la mascota es :" + dropdownValue.toString());
-                date.idPet = dropdownValue;
+                date.petId = dropdownValue;
               });
             },
             items: mismascotas.map((item) {
@@ -250,7 +250,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
     formkey.currentState.save();
     final idUsuario = _prefs.iduser;
     final idPet = dropdownValue;
-    date.idTipoServicio = this.idservtype;
+    date.productTypeId = this.idservtype;
     /*Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => Appointment(date.datereservation)
     ));*/

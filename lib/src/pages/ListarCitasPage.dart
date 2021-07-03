@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:petcare/src/models/api_response.dart';
 import 'package:petcare/src/models/date.dart';
 import 'package:petcare/src/models/product.dart';
-import 'package:petcare/src/models/type_service.dart';
 import 'package:petcare/src/services/date_service.dart';
 import 'package:petcare/src/services/products_service.dart';
-import 'package:petcare/src/widgets/CustomWidgets.dart';
 
 class ListarCitasPage extends StatefulWidget {
   @override
