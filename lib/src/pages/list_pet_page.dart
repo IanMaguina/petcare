@@ -154,25 +154,16 @@ class _ListaMascotas extends StatefulWidget {
 class __ListaMascotasState extends State<_ListaMascotas> {
   // ignore: deprecated_member_use
   final List<Pet> mascotas = new List<Pet>();
+  Pet mascota;
   @override
   Widget build(BuildContext context) {
+    List<Pet> listPet;
+    PetsService petService;
     return ListView.builder(
       itemCount: mascotas.length,
       itemBuilder: (BuildContext context, int index) {
         final service = mascotas[index];
-        return _element(context, service);
-      },
-    );
-  }
-
-  @override
-  Widget _element(BuildContext context, Pet mascota) {
-    List<Pet> listPet;
-    PetsService petService;
-    return ListView.builder(
-        itemCount: listPet.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Dismissible(
+        return Dismissible(
               key: Key(listPet[index].name),
               onDismissed: (DismissDirection direction) {
                 petService.deletePet(mascota);
@@ -218,6 +209,7 @@ class __ListaMascotasState extends State<_ListaMascotas> {
                   ));
                 },
               ));
-        });
+      },
+    );
   }
 }
