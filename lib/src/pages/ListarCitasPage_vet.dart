@@ -66,7 +66,7 @@ _element(BuildContext context, Appointment citas) {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => ListarCitasDetailPage(citas),
+            builder: (context) => CitasDetailVetPage(citas),
           ),
         );
       });

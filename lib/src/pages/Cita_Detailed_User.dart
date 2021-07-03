@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:petcare/src/models/appointment.dart';
-import 'package:petcare/src/widgets/ListarCitas/Cita_Detailed_Vet.dart';
+import 'package:petcare/src/widgets/ListarCitas/Cita_Detailed_User.dart';
 
-class ListarCitasDetailPage extends StatelessWidget {
+class CitasDetailUserPage extends StatelessWidget {
   final Appointment cita;
-  ListarCitasDetailPage(this.cita);
+  CitasDetailUserPage(this.cita);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class ListarCitasDetailPage extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new CitaDetailedVet(cita),
+      home: new CitaDetailedUser(cita),
       debugShowCheckedModeBanner: false,
     );
   }
