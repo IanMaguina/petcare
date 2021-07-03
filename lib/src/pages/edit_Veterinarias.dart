@@ -6,6 +6,7 @@ import 'package:petcare/src/models/api_response.dart';
 import 'package:petcare/src/models/region.dart';
 import 'package:petcare/src/models/uservet.dart';
 import 'package:petcare/src/models/veterinary.dart';
+import 'package:petcare/src/pages/user_vet_perfil_page.dart';
 import 'package:petcare/src/pages/veterinary_vet_detail_page.dart';
 import 'package:petcare/src/services/region_service.dart';
 import 'package:petcare/src/services/vet_service.dart';
@@ -224,7 +225,7 @@ class _EditVeterinaryState extends State<EditVeterinaryPage> {
     final result1 =
         vetService.updateVet(veterinaria.id.toString(), veterinaria);
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => VeterinaryVetDetailPage("1"), //Id Del login
+      builder: (context) => UserVetInfoPage(), //Id Del login
     ));
   }
 }

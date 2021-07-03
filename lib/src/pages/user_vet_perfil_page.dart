@@ -2,22 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:petcare/const/colors.dart';
 import 'package:petcare/src/models/api_response.dart';
 import 'package:petcare/src/models/uservet.dart';
+import 'package:petcare/src/models/veterinary.dart';
+import 'package:petcare/src/pages/edit_Veterinarias.dart';
 import 'package:petcare/src/pages/edit_veterinarios.dart';
+import 'package:petcare/src/pages/veterinary_vet_detail_page.dart';
 import 'package:petcare/src/services/user_vet_service.dart';
+import 'package:petcare/src/services/vet_service.dart';
 
 UservService personService = new UservService();
 
 class UserVetInfoPage extends StatefulWidget {
-  UserVetInfoPage(this.id);
-
-  final id;
   @override
-  _UserVetInfoPageState createState() => _UserVetInfoPageState(id);
+  _UserVetInfoPageState createState() => _UserVetInfoPageState();
 }
 
 class _UserVetInfoPageState extends State<UserVetInfoPage> {
-  _UserVetInfoPageState(this.id);
-  final id;
   //bool _value = false;
   ScrollController _scrollController;
   var top = 0.0;
@@ -39,7 +38,7 @@ class _UserVetInfoPageState extends State<UserVetInfoPage> {
       body: SafeArea(
         top: true,
         child: FutureBuilder(
-          future: personService.getUservet(id),
+          future: personService.getUservet(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
@@ -57,6 +56,7 @@ class _UserVetInfoPageState extends State<UserVetInfoPage> {
 
   _detail(BuildContext context, APIResponse<Uservet> personaresponse,
       Uservet persona) {
+    String Nombre = persona.name + ' ' + persona.lastName;
     return Stack(
       children: [
         CustomScrollView(
@@ -119,7 +119,6 @@ class _UserVetInfoPageState extends State<UserVetInfoPage> {
                                 width: 12,
                               ),
                               Text(
-                                // 'top.toString()',
                                 'Usuario',
                                 style: TextStyle(
                                     fontSize: 20.0, color: Colors.white),
@@ -155,8 +154,14 @@ class _UserVetInfoPageState extends State<UserVetInfoPage> {
                     child: InkWell(
                       splashColor: Theme.of(context).splashColor,
                       child: ListTile(
-                        onTap: () =>
-                            Navigator.pushNamed(context, 'detallevetvet'),
+                        onTap: () async {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  VeterinaryVetDetailPage(), //Id Del login
+                            ),
+                          );
+                        },
                         title: Text('Mi Veterinaria'),
                         trailing: Icon(Icons.chevron_right_rounded),
                         leading: Icon(
@@ -166,15 +171,37 @@ class _UserVetInfoPageState extends State<UserVetInfoPage> {
                       ),
                     ),
                   ),
-                  Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: userTitle('User Information')),
                   Divider(
                     thickness: 1,
                     color: Colors.grey,
                   ),
-                  userListTile(persona.name + ' ' + persona.lastName, 'Nombre',
-                      0, context),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: userTitle('User Information'),
+                      ),
+                      ElevatedButton.icon(
+                        onPressed: () async {
+                          personaresponse = await personService.getUservet();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      EditUservetPage(personaresponse.data)));
+                        },
+                        icon: Icon(Icons.edit),
+                        label: Text('Editar'),
+                      )
+                    ],
+                  ),
+                  Divider(
+                    thickness: 1,
+                    color: Colors.grey,
+                  ),
+                  userListTile(Nombre, 'Nombre', 0, context),
                   userListTile(persona.email, 'Correo', 0, context),
                   userListTile(
                       persona.phone.toString(), 'Teléfono', 0, context),
@@ -187,67 +214,12 @@ class _UserVetInfoPageState extends State<UserVetInfoPage> {
                     thickness: 1,
                     color: Colors.grey,
                   ),
-                  _logoutButton('Cerrar Sesión', '', 4, context),
-                  ElevatedButton.icon(
-                    onPressed: () async {
-                      personaresponse = await personService.getUservet(id);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  EditUservetPage(personaresponse.data)));
-                    },
-                    icon: Icon(Icons.edit),
-                    label: Text('Editar'),
-                  )
                 ],
               ),
             )
           ],
         ),
-        _buildFab()
       ],
-    );
-  }
-
-  Widget _buildFab() {
-    //starting fab position
-    final double defaultTopMargin = 200.0 - 4.0;
-    //pixels from top where scaling should start
-    final double scaleStart = 160.0;
-    //pixels from top where scaling should end
-    final double scaleEnd = scaleStart / 2;
-
-    double top = defaultTopMargin;
-    double scale = 1.0;
-    if (_scrollController.hasClients) {
-      double offset = _scrollController.offset;
-      top -= offset;
-      if (offset < defaultTopMargin - scaleStart) {
-        //offset small => don't scale down
-        scale = 1.0;
-      } else if (offset < defaultTopMargin - scaleEnd) {
-        //offset between scaleStart and scaleEnd => scale down
-        scale = (defaultTopMargin - scaleEnd - offset) / scaleEnd;
-      } else {
-        //offset passed scaleEnd => hide fab
-        scale = 0.0;
-      }
-    }
-
-    return Positioned(
-      top: top,
-      right: 16.0,
-      child: Transform(
-        transform: Matrix4.identity()..scale(scale),
-        alignment: Alignment.center,
-        child: FloatingActionButton(
-          heroTag: "btn1",
-          onPressed: () {},
-          child: Icon(Icons.camera_alt_outlined),
-          backgroundColor: ColorsConsts.starterColor,
-        ),
-      ),
     );
   }
 
@@ -266,27 +238,6 @@ class _UserVetInfoPageState extends State<UserVetInfoPage> {
       child: InkWell(
         splashColor: Theme.of(context).splashColor,
         child: ListTile(
-          onTap: () {},
-          title: Text(title),
-          subtitle: Text(subTitle),
-          leading: Icon(_userTileIcons[index],
-              color: Color.fromRGBO(57, 179, 179, 1.0)),
-        ),
-      ),
-    );
-  }
-
-  Widget _logoutButton(
-      String title, String subTitle, int index, BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        splashColor: Theme.of(context).splashColor,
-        child: ListTile(
-          onTap: () {
-            //eliminar los datos de sharedPreference
-            Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-          },
           title: Text(title),
           subtitle: Text(subTitle),
           leading: Icon(_userTileIcons[index],

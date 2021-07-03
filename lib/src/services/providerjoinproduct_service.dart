@@ -1,98 +1,113 @@
+
 import 'dart:convert';
-import 'dart:io';
+
 import 'package:petcare/src/models/api_response.dart';
 import 'package:http/http.dart' as http;
+import 'package:petcare/src/models/providerjoinproduct.dart';
+import 'package:petcare/src/models/typeproductemun.dart';
+import 'package:petcare/src/models/typeproductt.dart';
 import 'package:petcare/src/models/uservet.dart';
-import 'package:petcare/src/models/veterinary.dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
-import 'package:petcare/src/services/user_vet_service.dart';
 
-class VetService {
-  static const API = 'https://petcarefas.azurewebsites.net/api';
+
+class PJPService {
+  //static const API = 'https://petcarefas.azurewebsites.net/api';
+  //static const API = 'https://localhost:44353/api';
+  final _prefs = new PreferenciasUsuario();
   static const headers = {
     // 'apiKey': '08d771e2-7c49-1789-0eaa-32aff09f1471',
     'Content-Type': 'application/json'
   };
-  UservService uvService = new UservService();
-  Uservet uservet = new Uservet();
 
-  Future<APIResponse<bool>> createVet(Veterinary item) {
+  Future<APIResponse<bool>> createPJP(String uvID,String uvID1,String token) {
+    final API = _prefs.urlPetcare;
+    final tp=new TyperProductt();
+    tp.id=0;
+    tp.name="k";
+    print(uvID);
+    print(uvID1);
+    print(token);
     return http
-        .post(Uri.parse(API + '/business'),
-            headers: headers, body: json.encode(item.toJson()))
+        .post(Uri.parse(API + '/business/'+uvID+'/providers/'+uvID+'/typeproducts/'+uvID1),
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer $token',
+        },body: json.encode(tp.toJson()))
         .then((data) {
       if (data.statusCode == 201) {
+        print("CONECTA");
         return APIResponse<bool>(data: true);
       }
+      print("NO CONECTA");
       return APIResponse<bool>(error: true, errorMessage: 'An error occured');
     }).catchError((_) =>
             APIResponse<bool>(error: true, errorMessage: 'An error occured'));
   }
 
-  Future<APIResponse<List<Veterinary>>> getVetsList() {
+  Future<APIResponse<List<Providerjoinproduct >>> getPJPsList(String uvID,String token) {
+    final API = _prefs.urlPetcare;
     return http
-        .get(Uri.parse(API + '/providers'), headers: headers)
+        .get(Uri.parse(API + '/business/'+uvID+'/providers/'+uvID+'/typeproducts/'), headers: {
+      "Content-Type": "application/json",
+      'Authorization': 'Bearer $token',
+    })
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
-        final notes = <Veterinary>[];
+        final notes = <Providerjoinproduct >[];
         for (var item in jsonData) {
-          notes.add(Veterinary.fromJson(item));
+          notes.add(Providerjoinproduct .fromJson(item));
         }
-        return APIResponse<List<Veterinary>>(data: notes);
+        return APIResponse<List<Providerjoinproduct >>(data: notes);
       }
-      return APIResponse<List<Veterinary>>(
+      return APIResponse<List<Providerjoinproduct >>(
           error: true, errorMessage: 'An error occured');
-    }).catchError((_) => APIResponse<List<Veterinary>>(
+    }).catchError((_) => APIResponse<List<Providerjoinproduct >>(
             error: true, errorMessage: 'An error occured'));
   }
 
-  PreferenciasUsuario _prefs = new PreferenciasUsuario();
-
-  Future<APIResponse<Veterinary>> getVet() {
-    final urlPetcare = _prefs.urlPetcare;
-    final token = _prefs.token;
-    final uvID = _prefs.idvet.toString();
-    final headers = {
-      HttpHeaders.contentTypeHeader: 'application/json',
-      HttpHeaders.authorizationHeader: 'Bearer $token',
-    };
-
+  Future<APIResponse<Providerjoinproduct >> getPJPvet(int uvID,String token) {
+    final API = _prefs.urlPetcare;
     return http
-        .get(Uri.parse(urlPetcare + '/providers/' + uvID), headers: headers)
+        .get(Uri.parse(API + '/business/' + uvID.toString()), headers: {
+      "Content-Type": "application/json",
+      'Authorization': 'Bearer $token',
+    })
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
-        final vet =
-            APIResponse<Veterinary>(data: Veterinary.fromJson(jsonData));
-        return vet;
+        return APIResponse<Providerjoinproduct >(data: Providerjoinproduct .fromJson(jsonData));
       }
-      return APIResponse<Veterinary>(
+      return APIResponse<Providerjoinproduct >(
           error: true, errorMessage: 'An error occured');
-    }).catchError((_) => APIResponse<Veterinary>(
+    }).catchError((_) => APIResponse<Providerjoinproduct >(
             error: true, errorMessage: 'An error occured'));
   }
 
-  Future<APIResponse<bool>> updateVet(String uvID, Veterinary item) {
+  Future<APIResponse<bool>> updatePJP(String uvID, Providerjoinproduct  item,String token) {
+    final API = _prefs.urlPetcare;
     var jsonv = item.toJson();
     print(jsonv);
     return http
-        .put(Uri.parse(API + '/business/' + uvID + '/providers/' + uvID),
-            headers: headers, body: json.encode(jsonv))
+        .put(Uri.parse(API + '/business/' + uvID),
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer $token',
+        }, body: json.encode(jsonv))
         .then((data) {
       print(data.body.toString());
       if (data.statusCode == 204) {
-        print("FUNCIONA   " + item.businessname);
+        print("FUNCIONA   ");
         return APIResponse<bool>(data: true);
-      } else {
-        print("NO FUNCIONA  " + item.businessname);
       }
-
+      print("NO FUNCIONA  ");
       return APIResponse<bool>(error: true, errorMessage: 'An error occured');
     }).catchError((_) =>
             APIResponse<bool>(error: true, errorMessage: 'An error occured'));
   }
 }
+
+
 /*
   Future<APIResponse<List<NoteForListing>>> getNotesList() {
     return http.get(API + '/notes', headers: headers).then((data) {
@@ -126,20 +141,35 @@ class VetService {
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:petcare/src/models/uservet.dart';
+import 'package:petcare/src/models/Providerjoinproduct .dart';
 import 'package:petcare/src/preferencias_usuario/prefs.dart';
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> development
 final urlPetcare = "https://localhost:44353/api";
 
 final token =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjkiLCJuYmYiOjE2MjA0NTIxOTgsImV4cCI6MTYyMTA1Njk5OCwiaWF0IjoxNjIwNDUyMTk4fQ.G-jOetqvYbgACErTLsF3iimKNKeHSZooUXX0YH8LXFI';
+<<<<<<< HEAD
+=======
+//production:
+//final urlPetcare = "https://petcaremobileapi.azurewebsites.net/api";
+//local:
+final urlPetcare = "https://localhost:44353/api";
+
+final _prefs = new PreferenciasUsuario();
+>>>>>>> test_william
+=======
+>>>>>>> development
 
 class UserService with ChangeNotifier {
   // final String _firebaseToken = 'AIzaSyAzIGZax6Pn30zGytZkwyXJdEmsKiRDRc8';
 
   final _prefs = new PreferenciasUsuario();
 
-  Future<Map<String, dynamic>> nuevoUsuarioVet(Uservet user) async {
+  Future<Map<String, dynamic>> nuevoUsuarioVet(Providerjoinproduct  user) async {
     final data = {
       "name": user.name,
       "lastname": user.lastName,

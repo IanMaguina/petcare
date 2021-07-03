@@ -3,6 +3,7 @@ import 'package:petcare/src/models/uservet.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:petcare/src/models/veterinary.dart';
+import 'package:petcare/src/pages/user_vet_perfil_page.dart';
 import 'package:petcare/src/services/user_vet_service.dart';
 
 class EditUservetPage extends StatefulWidget {
@@ -243,5 +244,8 @@ class _EditUservetState extends State<EditUservetPage> {
 
     final result1 =
         vetService.updateUservet(veterinario.id.toString(), veterinario);
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => UserVetInfoPage(), //Id Del login
+    ));
   }
 }
